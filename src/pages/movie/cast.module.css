@@ -1,0 +1,22 @@
+.container {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  overflow: hidden;
+}
+
+.img {
+  object-fit: cover;
+  height: 50px;
+  width: 50px;
+  min-height: 50px;
+  min-width: 50px;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 500;
+  color: white;
+}

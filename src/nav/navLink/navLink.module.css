@@ -1,0 +1,21 @@
+.container {
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+}
+
+.link {
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 2;
+
+  white-space: nowrap;
+  position: relative;
+}
+
+.popupIcon {
+  font-size: 0.6rem;
+  margin-left: 6px;
+  margin-top: 2px;
+}

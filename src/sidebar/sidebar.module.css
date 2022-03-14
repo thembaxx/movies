@@ -1,0 +1,10 @@
+.container {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  z-index: 9999;
+}
+
+.inner {
+  background-color: var(--primary-background);
+  min-width: 275px;
+}

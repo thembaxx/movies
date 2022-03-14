@@ -1,0 +1,17 @@
+.title {
+  color: white;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0;
+  margin-right: 2rem;
+}
+
+.ratingIcon {
+  margin-right: 6px;
+  color: #f3ce13;
+  font-size: '.9rem';
+}
+
+.overview {
+  max-width: calc(70vw);
+}

@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.title {
+  font-weight: 600;
+}
+
+.heading {
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+.genre {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  color: white;
+  font-size: 0.8rem;
+  padding: 6px 12px;
+  margin: 0 8px 8px 0;
+
+  transition: background-color 0.2s;
+}
+
+.genre:hover {
+  border-color: transparent;
+  background-color: var(--red);
+}

@@ -1,0 +1,36 @@
+.container {
+  background-color: var(--primary-background-95-rgba);
+  display: flex;
+  justify-content: space-between;
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 100;
+  top: 71px;
+  padding: 12px 0;
+}
+
+.button {
+  color: var(--primary-color);
+  font-size: 0.75rem;
+  margin-top: 7px;
+  font-weight: 600;
+  transition: transform 0.54s cubic-bezier(0.5, 0, 0.1, 1), opacity 0.3s linear;
+  transform: translateX(-100%);
+  opacity: 0.1;
+}
+
+.buttonIcon {
+  font-size: .6rem;
+}
+
+.container:hover .button {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.title {
+  text-transform: uppercase;
+  font-size: max(1rem, 18px);
+  font-weight: 700;
+  line-height: 1.1;
+}

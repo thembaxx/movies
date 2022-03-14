@@ -1,0 +1,17 @@
+.container {
+  color: white;
+  width: 250px;
+  max-height: 400px;
+}
+
+.overview {
+  max-height: 9rem;
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+}

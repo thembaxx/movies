@@ -1,0 +1,28 @@
+.container {
+  overflow: hidden;
+}
+
+.imgContainer {
+  border-radius: 10px;
+  overflow: hidden;
+  height: auto;
+  width: 100%;
+  aspect-ratio: 2/3;
+}
+
+.img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+
+  transition: transform 0.35s ease-out;
+}
+
+.img:hover {
+  transform: scale(1.08);
+}
+
+.title {
+  font-size: 0.875rem;
+  font-weight: 500;
+}

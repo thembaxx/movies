@@ -1,0 +1,5 @@
+.container {
+  background-color: var(--primary-background-95);
+  backdrop-filter: blur(12px);
+  height: 72px;
+}

@@ -1,0 +1,47 @@
+.container {
+  /* width: 400px; */
+  transition: background-color 0.2s;
+}
+
+.container:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.inner {
+  display: flex;
+}
+
+.imgContainer {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 5px;
+  margin-right: 16px;
+  overflow: hidden;
+  height: 64px;
+  width: 48px;
+}
+
+.img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 400;
+  margin-top: 8px;
+  line-height: 1.1;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  color: #f3ce13;
+  font-size: 0.7rem;
+  font-weight: 400;
+  margin-right: 6px;
+  margin-top: -1px;
+}
