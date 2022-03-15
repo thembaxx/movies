@@ -75,7 +75,7 @@ function Search({ toggleSidebar }) {
   const id = open ? "simple-popover" : undefined;
 
   const placeholder = (
-    <div class={`col ${styles.placeholder}`}>
+    <div className={`col ${styles.placeholder}`}>
       {query ? "no results found" : "Results will show here..."}
     </div>
   );
@@ -83,7 +83,7 @@ function Search({ toggleSidebar }) {
   const viewAllBtn = (
     <div
       role="button"
-      class={`col ${styles.button}`}
+      className={`col ${styles.button}`}
       onClick={() => handleClick()}
     >
       See all results
@@ -96,7 +96,7 @@ function Search({ toggleSidebar }) {
     <div>
       <form
         ref={containerRef}
-        autoComplete="off"
+        autoComplete="off" 
         className={`${styles.form}`}
         aria-describedby={id}
         variant="contained"

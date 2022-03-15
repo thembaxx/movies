@@ -2,12 +2,14 @@ import React, { useEffect, useState, useRef } from "react";
 import styles from "./carousel.module.css";
 
 import axios from "../../tmdb/axios";
+import { getSrcSet } from "../../imageHelpers";
 
 import Movie from "../../movie/Movie";
 import Title from "../common/Title";
 
 function Carousel({ name, fetchUrl, route, getGenre }) {
   const [movies, setMovies] = useState([]);
+  const [images, setImages] = useState(Array(20).fill(""));
   const [isLoading, setIsLoading] = useState(false);
   const [transform, setTransform] = useState(0);
   const [navDots, setNavDots] = useState([]);
@@ -105,7 +107,26 @@ function Carousel({ name, fetchUrl, route, getGenre }) {
       //   setMovies(response.data.results);
       // }
 
+      //setImages(Array(response.data.results.length).fill(""));
       setMovies(response.data.results);
+
+      const imgs = [];
+      response.data.results.map((movie, i) => {
+        const imgUrl = movie.poster_path
+          ? movie.poster_path
+          : movie.backdrop_path;
+        const srcSet = getSrcSet(imgUrl);
+
+        const primaryImage = new Image();
+        primaryImage.src = srcSet?.default;
+        primaryImage.onload = () => {
+          imgs.push(srcSet);
+
+          if (imgs.length === response.data.results.length) {
+            setImages(imgs);
+          }
+        };
+      });
 
       setIsLoading(false);
     }
@@ -140,7 +161,8 @@ function Carousel({ name, fetchUrl, route, getGenre }) {
   }
 
   /******************** WIP ****************************/
-  const containerClass = `row flex-nowrap gy-0 p-0 m-0 pb-0 gx-3 row-cols-3 row-cols-sm-4 row-cols-md-6 ${styles.row8}`;
+  // const containerClass = `row flex-nowrap gy-0 p-0 m-0 pb-0 gx-3 row-cols-3 row-cols-sm-4 row-cols-md-6 ${styles.row8}`;
+  const containerClass = `row flex-nowrap gy-0 p-0 m-0 pb-0 gx-1 row-cols-3 row-cols-sm-4 row-cols-md-6`;
 
   return (
     <div className="container-fluid p-0 g-0">
@@ -168,10 +190,18 @@ function Carousel({ name, fetchUrl, route, getGenre }) {
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
-          {movies.map((movie) => {
+          {movies.map((movie, i) => {
             const genres = movie.genre_ids.map((code) => getGenre(code));
 
-            return <Movie key={movie.id} genres={genres} movie={movie} />;
+            return (
+              <Movie
+                key={movie.id}
+                showInfo={false}
+                genres={genres}
+                movie={movie}
+                srcSet={images[i]}
+              />
+            );
           })}
         </div>
 

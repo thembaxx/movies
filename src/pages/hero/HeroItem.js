@@ -1,15 +1,14 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import styles from './heroItem.module.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import styles from "./heroItem.module.css";
 
-import { getSrcSet } from '../../imageHelpers';
+import { getSrcSet } from "../../imageHelpers";
 
-import Genre from '../common/Genre';
+import Genre from "../common/Genre";
 
 //"w92", "w154", "w185", "w342", "w500", "w780", or "original"
-const base_url = 'https://image.tmdb.org/t/p/';
 const gradient =
-  'linear-gradient(180deg, rgba(3, 16, 39, 0) 0%, rgba(3, 16, 39, 0.8) 56.25%, #031027 100%)';
+  "linear-gradient(180deg, rgba(3, 16, 39, 0) 0%, rgba(3, 16, 39, 0.8) 56.25%, #031027 100%)";
 
 function HeroItem({
   id,
@@ -22,7 +21,7 @@ function HeroItem({
   getGenre,
 }) {
   const srcSet = getSrcSet(imgUrl);
-  year = year?.split('-')?.[0];
+  year = year?.split("-")?.[0];
 
   let genres;
 
@@ -35,7 +34,7 @@ function HeroItem({
   return (
     <div
       className="position-relative"
-      style={{ maxHeight: '80vh', overflow: 'hidden' }}
+      style={{ height: "80vh", overflow: "hidden" }}
     >
       {/* Image */}
 
