@@ -152,10 +152,12 @@ export function getGenreNavObj(code) {
 }
 
 export function getDiscoveryNav(genres) {
+  let today = new Date().toISOString().slice(0, 10);
+
   let results = [
     {
       name: 'Latest movies',
-      url: `/discover/movie?api_key=${API_KEY}&language=en-US&sort_by=primary_release_date.desc&language=en-US&page=1&with_original_language=en`,
+      url: `/discover/movie?api_key=${API_KEY}&primary_release_date.lte=${today}&with_original_language=en`,
       route: `/filter/&sort_by=release_date.desc`,
       isLink: true,
     },

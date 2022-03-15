@@ -5,6 +5,7 @@ import { getDiscoveryNav } from '../../tmdb/getData';
 import Footer from '../../footer/Footer';
 import Hero from '../hero/Hero';
 import Row from './Row';
+import Carousel from './Carousel';
 
 function Discover({ genres, countries }) {
   const [navLinks, setNavLinks] = useState([]);
@@ -18,15 +19,15 @@ function Discover({ genres, countries }) {
     if (!genres) return;
 
     const popularGenres = [
-      'adventure',
-      'action',
-      'science fiction',
-      'drama',
-      'comedy',
-      'thriller',
-      'horror',
-      'romantic',
-      'documentary',
+      // 'adventure',
+      // 'action',
+      // 'science fiction',
+      // 'drama',
+      // 'comedy',
+      // 'thriller',
+      // 'horror',
+      // 'romantic',
+      // 'documentary',
     ];
 
     let genreMatches = [];
@@ -42,20 +43,29 @@ function Discover({ genres, countries }) {
     setNavLinks(discovery);
   }, []);
 
+  /******************** DEBUG ****************************/
+
   return (
     <div style={{ paddingTop: 72 }}>
-      <div>
+      {/* <div>
         <Hero genres={genres} getGenre={getGenre} />
-      </div>
+      </div> */}
       <div className="mt-0 pb-0">
         {navLinks?.map((navLink, index) => (
-          <Row
+          <Carousel
             key={index}
             name={navLink.name}
             fetchUrl={navLink.url}
             route={navLink.route}
             getGenre={getGenre}
           />
+          // <Row
+          //   key={index}
+          //   name={navLink.name}
+          //   fetchUrl={navLink.url}
+          //   route={navLink.route}
+          //   getGenre={getGenre}
+          // />
         ))}
       </div>
       <div

@@ -1,0 +1,26 @@
+.header {
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 100;
+  top: 71px;
+}
+
+.dot {
+  background-color: white;
+  opacity: 0.1;
+  height: 2px;
+  width: 6px;
+  margin-right: 4px;
+  transition: opacity 0.2s;
+}
+
+.activeDot {
+  opacity: 1;
+}
+
+.carousel {
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  transition: transform 500ms;
+}

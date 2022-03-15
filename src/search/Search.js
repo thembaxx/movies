@@ -35,7 +35,9 @@ function Search({ toggleSidebar }) {
       resizeObserver.observe(containerRef.current);
     }
 
-    return () => resizeObserver.unobserve(containerRef.current);
+    return () => {
+      if (containerRef.current) resizeObserver.unobserve(containerRef.current);
+    };
   }, [containerRef]);
 
   function handleClick() {
