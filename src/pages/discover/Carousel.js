@@ -24,22 +24,26 @@ function Carousel({ name, fetchUrl, route, getGenre }) {
   function updateNavDots() {
     const width = getVW();
     const num = containeRef.current?.scrollWidth / width;
-
     if (isNaN(num)) {
       setNavDots([]);
       return;
     }
 
-    let arr = Array(num).fill(false);
+if(num === 0) return;
+
+    let arr = Array(Math.round(num)).fill(false);
     if (arr.length > 0) arr[0] = true;
     setNavDots(arr);
   }
 
   function updateActiveNavDot() {
+    if (navDots?.length === 0) return;
+
     let dots = [...navDots];
     dots = dots?.map((_) => false);
 
-    const num = containeRef.current?.scrollWidth / transform;
+    const num = Math.abs(transform / getVW());
+
     if (isNaN(num)) return;
 
     dots[num] = true;
@@ -85,11 +89,13 @@ function Carousel({ name, fetchUrl, route, getGenre }) {
       const response = await axios.get(fetchUrl);
       if (!response || !response.data || !response.data.results) return;
 
-      if (response.data.results.length > 12) {
-        setMovies(response.data.results.slice(0, 12));
-      } else {
-        setMovies(response.data.results);
-      }
+      // if (response.data.results.length > 12) {
+      //   setMovies(response.data.results.slice(0, 12));
+      // } else {
+      //   setMovies(response.data.results);
+      // }
+
+      setMovies(response.data.results);
 
       setIsLoading(false);
     }
@@ -103,28 +109,31 @@ function Carousel({ name, fetchUrl, route, getGenre }) {
     if (containeRef.current) {
       updateNavDots();
     }
-  }, [containeRef]);
+  }, [movies]);
 
   /******************** WIP ****************************/
   const containerClass =
-    'row flex-nowrap gy-4 p-0 m-0 pb-4 gx-3 row-cols-3 row-cols-sm-4 row-cols-md-5 row-cols-lg-6';
+    'row flex-nowrap gy-0 p-0 m-0 pb-0 gx-3 row-cols-3 row-cols-sm-4 row-cols-md-5 row-cols-lg-6';
 
   return (
     <div className="container-fluid p-0 g-0">
       <div className={`${styles.header}`}>
         <Title name={name} route={route} isLoading={isLoading} />
-        <div>
-          {navDots?.map((dot) => {
-            <div
-              className={`${styles.dot} border ${
-                dot ? `${styles.dotActive}` : ''
-              }`}
-            ></div>;
+        <div className={`${styles.navDots}`}>
+          {navDots?.map((dot, index) => {
+            return (
+              <div
+                key={`dot_${index}`}
+                className={`${styles.dot} border ${
+                  dot ? `${styles.dotActive}` : ''
+                }`}
+              ></div>
+            );
           })}
         </div>
       </div>
 
-      <div className="overflow-hidden position-relative">
+      <div className={`${styles.container} overflow-hidden position-relative`}>
         <div
           className={`${containerClass} ${styles.carousel}`}
           ref={containeRef}
@@ -135,9 +144,15 @@ function Carousel({ name, fetchUrl, route, getGenre }) {
             return <Movie key={movie.id} genres={genres} movie={movie} />;
           })}
         </div>
-        <div className="w-100 d-flex justify-content-between">
-          <button onClick={scrollPrevious}>Previous</button>
-          <button onClick={scrollNext}>Next</button>
+
+        <div
+          className={`${styles.button} ${styles.prev}`}
+          onClick={scrollPrevious}
+        >
+          <i className="bi bi-chevron-left fs-6"></i>
+        </div>
+        <div className={`${styles.button} ${styles.next}`} onClick={scrollNext}>
+          <i className="bi bi-chevron-right fs-6"></i>
         </div>
       </div>
     </div>

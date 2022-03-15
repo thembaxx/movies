@@ -19,15 +19,15 @@ function Discover({ genres, countries }) {
     if (!genres) return;
 
     const popularGenres = [
-      // 'adventure',
-      // 'action',
-      // 'science fiction',
-      // 'drama',
-      // 'comedy',
-      // 'thriller',
-      // 'horror',
-      // 'romantic',
-      // 'documentary',
+      'adventure',
+      'action',
+      'science fiction',
+      'drama',
+      'comedy',
+      'thriller',
+      'horror',
+      'romantic',
+      'documentary',
     ];
 
     let genreMatches = [];
