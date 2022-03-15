@@ -58,12 +58,11 @@ function Popup({ items, routeBase, children }) {
                   : `${routeBase}${item?.name.toLowerCase()}`;
 
                 return (
-                  <div className={`${styles.link}`}>
-                    <Link
-                      key={`${item.name}_rgxy_${index}`}
-                      to={to}
-                      onClick={handleClose}
-                    >
+                  <div
+                    key={`${item.name}_rgxy_${index}`}
+                    className={`${styles.link}`}
+                  >
+                    <Link to={to} onClick={handleClose}>
                       <div className="text-truncate">{item.name}</div>
                     </Link>
                   </div>
