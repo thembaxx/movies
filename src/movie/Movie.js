@@ -28,7 +28,7 @@ function Movie({ genres, movie }) {
   const content = (
     <Link to={`/movie/${name}-${id}`} className={`col ${styles.container}`}>
       <div>
-        <div className={`${styles.imgContainer}`}>
+        <div className={`${styles.imgContainer} shadow`}>
           <img
             className={`${styles.img}`}
             src={srcSet?.default}

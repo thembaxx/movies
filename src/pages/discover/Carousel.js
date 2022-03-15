@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useRef } from 'react';
-import styles from './carousel.module.css';
+import React, { useEffect, useState, useRef } from "react";
+import styles from "./carousel.module.css";
 
-import axios from '../../tmdb/axios';
+import axios from "../../tmdb/axios";
 
-import Movie from '../../movie/Movie';
-import Title from '../common/Title';
+import Movie from "../../movie/Movie";
+import Title from "../common/Title";
 
 function Carousel({ name, fetchUrl, route, getGenre }) {
   const [movies, setMovies] = useState([]);
@@ -12,13 +12,15 @@ function Carousel({ name, fetchUrl, route, getGenre }) {
   const [transform, setTransform] = useState(0);
   const [navDots, setNavDots] = useState([]);
   const containeRef = useRef();
+  const [nextEnabled, setNextEnabled] = useState(true);
+  const [prevEnabled, setPrevEnabled] = useState(true);
 
   function getVW() {
     return window.innerWidth && document.documentElement.clientWidth
       ? Math.min(window.innerWidth, document.documentElement.clientWidth)
       : window.innerWidth ||
           document.documentElement.clientWidth ||
-          document.getElementsByTagName('body')[0].clientWidth;
+          document.getElementsByTagName("body")[0].clientWidth;
   }
 
   function updateNavDots() {
@@ -29,7 +31,7 @@ function Carousel({ name, fetchUrl, route, getGenre }) {
       return;
     }
 
-if(num === 0) return;
+    if (num === 0) return;
 
     let arr = Array(Math.round(num)).fill(false);
     if (arr.length > 0) arr[0] = true;
@@ -47,6 +49,8 @@ if(num === 0) return;
     if (isNaN(num)) return;
 
     dots[num] = true;
+    num <= 0 ? setPrevEnabled(false) : setPrevEnabled(true);
+    num >= dots.length - 1 ? setNextEnabled(false) : setNextEnabled(true);
     setNavDots(dots);
   }
 
@@ -81,7 +85,13 @@ if(num === 0) return;
   }, [transform]);
 
   useEffect(() => {
-    window.addEventListener('resize', windowSizeChanged);
+    if (containeRef.current) {
+      updateNavDots();
+    }
+  }, [movies]);
+
+  useEffect(() => {
+    window.addEventListener("resize", windowSizeChanged);
 
     async function getData() {
       setIsLoading(true);
@@ -102,18 +112,35 @@ if(num === 0) return;
 
     getData();
 
-    return () => window.removeEventListener('resize', windowSizeChanged);
+    return () => window.removeEventListener("resize", windowSizeChanged);
   }, []);
 
-  useEffect(() => {
-    if (containeRef.current) {
-      updateNavDots();
-    }
-  }, [movies]);
+  /******************** TOUCH EVENTS ****************************/
+  let dragStarted = false;
+  let oldClientX = 0;
+
+  function handleTouchStart(e) {
+    oldClientX = e.targetTouches[0].clientX;
+  }
+
+  function handleTouchMove(e) {
+    dragStarted = true;
+
+    let touch = e.targetTouches[0];
+    if (!touch) return;
+
+    const translateX = touch.clientX - oldClientX;
+    oldClientX = touch.clientX;
+
+    setTransform(translateX);
+  }
+
+  function handleTouchEnd(e) {
+    dragStarted = false;
+  }
 
   /******************** WIP ****************************/
-  const containerClass =
-    'row flex-nowrap gy-0 p-0 m-0 pb-0 gx-3 row-cols-3 row-cols-sm-4 row-cols-md-5 row-cols-lg-6';
+  const containerClass = `row flex-nowrap gy-0 p-0 m-0 pb-0 gx-3 row-cols-3 row-cols-sm-4 row-cols-md-6 ${styles.row8}`;
 
   return (
     <div className="container-fluid p-0 g-0">
@@ -125,7 +152,7 @@ if(num === 0) return;
               <div
                 key={`dot_${index}`}
                 className={`${styles.dot} border ${
-                  dot ? `${styles.dotActive}` : ''
+                  dot ? `${styles.dotActive}` : ""
                 }`}
               ></div>
             );
@@ -137,6 +164,9 @@ if(num === 0) return;
         <div
           className={`${containerClass} ${styles.carousel}`}
           ref={containeRef}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
         >
           {movies.map((movie) => {
             const genres = movie.genre_ids.map((code) => getGenre(code));
@@ -145,15 +175,22 @@ if(num === 0) return;
           })}
         </div>
 
-        <div
-          className={`${styles.button} ${styles.prev}`}
-          onClick={scrollPrevious}
-        >
-          <i className="bi bi-chevron-left fs-6"></i>
-        </div>
-        <div className={`${styles.button} ${styles.next}`} onClick={scrollNext}>
-          <i className="bi bi-chevron-right fs-6"></i>
-        </div>
+        {prevEnabled && (
+          <div
+            className={`${styles.button} ${styles.prev}`}
+            onClick={scrollPrevious}
+          >
+            <i className="bi bi-chevron-left fs-6"></i>
+          </div>
+        )}
+        {nextEnabled && (
+          <div
+            className={`${styles.button} ${styles.next}`}
+            onClick={scrollNext}
+          >
+            <i className="bi bi-chevron-right fs-6"></i>
+          </div>
+        )}
       </div>
     </div>
   );

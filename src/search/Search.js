@@ -1,17 +1,17 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import Popover from '@mui/material/Popover';
-import styles from './search.module.css';
+import React, { useState, useEffect, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Popover from "@mui/material/Popover";
+import styles from "./search.module.css";
 
-import SearchResult from './SearchResult';
-import { getSearchSuggestions } from '../tmdb/getData';
+import SearchResult from "./SearchResult";
+import { getSearchSuggestions } from "../tmdb/getData";
 
 function Search({ toggleSidebar }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [movies, setMovies] = useState([]);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [containerWidth, setContainerWidth] = useState('300px');
+  const [containerWidth, setContainerWidth] = useState("300px");
   const containerRef = useRef();
   let navigate = useNavigate();
 
@@ -23,9 +23,9 @@ function Search({ toggleSidebar }) {
           ? entry.contentBoxSize[0]
           : entry.contentBoxSize;
 
-        setContainerWidth(contentBoxSize.inlineSize + 'px');
+        setContainerWidth(contentBoxSize.inlineSize + "px");
       } else {
-        setContainerWidth('100%');
+        setContainerWidth("100%");
       }
     }
   });
@@ -61,7 +61,7 @@ function Search({ toggleSidebar }) {
   }
 
   const handleOnFocus = (event) => {
-    if (containerRef.current && containerRef.current.style.display === 'none')
+    if (containerRef.current && containerRef.current.style.display === "none")
       return;
 
     setAnchorEl(event.currentTarget);
@@ -72,11 +72,11 @@ function Search({ toggleSidebar }) {
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
+  const id = open ? "simple-popover" : undefined;
 
   const placeholder = (
     <div class={`col ${styles.placeholder}`}>
-      {query ? 'no results found' : 'Results will show here...'}
+      {query ? "no results found" : "Results will show here..."}
     </div>
   );
 
@@ -86,95 +86,76 @@ function Search({ toggleSidebar }) {
       class={`col ${styles.button}`}
       onClick={() => handleClick()}
     >
-      View all results
+      See all results
     </div>
   );
+
   const bottom = movies?.length > 0 ? viewAllBtn : placeholder;
 
   return (
-    <div className="container-fluid g-0">
-      <div className="row row-cols-1">
-        <div className="col">
-          <form
-            ref={containerRef}
-            autoComplete="off"
-            className="position-relative"
-            aria-describedby={id}
-            variant="contained"
-            onSubmit={handleClick}
-          >
-            <input
-              id="search"
-              type="text"
-              spellCheck
-              focus="false"
-              autoComplete="off"
-              placeholder="Search movies"
-              onFocus={handleOnFocus}
-              value={query}
-              onChange={handleOnChange}
-              className={`${styles.input}`}
-            />
-            <label
-              htmlFor="search"
-              className="position-absolute start-0 ms-3"
-              style={{ marginTop: 9 }}
-            >
-              <i className="bi bi-search"></i>
-            </label>
+    <div>
+      <form
+        ref={containerRef}
+        autoComplete="off"
+        className={`${styles.form}`}
+        aria-describedby={id}
+        variant="contained"
+        onSubmit={handleClick}
+      >
+        <input
+          id="search"
+          type="text"
+          spellCheck
+          focus="false"
+          autoComplete="off"
+          placeholder="Search movies"
+          onFocus={handleOnFocus}
+          value={query}
+          onChange={handleOnChange}
+          className={`${styles.input}`}
+        />
+        <label htmlFor="search" className="position-absolute start-0 ms-3">
+          <i className="bi bi-search"></i>
+        </label>
 
-            {isLoading && (
-              <div
-                className="spinner-border spinner-border-sm me-2 position-absolute end-0"
-                role="status"
-                style={{ marginTop: 10 }}
-              >
-                <span className="visually-hidden">Loading...</span>
-              </div>
-            )}
-          </form>
-        </div>
-        <div className="col">
-          <Popover
-            id={id}
-            open={open}
-            disableAutoFocus={true}
-            disableEnforceFocus={true}
-            anchorEl={anchorEl}
-            onClose={handleClose}
-            style={{ zIndex: 9999 }}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'center',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'center',
-            }}
-            PaperProps={{
-              style: { width: `${containerWidth}` },
-            }}
+        {isLoading && (
+          <div
+            className="spinner-border spinner-border-sm me-2 position-absolute end-0"
+            role="status"
           >
-            <div className="row g-0 row-cols-1">
-              <div className="col">
-                {movies?.map((movie, index) => {
-                  return (
-                    <Link
-                      key={index}
-                      to={`/movie/${movie.title}-${movie.id}`}
-                      className="p-2"
-                      onClick={() => toggleSidebar()}
-                    >
-                      <SearchResult movie={movie} />
-                    </Link>
-                  );
-                })}
-              </div>
-              {bottom}
-            </div>
-          </Popover>
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        )}
+      </form>
+      <Popover
+        id={id}
+        open={open}
+        disableAutoFocus={true}
+        disableEnforceFocus={true}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        style={{ zIndex: 9999 }}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+        PaperProps={{
+          style: { width: `${containerWidth}`, padding: 0, margin: 0 },
+        }}
+      >
+        <div className="d-flex flex-column">
+          <div>
+            {movies?.map((movie, index) => {
+              return <SearchResult key={index} movie={movie} />;
+            })}
+          </div>
+          {bottom}
         </div>
-      </div>
+      </Popover>
     </div>
   );
 }

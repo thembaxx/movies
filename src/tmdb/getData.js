@@ -1,8 +1,7 @@
-import React from 'react';
-import { API_KEY } from './constants';
-import axios from './axios';
+import { API_KEY } from "./constants";
+import axios from "./axios";
 
-import { navigation, requests } from './data';
+import { navigation, requests } from "./data";
 
 /********************* MOVIE INFO **************************************/
 export async function getMovie(id) {
@@ -85,7 +84,7 @@ export function constructQuery(q, genre, country, sort, years) {
   let query = ``;
 
   if (genre && genre.length > 0) {
-    query += `&with_genres=${genre.map((c) => c.id).join(', ')}`;
+    query += `&with_genres=${genre.map((c) => c.id).join(", ")}`;
   }
 
   if (sort) {
@@ -156,9 +155,9 @@ export function getDiscoveryNav(genres) {
 
   let results = [
     {
-      name: 'Latest movies',
+      name: "Latest movies",
       url: `/discover/movie?api_key=${API_KEY}&primary_release_date.lte=${today}&with_original_language=en`,
-      route: `/filter/&sort_by=release_date.desc`,
+      route: `/filter/&primary_release_date.lte=${today}&with_original_language=en`,
       isLink: true,
     },
   ];

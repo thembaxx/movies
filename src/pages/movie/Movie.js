@@ -5,7 +5,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import styles from './movie.module.css';
 
 import Rating from '../../common/Rating';
-import Backdrop from './Backdrop';
+import MovieBackdrop from './MovieBackdrop';
 import Cast from './Cast';
 import Details from './Details';
 import Similar from './Similar';
@@ -59,7 +59,7 @@ function Movie({ prop }) {
   return (
     <div className="position-relative pb-5" style={{ paddingTop: 72 }}>
       {/* BACKDROP */}
-      <Backdrop backdropUrl={backdropUrl} />
+      <MovieBackdrop backdropUrl={backdropUrl} />
 
       {movie && (
         <div className="row gx-0">

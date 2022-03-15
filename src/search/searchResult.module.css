@@ -1,5 +1,5 @@
 .container {
-  /* width: 400px; */
+  padding: 6px 6px;
   transition: background-color 0.2s;
 }
 
@@ -27,10 +27,12 @@
 }
 
 .title {
+  color: white;
+  font-weight: 500;
   font-size: 1rem;
-  font-weight: 400;
   margin-top: 8px;
   line-height: 1.1;
+  margin-bottom: 4px;
 }
 
 .meta {

@@ -1,10 +1,10 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
-import styles from './navLink.module.css';
-import commonStyles from '../../common/common.module.css';
+import styles from "./navLink.module.css";
+import commonStyles from "../../common/common.module.css";
 
-import Popup from './Popup';
+import Popup from "./Popup";
 
 function NavLink({
   name,
@@ -15,12 +15,18 @@ function NavLink({
   items = null,
 }) {
   const nav = (
-    <div className={`${styles.link} ${commonStyles.link}`}>{name}</div>
+    <div className={`${styles.link} ${isPopup ? "" : `${commonStyles.link}`}`}>
+      {name}
+    </div>
   );
 
   let content;
   if (!isPopup) {
-    content = <Link className={`${styles.container}`} to={route}>{nav}</Link>;
+    content = (
+      <Link className={`${styles.container}`} to={route}>
+        {nav}
+      </Link>
+    );
   } else {
     content = (
       <Popup items={items} routeBase={routeBase} responsive={responsive}>

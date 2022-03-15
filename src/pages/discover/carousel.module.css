@@ -37,9 +37,10 @@
 
 .button {
   background-color: rgba(2, 12, 30, 0.97);
+  border-radius: 9999px;
   cursor: pointer;
-  height: 32px;
-  width: 32px;
+  height: 48px;
+  width: 48px;
   position: absolute;
   display: flex;
   align-items: center;
@@ -65,4 +66,11 @@
 
 .prev {
   left: 8px;
+}
+
+@media (min-width: 992px) {
+  .row8 > * {
+    flex: 0 0 12.5%;
+    max-width: 12.5%;
+  }
 }
