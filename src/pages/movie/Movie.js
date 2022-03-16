@@ -1,20 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import Backdrop from '@mui/material/Backdrop';
-import CircularProgress from '@mui/material/CircularProgress';
-import styles from './movie.module.css';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
+import styles from "./movie.module.css";
 
-import Rating from '../../common/Rating';
-import MovieBackdrop from './MovieBackdrop';
-import Cast from './Cast';
-import Details from './Details';
-import Similar from './Similar';
-import Aside from './Aside';
-import Genre from '../common/Genre';
-import Form from './Form';
+import Rating from "../../common/Rating";
+import MovieBackdrop from "./MovieBackdrop";
+import Cast from "./Cast";
+import Details from "./Details";
+import Similar from "./Similar";
+import Aside from "./Aside";
+import Genre from "../common/Genre";
 
-import { getMovie } from '../../tmdb/getData';
-import { getSrcSet } from '../../imageHelpers';
+import { getMovie } from "../../tmdb/getData";
+import { getSrcSet } from "../../imageHelpers";
 
 function Movie({ prop }) {
   const [movie, setMovie] = useState();
@@ -24,11 +23,10 @@ function Movie({ prop }) {
 
   useEffect(() => {
     async function getData() {
-      //return; //debug
       setIsLoading(true);
 
       window.scrollTo(0, 0);
-      const arr = params[prop].split('-');
+      const arr = params[prop].split("-");
       const movieId = arr[arr.length - 1];
 
       if (!movieId) return;
@@ -49,7 +47,7 @@ function Movie({ prop }) {
   }, [params]);
 
   const title = movie?.title ? movie?.title : movie?.original_title;
-  const year = movie?.release_date?.split('-')?.[0];
+  const year = movie?.release_date?.split("-")?.[0];
   const overview = movie?.overview;
   const genres = movie?.genres;
   const backdropUrl = movie?.backdrop_path;
@@ -57,13 +55,13 @@ function Movie({ prop }) {
   const srcSet = getSrcSet(imgUrl);
 
   return (
-    <div className="position-relative pb-5" style={{ paddingTop: 72 }}>
+    <div className="position-relative pb-0" style={{ paddingTop: 72 }}>
       {/* BACKDROP */}
       <MovieBackdrop backdropUrl={backdropUrl} />
 
       {movie && (
         <div className="row gx-0">
-          <div className="col mt-3 px-4">
+          <div className="col mt-3 px-4 pb-4">
             <div className="row d-flex flex-column flex-md-row ">
               {/* IMAGE */}
               <div className="col col-md-3 overflow-hidden position-relative">
@@ -121,13 +119,8 @@ function Movie({ prop }) {
         </div>
       )}
 
-      {/* FORM */}
-      <div className="p-4 mt-4">
-        <Form name={(title, year)} />
-      </div>
-
       <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={isLoading}
       >
         <CircularProgress color="inherit" />

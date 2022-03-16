@@ -19,10 +19,8 @@ const skeleton = (
 );
 
 function Movie({ genres, movie, showInfo = true }) {
-  const [imageContent, setImageContent] = useState(null);
   const [imageLoaded, setImageLoaded] = useState(false);
   const imageRef = useRef(null);
-  const containerRef = useRef(null);
   const name = movie.title ? movie.title : movie.original_title;
   const imgUrl = movie.poster_path ? movie.poster_path : movie.backdrop_path;
   const srcSet = getSrcSet(imgUrl);
@@ -40,8 +38,20 @@ function Movie({ genres, movie, showInfo = true }) {
   });
 
   useEffect(() => {
+    return () => {
+      setImageLoaded(false);
+    }
+  }, []);
+
+  useEffect(() => {
     if (imageRef.current) {
       lazyImageObserver.observe(imageRef.current);
+    }
+
+    return () => {
+      if (imageRef.current) {
+        lazyImageObserver.unobserve(imageRef.current);
+      }
     }
   }, [imageRef]);
 
@@ -72,7 +82,7 @@ function Movie({ genres, movie, showInfo = true }) {
             loading="lazy"
             alt={name}
           />
-          {imageLoaded && imageContent}
+          {/* {imageLoaded && imageContent} */}
           {!imageLoaded && (
             <Skeleton
               variant="rectangular"

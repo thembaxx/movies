@@ -51,12 +51,12 @@ function Filter({ title, items, onChange }) {
     onChange(index, e.target.checked);
   }
 
-  let subtitle = "— All";
+  let subtitle = " All";
   const selected = items?.filter((c) => c.isChecked);
   if (selected?.length === 1) {
-    subtitle = `— ${selected[0].name}`;
+    subtitle = ` ${selected[0].name}`;
   } else if (selected?.length > 1) {
-    subtitle = `— ${selected.length} selected`;
+    subtitle = ` ${selected.length} selected`;
   }
 
   return (

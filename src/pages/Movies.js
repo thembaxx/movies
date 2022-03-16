@@ -127,8 +127,8 @@ function Movies({ prop, getGenreCode, getGenre, genres, countries }) {
       setTitle("Movies");
       setHero(null);
       setIsLoading(false);
-      // responseData.current = null;
-      // page.current = 0;
+       responseData.current = null;
+       page.current = 0;
     };
   }, [location]);
 

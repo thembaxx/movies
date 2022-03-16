@@ -1,13 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import styles from './cast.module.css';
+import React, { useState, useEffect } from "react";
+import styles from "./cast.module.css";
 
-import { getMovieCredits } from '../../tmdb/getData';
+import { getMovieCredits } from "../../tmdb/getData";
 
-import { getSrcSet } from '../../imageHelpers';
+import { getSrcSet } from "../../imageHelpers";
 
 function Cast({ id }) {
   const [cast, setCast] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  function getInitials(name) {
+    if (!name) return;
+
+    let arr = name.split(" ");
+    if (arr.length === 1) {
+      return arr[0][0];
+    } else {
+      let a = arr[0][0];
+      let b = arr[arr.length - 1][0];
+      return a + b;
+    }
+  }
 
   useEffect(() => {
     async function getData() {
@@ -54,16 +68,41 @@ function Cast({ id }) {
           return (
             <div key={person.id} className={`col`}>
               <div className={`${styles.container}`}>
-                <img
-                  className={`${styles.img} rounded-circle`}
-                  src={srcSet?.default}
-                  srcSet={srcSet?.set}
-                  loading="lazy"
-                  alt={name}
-                />
+                <div className={`${styles.imgContainer}`}>
+                  {!imageLoaded && (
+                    <div className={`${styles.initials}`}>
+                      {getInitials(person.name)}
+                    </div>
+                  )}
+                  <img
+                    style={{
+                      opacity: imageLoaded ? "1" : "0",
+                      display: imageLoaded ? "block" : "none",
+                    }}
+                    className={`${styles.img}`}
+                    src={srcSet?.default}
+                    srcSet={srcSet?.set}
+                    loading="lazy"
+                    alt={person.name}
+                    onError={() => {
+                      setImageLoaded(false);
+                    }}
+                    onLoad={(e) => {
+                      const image = e.target;
+                      if (image.complete && image.naturalHeight !== 0) {
+                        setImageLoaded(true);
+                      }
+                    }}
+                  />
+                </div>
                 <div className="ms-3 me-3 text-truncate">
                   <div className={`${styles.title}`}>{person.name}</div>
-                  <span className="me-3">as {person.character}</span>
+                  <span
+                    className="me-3"
+                    style={{ fontWeight: 400, opacity: 0.8 }}
+                  >
+                    as {person.character}
+                  </span>
                 </div>
               </div>
             </div>

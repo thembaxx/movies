@@ -1,7 +1,6 @@
 .button {
-  background-color: rgba(255, 255, 255, 1);
   border-radius: 9999px;
-  color: var(--primary-background);
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9,11 +8,11 @@
   width: 32px;
   min-width: 32px;
   line-height: 1;
-  transition: background-color 0.2s linear;
+  transition: opacity 0.2s linear;
 }
 
 .button:hover {
-  background-color: rgba(255, 255, 255, 0.85);
+  opacity: 0.85;
 }
 
 .link {
@@ -24,7 +23,7 @@
 }
 
 .link::before {
-  content: '';
+  content: "";
   background-color: var(--red);
   height: 2px;
   width: 100%;

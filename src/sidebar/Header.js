@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
-import Logo from '../common/Logo';
-import commonStyles from '../common/common.module.css';
+import Logo from "../common/Logo";
+import commonStyles from "../common/common.module.css";
 
 function Header({ toggleSidebar, genres }) {
   return (
