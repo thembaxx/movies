@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Skeleton from "@mui/material/Skeleton";
 import styles from "./heroItem.module.css";
 
 import { getSrcSet } from "../../imageHelpers";
@@ -20,6 +21,7 @@ function HeroItem({
   genresIds,
   getGenre,
 }) {
+  const [imageLoaded, setImageLoaded] = useState(false);
   const srcSet = getSrcSet(imgUrl);
   year = year?.split("-")?.[0];
 
@@ -31,20 +33,39 @@ function HeroItem({
     genres = genresIds.map((id) => getGenre(id));
   }
 
+  function onLoad() {
+    console.log("loaded hero");
+    setImageLoaded(true);
+  }
+
   return (
     <div
       className="position-relative"
-      style={{ height: "80vh", overflow: "hidden" }}
+      style={{ maxHeight: "80vh", overflow: "hidden" }}
     >
       {/* Image */}
 
       <img
-        className="img-fluid"
+        style={{
+          opacity: imageLoaded ? "1" : "0",
+        }}
+        className={`${styles.img} img-fluid`}
         src={srcSet?.default}
         srcSet={srcSet?.set}
+        onLoad={onLoad}
         loading="lazy"
         alt={name}
       />
+
+      {!imageLoaded && (
+        <Skeleton
+          variant="rectangular"
+          animation="wave"
+          className=""
+          width="100%"
+          height="100%"
+        />
+      )}
 
       <div
         className="container-fluid position-absolute bottom-0 p-3"

@@ -18,27 +18,36 @@ const skeleton = (
   />
 );
 
-function Movie({ genres, movie, srcSet, showInfo = true }) {
-  const [imageContent, setImageContent] = useState(skeleton);
+function Movie({ genres, movie, showInfo = true }) {
+  const [imageContent, setImageContent] = useState(null);
+  const [imageLoaded, setImageLoaded] = useState(false);
   const imageRef = useRef(null);
+  const containerRef = useRef(null);
   const name = movie.title ? movie.title : movie.original_title;
-  //const imgUrl = movie.poster_path ? movie.poster_path : movie.backdrop_path;
-  //const srcSet = getSrcSet(imgUrl);
+  const imgUrl = movie.poster_path ? movie.poster_path : movie.backdrop_path;
+  const srcSet = getSrcSet(imgUrl);
+
+  let lazyImageObserver = new IntersectionObserver(function (
+    entries,
+    observer
+  ) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        const lazyImage = entry.target;
+        lazyImageObserver.unobserve(lazyImage);
+      }
+    });
+  });
 
   useEffect(() => {
-    if (srcSet) {
-      
-      setImageContent(
-        <img
-          className={`${styles.img}`}
-          src={srcSet?.default}
-          srcSet={srcSet?.set}
-           loading="lazy"
-          alt={name}
-        />
-      );
+    if (imageRef.current) {
+      lazyImageObserver.observe(imageRef.current);
     }
-  }, [srcSet]);
+  }, [imageRef]);
+
+  function onLoad() {
+    setImageLoaded(true);
+  }
 
   const { id, release_date: date, vote_average: vote } = movie;
 
@@ -49,16 +58,30 @@ function Movie({ genres, movie, srcSet, showInfo = true }) {
 
   const content = (
     <Link to={`/movie/${name}-${id}`} className={`col ${styles.container}`}>
-      <div ref={imageRef}>
+      <div>
         <div className={`${styles.imgContainer} shadow`}>
-          {/* <img
+          <img
+            ref={imageRef}
+            style={{
+              opacity: imageLoaded ? "1" : "0",
+            }}
             className={`${styles.img}`}
-            // src={srcSet?.default}
-            // srcSet={srcSet?.set}
+            src={srcSet?.default}
+            srcSet={srcSet?.set}
+            onLoad={onLoad}
             loading="lazy"
             alt={name}
-          /> */}
-          {imageContent}
+          />
+          {imageLoaded && imageContent}
+          {!imageLoaded && (
+            <Skeleton
+              variant="rectangular"
+              animation="wave"
+              className=""
+              width="100%"
+              height="100%"
+            />
+          )}
 
           <div className={`position-absolute top-0 end-0 me-4 mt-2`}>
             <Rating vote={vote * 10} />

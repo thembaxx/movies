@@ -8,6 +8,7 @@ import Carousel from "./Carousel";
 
 function Discover({ genres, countries }) {
   const [navLinks, setNavLinks] = useState([]);
+  const [isLoadingRow, setIsLoadingRow] = useState(false);
   const index = useRef(-1);
   const links = useRef(null);
   let bottomBoundaryRef = useRef(null);
@@ -47,21 +48,10 @@ function Discover({ genres, countries }) {
   }, []);
 
   /******************** INFINITE SCROLL ******************************/
-  // const scrollObserver = useCallback((node) => {
-  //   new IntersectionObserver((entries) => {
-  //     entries.forEach((en) => {
-  //       if (en.intersectionRatio > 0) {
-  //         console.log(index);
-  //         setIndex((i) => i + 1);
-  //       }
-  //     });
-  //   }).observe(node);
-  // });
-
   var intersectionObserver = new IntersectionObserver(function (entries) {
     if (entries[0].intersectionRatio <= 0) return;
 
-    loadRow();
+    if (!isLoadingRow) loadRow();
   });
 
   useEffect(() => {
@@ -105,6 +95,7 @@ function Discover({ genres, countries }) {
               fetchUrl={navLink.url}
               route={navLink.route}
               getGenre={getGenre}
+              loading={(value) => setIsLoadingRow(value)}
             />
           </div>
         ))}

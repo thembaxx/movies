@@ -1,31 +1,31 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import React, { useEffect, useState, useRef, useCallback } from "react";
+import { useParams, useLocation } from "react-router-dom";
 
 import {
   getGenreUrl,
   getDiscoverObj,
   getMovieDiscoverUrl,
   getSearchUrl,
-} from '../tmdb/getData';
-import axios from '../tmdb/axios';
+} from "../tmdb/getData";
+import axios from "../tmdb/axios";
 
-import { capitalizeStr } from '../helpers';
+import { capitalizeStr } from "../helpers";
 
-import Movie from '../movie/Movie';
-import Title from './common/Title';
-import HeroItem from './hero/HeroItem';
-import Filters from '../filters/Filters';
+import Movie from "../movie/Movie";
+import Title from "./common/Title";
+import HeroItem from "./hero/HeroItem";
+import Filters from "../filters/Filters";
 
 function Movies({ prop, getGenreCode, getGenre, genres, countries }) {
   let params = useParams();
   let location = useLocation();
 
-  const [title, setTitle] = useState('Movies');
+  const [title, setTitle] = useState("Movies");
   const [movies, setMovies] = useState([]);
   const [hero, setHero] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [responseData, setResponseData] = useState(null);
-  const [page, setPage] = useState(1);
+  const responseData = useRef(null);
+  const page = useRef(0);
   let bottomBoundaryRef = useRef(null);
 
   function loadHero(movie) {
@@ -52,38 +52,40 @@ function Movies({ prop, getGenreCode, getGenre, genres, countries }) {
 
     let fetchUrl;
 
-    if (pathname.startsWith('/genre')) {
+    if (pathname.startsWith("/genre")) {
       fetchUrl = getGenreUrl(getGenreCode(params[prop]), pageNum);
-    } else if (pathname.startsWith('/discover')) {
+    } else if (pathname.startsWith("/discover")) {
       const navEl = getDiscoverObj(params[prop]);
       fetchUrl = navEl?.url;
-    } else if (pathname.startsWith('/filter')) {
-      const p = '/filter/';
+    } else if (pathname.startsWith("/filter")) {
+      const p = "/filter/";
       const query = pathname.slice(p.length - 1);
       fetchUrl = getMovieDiscoverUrl(query);
-    } else if (pathname.startsWith('/search')) {
-      const p = '/search/q=';
+    } else if (pathname.startsWith("/search")) {
+      const p = "/search/q=";
       const query = pathname.slice(p.length - 1);
-      fetchUrl = getSearchUrl(query.split('%20').join(' '));
+      fetchUrl = getSearchUrl(query.split("%20").join(" "));
     }
 
     return fetchUrl;
   }
 
-  async function getItems(pageNum) {
-    if (pageNum !== 0 && responseData && pageNum + 1 > responseData.total_pages)
-      return;
+  async function getItems() {
+    page.current += 1;
+
+    if (page.current <= 0) return;
+    if (page.current > responseData.current?.total_pages) return;
 
     setIsLoading(true);
 
-    let fetchUrl = getFetchUrl(pageNum);
+    let fetchUrl = getFetchUrl(page.current);
     if (!fetchUrl) return;
 
-    const response = await axios.get(fetchUrl + `&page=${pageNum}`);
+    const response = await axios.get(fetchUrl + `&page=${page.current}`);
 
     if (!response || !response.data || !response.data.results) return;
 
-    if (pageNum === 1 && location?.pathname !== '/discover') {
+    if (page.current === 1 && location?.pathname !== "/discover") {
       const items = [...response.data.results];
       const removed = items.splice(0, 1);
       if (removed.length > 0) loadHero(removed[0]);
@@ -92,21 +94,14 @@ function Movies({ prop, getGenreCode, getGenre, genres, countries }) {
       setMovies([...movies, ...response.data.results]);
     }
 
-    setResponseData({
+    responseData.current = {
       total_pages: response.data.total_pages,
       total_results: response.data.total_results,
-    });
+    };
 
     setIsLoading(false);
+    return true;
   }
-
-  useEffect(() => {
-    async function getData() {
-      await getItems(page);
-    }
-
-    getData();
-  }, [page]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -114,35 +109,35 @@ function Movies({ prop, getGenreCode, getGenre, genres, countries }) {
 
     if (!pathname) return;
 
-    if (pathname.startsWith('/genre')) {
+    if (pathname.startsWith("/genre")) {
       setTitle(`${capitalizeStr(params[prop])} Movies`);
-    } else if (pathname.startsWith('/discover')) {
+    } else if (pathname.startsWith("/discover")) {
       const navEl = getDiscoverObj(params[prop]);
       setTitle(navEl?.name);
-    } else if (pathname.startsWith('/filter')) {
-      setTitle('Filter movies');
-    } else if (pathname.startsWith('/search')) {
-      const p = '/search/q=';
+    } else if (pathname.startsWith("/filter")) {
+      setTitle("Filter movies");
+    } else if (pathname.startsWith("/search")) {
+      const p = "/search/q=";
       const query = pathname.slice(p.length);
-      setTitle(`Movies with “${query.split('%20').join(' ')}”`);
+      setTitle(`Movies with “${query.split("%20").join(" ")}”`);
     }
 
     return () => {
       setMovies([]);
-      setTitle('Movies');
+      setTitle("Movies");
       setHero(null);
       setIsLoading(false);
-      setResponseData(null);
-      setPage(1);
+      // responseData.current = null;
+      // page.current = 0;
     };
   }, [location]);
 
   // INFINITE scrollTop
   const scrollObserver = useCallback((node) => {
     new IntersectionObserver((entries) => {
-      entries.forEach((en) => {
+      entries.forEach(async (en) => {
         if (en.intersectionRatio > 0) {
-          if (!isLoading) setPage((num) => num + 1);
+          if (!isLoading) await getItems();
         }
       });
     }).observe(node);
@@ -175,7 +170,7 @@ function Movies({ prop, getGenreCode, getGenre, genres, countries }) {
       <div
         id="page-bottom-boundary"
         ref={bottomBoundaryRef}
-        style={{ height: 8, width: '100%' }}
+        style={{ height: 8, width: "100%" }}
       ></div>
     </div>
   );

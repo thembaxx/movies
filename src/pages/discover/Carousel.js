@@ -7,9 +7,8 @@ import { getSrcSet } from "../../imageHelpers";
 import Movie from "../../movie/Movie";
 import Title from "../common/Title";
 
-function Carousel({ name, fetchUrl, route, getGenre }) {
+function Carousel({ name, fetchUrl, route, getGenre, loading }) {
   const [movies, setMovies] = useState([]);
-  const [images, setImages] = useState(Array(20).fill(""));
   const [isLoading, setIsLoading] = useState(false);
   const [transform, setTransform] = useState(0);
   const [navDots, setNavDots] = useState([]);
@@ -96,39 +95,16 @@ function Carousel({ name, fetchUrl, route, getGenre }) {
     window.addEventListener("resize", windowSizeChanged);
 
     async function getData() {
+      loading(true);
       setIsLoading(true);
 
       const response = await axios.get(fetchUrl);
       if (!response || !response.data || !response.data.results) return;
 
-      // if (response.data.results.length > 12) {
-      //   setMovies(response.data.results.slice(0, 12));
-      // } else {
-      //   setMovies(response.data.results);
-      // }
-
-      //setImages(Array(response.data.results.length).fill(""));
       setMovies(response.data.results);
 
-      const imgs = [];
-      response.data.results.map((movie, i) => {
-        const imgUrl = movie.poster_path
-          ? movie.poster_path
-          : movie.backdrop_path;
-        const srcSet = getSrcSet(imgUrl);
-
-        const primaryImage = new Image();
-        primaryImage.src = srcSet?.default;
-        primaryImage.onload = () => {
-          imgs.push(srcSet);
-
-          if (imgs.length === response.data.results.length) {
-            setImages(imgs);
-          }
-        };
-      });
-
       setIsLoading(false);
+      loading(false);
     }
 
     getData();
@@ -150,8 +126,10 @@ function Carousel({ name, fetchUrl, route, getGenre }) {
     let touch = e.targetTouches[0];
     if (!touch) return;
 
-    const translateX = touch.clientX - oldClientX;
+    let translateX = transform;
+    translateX += touch.clientX - oldClientX;
     oldClientX = touch.clientX;
+    console.log(translateX);
 
     setTransform(translateX);
   }
@@ -168,18 +146,20 @@ function Carousel({ name, fetchUrl, route, getGenre }) {
     <div className="container-fluid p-0 g-0">
       <div className={`${styles.header}`}>
         <Title name={name} route={route} isLoading={isLoading} />
-        <div className={`${styles.navDots}`}>
-          {navDots?.map((dot, index) => {
-            return (
-              <div
-                key={`dot_${index}`}
-                className={`${styles.dot} border ${
-                  dot ? `${styles.dotActive}` : ""
-                }`}
-              ></div>
-            );
-          })}
-        </div>
+        {!isLoading && (
+          <div className={`${styles.navDots}`}>
+            {navDots?.map((dot, index) => {
+              return (
+                <div
+                  key={`dot_${index}`}
+                  className={`${styles.dot} border ${
+                    dot ? `${styles.dotActive}` : ""
+                  }`}
+                ></div>
+              );
+            })}
+          </div>
+        )}
       </div>
 
       <div className={`${styles.container} overflow-hidden position-relative`}>
@@ -190,7 +170,7 @@ function Carousel({ name, fetchUrl, route, getGenre }) {
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
-          {movies.map((movie, i) => {
+          {movies.map((movie) => {
             const genres = movie.genre_ids.map((code) => getGenre(code));
 
             return (
@@ -199,7 +179,6 @@ function Carousel({ name, fetchUrl, route, getGenre }) {
                 showInfo={false}
                 genres={genres}
                 movie={movie}
-                srcSet={images[i]}
               />
             );
           })}
