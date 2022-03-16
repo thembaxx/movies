@@ -11,6 +11,7 @@ function Carousel({ name, fetchUrl, route, getGenre, loading }) {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [transform, setTransform] = useState(0);
+  let translateX = 0;
   const [navDots, setNavDots] = useState([]);
   const containeRef = useRef();
   const [nextEnabled, setNextEnabled] = useState(true);
@@ -122,20 +123,25 @@ function Carousel({ name, fetchUrl, route, getGenre, loading }) {
 
   function handleTouchMove(e) {
     dragStarted = true;
+    translateX = 0;
 
     let touch = e.targetTouches[0];
     if (!touch) return;
 
-    let translateX = transform;
-    translateX += touch.clientX - oldClientX;
-    oldClientX = touch.clientX;
-    console.log(translateX);
+    let change = touch.clientX - oldClientX;
 
-    setTransform(translateX);
+    if (Math.abs(change) < 30) return;
+    translateX = change;
   }
 
   function handleTouchEnd(e) {
     dragStarted = false;
+    if (translateX === 0) return;
+    if (translateX < 0) {
+      scrollNext();
+    } else {
+      scrollPrevious();
+    }
   }
 
   /******************** WIP ****************************/
