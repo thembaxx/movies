@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
-import './style.css';
+import React, { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+import "./style.css";
 
-import { route, paramProp, filterProp } from './common';
-import { getGenres, getCountries } from './tmdb/getData';
+import { route, paramProp, filterProp } from "./common";
+import { getGenres, getCountries } from "./tmdb/getData";
 
-import Nav from './nav/Nav';
-import Home from './pages/home/Home';
-import Discover from './pages/discover/Discover';
-import Movies from './pages/Movies';
-import Movie from './pages/movie/Movie';
-import About from './pages/About';
-import PageNotFound from './pages/PageNotFound';
-import Sidebar from './sidebar/Sidebar';
+import Nav from "./nav/Nav";
+import Home from "./pages/home/Home";
+import Discover from "./pages/discover/Discover";
+import Movies from "./pages/movies/Movies";
+import Movie from "./pages/movie/Movie";
+import About from "./pages/About";
+import PageNotFound from "./pages/PageNotFound";
+import Sidebar from "./sidebar/Sidebar";
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);

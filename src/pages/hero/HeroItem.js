@@ -34,7 +34,6 @@ function HeroItem({
   }
 
   function onLoad() {
-    console.log("loaded hero");
     setImageLoaded(true);
   }
 

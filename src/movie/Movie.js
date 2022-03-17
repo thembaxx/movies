@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
 import styles from "./movie.module.css";
@@ -8,66 +8,68 @@ import { getSrcSet } from "../imageHelpers";
 import Rating from "../common/Rating";
 import Popup from "./Popup";
 
-const skeleton = (
-  <Skeleton
-    variant="rectangular"
-    animation="wave"
-    className=""
-    width="100%"
-    height="100%"
-  />
-);
+const bgColor = "rgba(255, 255, 255, 0.08)";
 
-function Movie({ genres, movie, showInfo = true }) {
+function Movie({ genres, movie, loading, showInfo = true }) {
+  const [id, setId] = useState(null);
+  const [title, setTitle] = useState(null);
+  const [rating, setRating] = useState(null);
+  const [releaseDate, setReleaseData] = useState(null);
+  const [genre, setGenre] = useState(null);
+  const [imgUrl, setImgUrl] = useState(null);
   const [imageLoaded, setImageLoaded] = useState(false);
   const imageRef = useRef(null);
-  const name = movie.title ? movie.title : movie.original_title;
-  const imgUrl = movie.poster_path ? movie.poster_path : movie.backdrop_path;
-  const srcSet = getSrcSet(imgUrl);
-
-  let lazyImageObserver = new IntersectionObserver(function (
-    entries,
-    observer
-  ) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        const lazyImage = entry.target;
-        lazyImageObserver.unobserve(lazyImage);
-      }
-    });
-  });
 
   useEffect(() => {
-    return () => {
-      setImageLoaded(false);
-    }
-  }, []);
+    const {
+      id,
+      release_date,
+      vote_average,
+      title,
+      original_title,
+      poster_path,
+    } = movie;
+
+    setId(id);
+    setTitle(title ? title : original_title);
+    setReleaseData(release_date?.split("-")?.[0]);
+    setRating(vote_average && vote_average);
+    setGenre(genres?.map((genre) => genre?.name));
+    setImgUrl(poster_path);
+  }, [movie]);
+
+  const handleObserver = useCallback(
+    (entries, observer) => {
+      const target = entries[0];
+      if (target.isIntersecting) {
+        const srcSet = getSrcSet(imgUrl);
+        if (!srcSet) return;
+        target.target.srcset = srcSet.set;
+        target.target.src = srcSet.default;
+
+        target.target.onload = (e) => {
+          if (e.target.complete) setImageLoaded(true);
+        };
+
+        imageRef.current && observer.unobserve(imageRef.current);
+      }
+    },
+    [imgUrl]
+  );
 
   useEffect(() => {
-    if (imageRef.current) {
-      lazyImageObserver.observe(imageRef.current);
-    }
+    const option = {
+      root: null,
+      rootMargin: "20px",
+      threshold: 0,
+    };
 
-    return () => {
-      if (imageRef.current) {
-        lazyImageObserver.unobserve(imageRef.current);
-      }
-    }
-  }, [imageRef]);
-
-  function onLoad() {
-    setImageLoaded(true);
-  }
-
-  const { id, release_date: date, vote_average: vote } = movie;
-
-  const year = date?.split("-")?.[0];
-
-  let genre = genres?.map((genre) => genre?.name);
-  genre = genre?.filter((c) => c);
+    const observer = new IntersectionObserver(handleObserver, option);
+    if (imageRef.current) observer.observe(imageRef.current);
+  }, [imageRef, handleObserver]);
 
   const content = (
-    <Link to={`/movie/${name}-${id}`} className={`col ${styles.container}`}>
+    <Link to={`/movie/${title}-${id}`} className={`col ${styles.container}`}>
       <div>
         <div className={`${styles.imgContainer} shadow`}>
           <img
@@ -76,58 +78,54 @@ function Movie({ genres, movie, showInfo = true }) {
               opacity: imageLoaded ? "1" : "0",
             }}
             className={`${styles.img}`}
-            src={srcSet?.default}
-            srcSet={srcSet?.set}
-            onLoad={onLoad}
-            loading="lazy"
-            alt={name}
+            alt={title}
           />
-          {/* {imageLoaded && imageContent} */}
           {!imageLoaded && (
             <Skeleton
+              sx={{ bgcolor: `${bgColor}` }}
               variant="rectangular"
               animation="wave"
-              className=""
               width="100%"
               height="100%"
             />
           )}
 
-          <div className={`position-absolute top-0 end-0 me-4 mt-2`}>
-            <Rating vote={vote * 10} />
-          </div>
+          {rating && (
+            <div className={`${styles.rating}`}>
+              <Rating vote={rating * 10} />
+            </div>
+          )}
         </div>
-        <div
-          className={`mw-100 ${
-            showInfo ? "d-flex" : "d-none"
-          }  flex-column justify-content-center`}
-          style={{ marginTop: 12 }}
-        >
-          <div className="text-truncate fs-6" style={{ fontWeight: 500 }}>
-            {name}
+        <div className={`${showInfo ? "d-flex" : "d-none"}  ${styles.info}`}>
+          <div className={`text-truncate ${styles.title}`}>
+            {!title ? (
+              <Skeleton sx={{ bgcolor: `${bgColor}` }} animation="wave" />
+            ) : (
+              <span>{title}</span>
+            )}
           </div>
-          <div style={{ fontSize: ".8rem", marginTop: 2 }}>
-            <span className="d-flex align-items-center">
-              <span className="opacity-75" style={{ marginRight: 6 }}>
-                {year}
-              </span>
+          {!releaseDate ? (
+            <Skeleton
+              width="60%"
+              sx={{ bgcolor: `${bgColor}` }}
+              animation="wave"
+            />
+          ) : (
+            <div className={`${styles.meta}`}>
+              <span className={`${styles.date}`}>{releaseDate}</span>
               {genre && (
                 <span className="text-truncate" style={{ marginRight: 6 }}>
                   · {genre.join(", ")}
                 </span>
               )}
-            </span>
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </Link>
   );
 
-  return (
-    <Popup movie={movie} name={name} genre={genre} year={year}>
-      {content}
-    </Popup>
-  );
+  return content;
 }
 
 export default Movie;

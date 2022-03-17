@@ -84,9 +84,6 @@ function Cast({ id }) {
                     srcSet={srcSet?.set}
                     loading="lazy"
                     alt={person.name}
-                    onError={() => {
-                      setImageLoaded(false);
-                    }}
                     onLoad={(e) => {
                       const image = e.target;
                       if (image.complete && image.naturalHeight !== 0) {
