@@ -12,7 +12,7 @@ function Header({ toggleSidebar, genres }) {
         className={`${commonStyles.button}`}
         onClick={() => toggleSidebar()}
       >
-        <i className="bi bi-x-lg fs-8"></i>
+        <i className="bi bi-x-lg fs-5"></i>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
-import React from 'react';
-import commonStyles from '../common/common.module.css';
+import React from "react";
+import commonStyles from "../common/common.module.css";
 
 function ToggleButton({ target, toggleSidebar }) {
   return (
@@ -13,7 +13,7 @@ function ToggleButton({ target, toggleSidebar }) {
       aria-label="Toggle navigation"
       onClick={() => toggleSidebar()}
     >
-      <i className="bi bi-list fs-5"></i>
+      <i className="bi bi-list fs-1"></i>
     </div>
   );
 }

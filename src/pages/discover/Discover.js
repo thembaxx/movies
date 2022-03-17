@@ -80,14 +80,12 @@ function Discover({ genres, countries }) {
     }
   }
 
-  /******************** DEBUG ****************************/
-
   return (
     <div style={{ paddingTop: 72 }}>
-      <div>
+      <div style={{ marginBottom: "48px" }}>
         <Hero genres={genres} getGenre={getGenre} />
       </div>
-      <div className="mt-0 pb-4">
+      <div className="mt-4 pb-4">
         {navLinks?.map((navLink, index) => (
           <div className="mb-5" key={index}>
             <Carousel

@@ -29,8 +29,7 @@
 }
 
 .title {
-  text-transform: uppercase;
-  font-size: max(1rem, 18px);
-  font-weight: 700;
+  font-size: 1.25rem;
+  font-weight: 500;
   line-height: 1.1;
 }

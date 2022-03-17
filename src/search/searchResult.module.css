@@ -18,6 +18,8 @@
   overflow: hidden;
   height: 64px;
   width: 48px;
+  min-width: 48px;
+  min-height: 64px;
 }
 
 .img {

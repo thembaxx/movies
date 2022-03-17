@@ -3,6 +3,7 @@ import { navigation } from "../tmdb/data";
 export const navLinks = [
   navigation.discover,
   // navigation.country, incomplete :to-do
+  navigation.movies,
   navigation.genre,
   navigation.about,
 ];
@@ -17,9 +18,9 @@ export const movieList = [
 
 export const moviesList = [
   navigation.discover,
-  navigation.nowPlaying,
+  navigation.popular,
   navigation.topRated,
+  navigation.nowPlaying,
   navigation.trending,
   navigation.upcoming,
-  navigation.popular,
 ];

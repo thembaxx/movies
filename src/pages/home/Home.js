@@ -14,13 +14,13 @@ function Home() {
       </div>
       <div className={`${styles.inner} align-items-md-center`}>
         <h1 className={`${styles.heading}`}>
-          Discover great movies <br /> anywhere. anytime.
+          Discover movies <br /> anywhere. anytime.
         </h1>
-        <Link to="/discover" className={`${styles.button}`} role="button">
+        <Link to="/discover" className={`${styles.button}`}>
           Browse films
         </Link>
-        <div className={`${styles.attribute} mt-3`}>
-          <div className="opacity-75 me-2">Powered by</div>
+        <div className={`${styles.attribute}`}>
+          <div className="me-2">Powered by</div>
           <img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg" />
         </div>
       </div>

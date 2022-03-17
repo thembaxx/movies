@@ -15,7 +15,7 @@ function Title({
     <Link to={`${route}`} style={{ pointerEvents: `${pEvents}` }}>
       <div className={`px-3 ${styles.container}`}>
         <div className="d-flex">
-          <h4>{name}</h4>
+          <div className={`${styles.title}`}>{name}</div>
           {showExplore && (
             <div className="ms-1 overflow-hidden">
               <div className={`${styles.button}`}>

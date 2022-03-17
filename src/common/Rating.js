@@ -13,7 +13,7 @@ function Rating({ vote }) {
         borderRadius: "8px",
         display: "flex",
         alignItems: "center",
-        fontWeight: 500,
+        fontWeight: 400,
         padding: "3px 12px 3px 8px",
       }}
     >

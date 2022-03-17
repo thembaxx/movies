@@ -15,6 +15,14 @@ function Search({ toggleSidebar }) {
   const containerRef = useRef();
   let navigate = useNavigate();
 
+  useEffect(() => {
+return () => {
+  setContainerWidth('300px');
+  setIsLoading(false);
+  setAnchorEl(null);
+}
+  }, []);
+
   const resizeObserver = new ResizeObserver((entries) => {
     for (let entry of entries) {
       if (entry.contentBoxSize) {
