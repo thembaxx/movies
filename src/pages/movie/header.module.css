@@ -1,0 +1,102 @@
+.container {
+  max-height: 80vh;
+  position: relative;
+}
+
+.backdrop {
+  object-fit: cover;
+  max-height: 80vh;
+  height: 100%;
+  width: 100%;
+  aspect-ratio: 16/9;
+  transition: opacity 0.875s;
+  overflow: hidden;
+}
+
+.inner {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.meta {
+  display: flex;
+  margin-bottom: -5%;
+}
+
+.imgContainer {
+  border-radius: var(--border-radius);
+  height: auto;
+  width: 24vw;
+  max-width: 200px;
+  min-width: 100px;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+}
+
+.img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+
+  transition: opacity 0.875s;
+}
+
+.info {
+  margin-left: 16px;
+  margin-top: 8px;
+  margin-right: 16px;
+}
+
+.title {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+  margin-right: 2rem;
+  margin-top: 2px;
+}
+
+.subtitle {
+  font-size: 0.875rem;
+  margin-top: 4px;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+}
+
+.runtime {
+  background-color: white;
+  border-radius: 2px;
+  color: var(--primary-background);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1;
+  padding: 4px 4px;
+  margin-left: 12px;
+}
+
+.ratingIcon {
+  margin-right: 8px;
+  margin-top: -1px;
+  color: #f3ce13;
+  font-size: ".875rem";
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+  margin-left: -10px;
+}
+
+.button {
+  display: flex;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  width: 36px;
+}

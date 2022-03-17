@@ -1,5 +1,5 @@
 .img {
-  transform: opacity .875s ;
+  transition: opacity .875s ;
 }
 
 .title {

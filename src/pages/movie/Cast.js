@@ -2,13 +2,17 @@ import React, { useState, useEffect } from "react";
 import styles from "./cast.module.css";
 
 import { getMovieCredits } from "../../tmdb/getData";
-
 import { getSrcSet } from "../../imageHelpers";
+
+import Property from "./Property";
 
 function Cast({ id }) {
   const [cast, setCast] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [directors, setDirectors] = useState([]);
+  const [producers, setProducers] = useState([]);
+  const [writers, setWriters] = useState([]);
 
   function getInitials(name) {
     if (!name) return;
@@ -28,7 +32,6 @@ function Cast({ id }) {
       setIsLoading(true);
 
       const credits = await getMovieCredits(id);
-
       let items = [];
       if (credits?.cast?.length > 8) {
         items = credits?.cast?.slice(0, 8);
@@ -37,6 +40,32 @@ function Cast({ id }) {
       }
 
       setCast(items);
+
+      setDirectors(
+        credits?.crew?.filter(
+          (d) =>
+            (d.department == "Directing" && d.job == "Director") ||
+            d.job == "Co-Director"
+        )
+      );
+
+      setProducers(
+        credits?.crew?.filter(
+          (d) =>
+            (d.department == "Production" && d.job == "Producer") ||
+            d.job == "Executive Producer" ||
+            d.job == "Co-Producer"
+        )
+      );
+
+      setWriters(
+        credits?.crew?.filter(
+          (d) =>
+            (d.department == "Writing" && d.job == "Screenplay") ||
+            d.job == "Writer" ||
+            d.job == "Story"
+        )
+      );
 
       setIsLoading(false);
     }
@@ -49,10 +78,14 @@ function Cast({ id }) {
     };
   }, [id]);
 
+  const direct = directors?.map((c) => c.name);
+  const produce = producers?.map((c) => c.name);
+  const write = writers?.map((c) => c.name);
+
   return (
     <div className="container-fluid g-0">
       <div className="d-flex align-items-center justify-content-between mb-2 mt-4">
-        <h6>Top Cast</h6>
+        <h6>Cast and Crew</h6>
         {/* SPINNER */}
         {isLoading && (
           <div className="spinner-border spinner-border-sm me-2" role="status">
@@ -60,7 +93,18 @@ function Cast({ id }) {
           </div>
         )}
       </div>
-      <div className="row g-2 gy-2 pb-3 row-cols-1 row-cols-md-3 row-cols-lg-3">
+      <div className="mb-4">
+        {directors && (
+          <Property title="Director(s)" content={`${direct?.join(", ")}`} />
+        )}
+        {producers && (
+          <Property title="Producer(s)" content={`${produce?.join(", ")}`} />
+        )}
+        {writers && (
+          <Property title="Writer(s)" content={`${write?.join(", ")}`} />
+        )}
+      </div>
+      <div className="row g-2 gy-2 pb-3 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3">
         {cast?.map((person) => {
           const imgUrl = person.profile_path;
           const srcSet = getSrcSet(imgUrl);

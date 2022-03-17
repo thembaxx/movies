@@ -4,8 +4,7 @@ import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import styles from "./movie.module.css";
 
-import Rating from "../../common/Rating";
-import MovieBackdrop from "./MovieBackdrop";
+import Header from "./Header";
 import Cast from "./Cast";
 import Details from "./Details";
 import Similar from "./Similar";
@@ -56,43 +55,24 @@ function Movie({ prop }) {
 
   return (
     <div className="position-relative pb-0" style={{ paddingTop: 72 }}>
-      {/* BACKDROP */}
-      <MovieBackdrop backdropUrl={backdropUrl} />
+      <Header
+        poster={movie?.poster_path}
+        backdrop={backdropUrl}
+        title={title}
+        vote={movie?.vote_average}
+        year={year}
+        runtime={movie?.runtime}
+      />
 
       {movie && (
-        <div className="row gx-0">
+        <div className="row gx-0 mt-5">
           <div className="col mt-3 px-4 pb-4">
             <div className="row d-flex flex-column flex-md-row ">
-              {/* IMAGE */}
-              <div className="col col-md-3 overflow-hidden position-relative">
-                <img
-                  className="img-fluid shadow rounded"
-                  src={srcSet?.default}
-                  srcSet={srcSet?.set}
-                  loading="lazy"
-                  alt={title}
-                />
-
-                {/* RATING */}
-                <div className={`position-absolute top-0 end-0 me-4 mt-2`}>
-                  {movie?.vote_average && (
-                    <Rating vote={movie?.vote_average * 10} />
-                  )}
-                </div>
-              </div>
-              <div className="col col-md-6 mt-3">
-                {/* TITLE */}
-                <span>
-                  <span className={`fs-3 lh-sm text-wrap ${styles.title}`}>
-                    {title}
-                  </span>
-                  <span className="fs-5 fw-lighter opacity-75 ms-1">
-                    ({year})
-                  </span>
-                </span>
+              <div className="col col-md-6 mt-0">
+                <div className={`${styles.tagline}`}>“{movie?.tagline}”</div>
 
                 {/* OVERVIEW */}
-                <p className="text-wrap mt-2 lh-base">{overview}</p>
+                <p className="fs-6 text-wrap mt-0 lh-base">{overview}</p>
 
                 {/* GENRES */}
                 <div>

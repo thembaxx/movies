@@ -4,8 +4,11 @@
   margin-bottom: 4px;
 }
 
-.title {
-  font-weight: 600;
+.tagline {
+  font-size: 0.9rem;
+  font-weight: 500;
+  font-style: italic;
+  margin-bottom: 16px;
 }
 
 .heading {
