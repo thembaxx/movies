@@ -14,9 +14,8 @@ function SearchResult({ movie, toggleSidebar }) {
 
   return (
     <div className={`${styles.container}`}>
-      <Link to={`/movie/${name}-${movie.id}`}
-      onClick={() => toggleSidebar()}>
-        <div className={`${styles.inner}`}>
+      <Link to={`/movie/${name}-${movie.id}`} onClick={() => toggleSidebar()}>
+        <div className={`d-flex`}>
           <div className={`${styles.imgContainer}`}>
             <img
               className={`${styles.img}`}
@@ -25,8 +24,8 @@ function SearchResult({ movie, toggleSidebar }) {
               loading="lazy"
             />
           </div>
-          <div>
-            <div className={`${styles.title} text-truncate`}>{name}</div>
+          <div className="flex-grow-1 text-truncate pe-4">
+            <span className={`${styles.title} text-truncate`}>{name}</span>
             <span className={`${styles.meta}`}>
               <i className={`bi bi-star-fill ${styles.icon}`}></i>
               <span>{vote}</span>

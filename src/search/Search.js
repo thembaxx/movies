@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import { debounce } from "lodash";
 import Popover from "@mui/material/Popover";
 import styles from "./search.module.css";
 
+import Backdrop from "@mui/material/Backdrop";
 import SearchResult from "./SearchResult";
 import { getSearchSuggestions } from "../tmdb/getData";
 
@@ -10,17 +12,24 @@ function Search({ toggleSidebar }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [movies, setMovies] = useState([]);
   const [query, setQuery] = useState("");
+  const [isFocused, setIsFocused] = useState(false);
+  const [popoverText, setPopoverText] = useState(
+    "Start typing so see suggestions"
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [containerWidth, setContainerWidth] = useState("300px");
   const containerRef = useRef();
   let navigate = useNavigate();
 
   useEffect(() => {
-return () => {
-  setContainerWidth('300px');
-  setIsLoading(false);
-  setAnchorEl(null);
-}
+    return () => {
+      setQuery("");
+      setMovies([]);
+      setContainerWidth("300px");
+      setIsLoading(false);
+      setAnchorEl(null);
+      delayedQuery.cancel();
+    };
   }, []);
 
   const resizeObserver = new ResizeObserver((entries) => {
@@ -53,26 +62,59 @@ return () => {
     if (toggleSidebar) toggleSidebar();
   }
 
-  async function handleOnChange(event) {
-    setIsLoading(true);
+  const delayedQuery = useCallback(
+    debounce((q) => sendQuery(q), 300),
+    []
+  );
 
+  const sendQuery = useCallback(async (query) => {
+    if (!query) return;
+    setPopoverText("Loading...");
+
+    try {
+      setIsLoading(true);
+
+      const response = await getSearchSuggestions(query);
+      if (response.length > 4) setMovies(response?.slice(0, 4));
+      else setMovies([]);
+
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      console.log(error);
+      setPopoverText("Error occured, please try again.");
+    }
+  });
+
+  async function handleOnChange(event) {
     const value = event.currentTarget.value;
     setQuery(value);
-    if (value) {
-      const response = await getSearchSuggestions(value);
-      setMovies(response?.slice(0, 3));
-    } else {
-      setMovies([]);
-    }
-
-    setIsLoading(false);
   }
 
-  const handleOnFocus = (event) => {
-    if (containerRef.current && containerRef.current.style.display === "none")
-      return;
+  useEffect(() => {
+    delayedQuery(query);
 
-    setAnchorEl(event.currentTarget);
+    return () => {
+      setMovies([]);
+    };
+  }, [query]);
+
+  const handleInputFocusChange = (event) => {
+    event.preventDefault();
+
+    setPopoverText("Start typing so see suggestions");
+
+    if (event.type === "focus") {
+      setIsFocused(true);
+
+      if (containerRef.current && containerRef.current.style.display === "none")
+        return;
+
+      setAnchorEl(event.currentTarget);
+    } else if (event.type === "blur") {
+      setIsFocused(false);
+      handleClose();
+    }
   };
 
   const handleClose = () => {
@@ -83,9 +125,7 @@ return () => {
   const id = open ? "simple-popover" : undefined;
 
   const placeholder = (
-    <div className={`col ${styles.placeholder}`}>
-      {query ? "no results found" : "Results will show here..."}
-    </div>
+    <div className={`col ${styles.placeholder}`}>{popoverText}</div>
   );
 
   const viewAllBtn = (
@@ -104,7 +144,7 @@ return () => {
     <div>
       <form
         ref={containerRef}
-        autoComplete="off" 
+        autoComplete="off"
         className={`${styles.form}`}
         aria-describedby={id}
         variant="contained"
@@ -114,10 +154,11 @@ return () => {
           id="search"
           type="text"
           spellCheck
+          onFocus={handleInputFocusChange}
+          onBlur={handleInputFocusChange}
           focus="false"
           autoComplete="off"
           placeholder="Search movies"
-          onFocus={handleOnFocus}
           value={query}
           onChange={handleOnChange}
           className={`${styles.input}`}
@@ -126,14 +167,13 @@ return () => {
           <i className="bi bi-search"></i>
         </label>
 
-        {isLoading && (
-          <div
-            className="spinner-border spinner-border-sm me-2 position-absolute end-0"
-            role="status"
-          >
-            <span className="visually-hidden">Loading...</span>
-          </div>
-        )}
+        <div className={`${styles.inputRight}`}>
+          {isLoading && (
+            <div className="spinner-border spinner-border-sm" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          )}
+        </div>
       </form>
       <Popover
         id={id}
@@ -157,13 +197,15 @@ return () => {
       >
         <div className="d-flex flex-column">
           <div>
-            {movies?.map((movie, index) => {
-              return <SearchResult key={index} movie={movie} />;
-            })}
+            {movies?.map((movie, index) => (
+              <SearchResult key={index} movie={movie} />
+            ))}
           </div>
           {bottom}
         </div>
       </Popover>
+
+      <Backdrop sx={{ color: "#fff", zIndex: 10 }} open={isFocused}></Backdrop>
     </div>
   );
 }

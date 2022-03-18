@@ -68,10 +68,10 @@ function App() {
           element={<Discover genres={genres} countries={countries} />}
         />
         <Route
-          path={route.movies}
+          path="/movies/:query"
           element={
             <Movies
-              prop={paramProp}
+              prop='query'
               getGenreCode={getGenreCode}
               getGenre={getGenre}
               genres={genres}
@@ -79,7 +79,7 @@ function App() {
             />
           }
         />
-        <Route
+        {/* <Route
           path={route.genre}
           element={
             <Movies
@@ -138,7 +138,7 @@ function App() {
               genres={genres}
             />
           }
-        />
+        /> */}
         <Route path={route.movie} element={<Movie prop={paramProp} />} />
         <Route path={route.about} element={<About />} />
         <Route path="*" element={<PageNotFound />} />

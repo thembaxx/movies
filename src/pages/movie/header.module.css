@@ -1,11 +1,12 @@
 .container {
-  max-height: 80vh;
+  max-height: 70vh;
   position: relative;
+  margin-bottom: 5%;
 }
 
 .backdrop {
   object-fit: cover;
-  max-height: 80vh;
+  max-height: 70vh;
   height: 100%;
   width: 100%;
   aspect-ratio: 16/9;

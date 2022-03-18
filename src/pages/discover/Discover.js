@@ -1,6 +1,18 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import { Link } from "react-router-dom";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
+import styles from "./discover.module.css";
 
-import { getDiscoveryNav } from "../../tmdb/getData";
+import { getPopularGenres, getGenres } from "../../tmdb/getData";
+import { movieEndpoints } from "../../tmdb/data";
+
+const tags = [
+  movieEndpoints.recent,
+  movieEndpoints.popular,
+  movieEndpoints.trending,
+  movieEndpoints.nowPlaying,
+];
 
 import Footer from "../../footer/Footer";
 import Hero from "../hero/Hero";
@@ -8,6 +20,7 @@ import Carousel from "./Carousel";
 
 function Discover({ genres, countries }) {
   const [navLinks, setNavLinks] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [isLoadingRow, setIsLoadingRow] = useState(false);
   const index = useRef(-1);
   const links = useRef(null);
@@ -20,31 +33,25 @@ function Discover({ genres, countries }) {
   }
 
   useEffect(() => {
-    if (!genres) return;
+    async function getData() {
+      setIsLoading(true);
 
-    const popularGenres = [
-      "adventure",
-      "action",
-      "science fiction",
-      "drama",
-      "comedy",
-      "thriller",
-      "horror",
-      "romantic",
-      "documentary",
-    ];
+      const discovery = [movieEndpoints.recent];
 
-    let genreMatches = [];
-    popularGenres.forEach((genre) => {
-      const match = genres?.find(
-        (g) => g.name.toLowerCase() === genre.toLowerCase()
-      );
+      const genres = await getGenres();
+      const res = await getPopularGenres(genres);
 
-      if (match) genreMatches.push(match);
-    });
+      if (res) discovery.push(...res);
+      links.current = discovery;
 
-    const discovery = getDiscoveryNav(genreMatches);
-    links.current = discovery;
+      setIsLoading(false);
+    }
+
+    getData();
+
+    return () => {
+      links.current = null;
+    };
   }, []);
 
   /******************** INFINITE SCROLL ******************************/
@@ -81,9 +88,18 @@ function Discover({ genres, countries }) {
   }
 
   return (
-    <div style={{ paddingTop: 72 }}>
+    <div className="container-fluid g-0" style={{ paddingTop: 72 }}>
       <div style={{ marginBottom: "48px" }}>
         <Hero genres={genres} getGenre={getGenre} />
+      </div>
+      <div className="row gx-3 gy-3 row-cols-2">
+        {tags.map((tag, i) => (
+          <div key={i} className={`col ${styles.tag}`}>
+            <Link to={tag.getRoute()}>
+              <div>{tag.name}</div>
+            </Link>
+          </div>
+        ))}
       </div>
       <div className="mt-4 pb-4">
         {navLinks?.map((navLink, index) => (
@@ -91,7 +107,7 @@ function Discover({ genres, countries }) {
             <Carousel
               name={navLink.name}
               fetchUrl={navLink.url}
-              route={navLink.route}
+              route={navLink.getRoute()}
               getGenre={getGenre}
               loading={(value) => setIsLoadingRow(value)}
             />
@@ -109,6 +125,13 @@ function Discover({ genres, countries }) {
       >
         <Footer />
       </div>
+
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={isLoading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </div>
   );
 }

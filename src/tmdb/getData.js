@@ -1,7 +1,7 @@
 import { API_KEY } from "./constants";
 import axios from "./axios";
 
-import { navigation, requests } from "./data";
+import { navigation, requests, movieEndpoints } from "./data";
 
 /********************* MOVIE INFO **************************************/
 export async function getMovie(id) {
@@ -65,6 +65,39 @@ export async function getGenres() {
   return response.data.genres;
 }
 
+export async function getPopularGenres(genres) {
+  const popularGenres = [
+    "adventure",
+    "action",
+    "science fiction",
+    "drama",
+    "comedy",
+    "thriller",
+    "horror",
+    "romantic",
+    "documentary",
+  ];
+
+  if (!genres) return;
+
+  let genreMatches = [];
+  popularGenres.forEach((genre) => {
+    const match = genres?.find(
+      (g) => g.name.toLowerCase() === genre.toLowerCase()
+    );
+
+    if (match) genreMatches.push(match);
+  });
+
+  return genreMatches?.map((genre) => ({
+    name: `${genre.name}`,
+    url: `/discover/movie?api_key=${API_KEY}&with_genres=${genre.id}&sort_by=popularity.desc&with_original_language=en`,
+    getRoute: function () {
+      return `/movies/genre?${genre.id}`;
+    },
+  }));
+}
+
 export async function getCountries() {
   const response = await axios.get(requests.countries);
 
@@ -96,6 +129,7 @@ export function constructQuery(q, genre, country, sort, years) {
     query += yearQ;
   }
 
+  query += `&language=en-US`;
   return query;
 }
 
@@ -178,7 +212,6 @@ export function getDiscoveryNav(genres) {
 /********************* SEARCH **************************************/
 export async function getSearchSuggestions(q) {
   const uri = getSearchUrl(q);
-  console.log(uri);
   const response = await axios.get(uri);
 
   return response?.data?.results;
@@ -187,3 +220,22 @@ export async function getSearchSuggestions(q) {
 export function getSearchUrl(query) {
   return `/search/movie?api_key=${API_KEY}&language=en-US&include_adult=false&query=${query}`;
 }
+
+export const getMovieEndpoint = (param) => {
+  if (!param) return;
+  let endpoint;
+
+  const name = param.split("-").join(" ");
+
+  const entries = Object.entries(movieEndpoints);
+
+  for (let i = 0; i < entries.length; i++) {
+    const entry = entries[i];
+    if (entry[1].name === name) {
+      endpoint = entry[1];
+      break;
+    }
+  }
+
+  return endpoint;
+};

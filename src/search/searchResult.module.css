@@ -1,14 +1,12 @@
 .container {
   padding: 6px 6px;
   transition: background-color 0.2s;
+  width: 100%;
+  overflow: hidden;
 }
 
 .container:hover {
   background-color: rgba(255, 255, 255, 0.1);
-}
-
-.inner {
-  display: flex;
 }
 
 .imgContainer {
@@ -33,8 +31,9 @@
   font-weight: 500;
   font-size: 1rem;
   margin-top: 8px;
-  line-height: 1.1;
+  line-height: 1.8;
   margin-bottom: 4px;
+  flex-grow: 1;
 }
 
 .meta {
