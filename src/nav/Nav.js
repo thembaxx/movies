@@ -16,18 +16,6 @@ function Nav({ toggleSidebar, genres, countries }) {
     <nav className={`navbar navbar-expand-md fixed-top ${styles.container}`}>
       <div className="container-fluid d-flex align-items-center px-3">
         <Logo />
-        {/* <div className="d-flex align-items-center">
-          <Logo />
-          <div style={{ marginLeft: -16 }}>
-            <NavLink
-              name="Categories"
-              isPopup
-              responsive={false}
-              items={moviesList}
-            />
-          </div>
-        </div> */}
-
         <ToggleButton target={contentId} toggleSidebar={toggleSidebar} />
 
         <div className="collapse navbar-collapse">

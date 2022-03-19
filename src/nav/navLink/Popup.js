@@ -5,7 +5,6 @@ import styles from "./popup.module.css";
 
 function Popup({ items, routeBase, children }) {
   const [anchorEl, setAnchorEl] = useState(null);
-
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -35,6 +34,7 @@ function Popup({ items, routeBase, children }) {
         </div>
         <Popover
           id={id}
+          disableScrollLock={true}
           open={open}
           anchorEl={anchorEl}
           onClose={handleClose}
@@ -47,25 +47,24 @@ function Popup({ items, routeBase, children }) {
             horizontal: "center",
           }}
           PaperProps={{
-            style: { maxWidth: `300px` },
+            style: { maxWidth: `414px` },
           }}
         >
           <div className={`${styles.inner} container-fluid g-0 m-0 p-0`}>
             <div className={`${containerClass}`}>
               {items?.map((item, index) => {
-                const to = item.route
-                  ? item.route
-                  : `${routeBase}${item?.name.toLowerCase()}`;
+                const to = `${routeBase}?${item?.id}`;
 
                 return (
-                  <div
+                  <Link
                     key={`${item.name}_rgxy_${index}`}
-                    className={`${styles.link}`}
+                    to={to}
+                    onClick={handleClose}
                   >
-                    <Link to={to} onClick={handleClose}>
-                      <div className="text-truncate">{item.name}</div>
-                    </Link>
-                  </div>
+                    <div className={`${styles.link} text-truncate`}>
+                      {item.name}
+                    </div>
+                  </Link>
                 );
               })}
             </div>

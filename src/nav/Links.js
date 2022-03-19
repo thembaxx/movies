@@ -25,7 +25,6 @@ function Links({ genres, countries }) {
           isPopup={!link.isLink}
           items={getItems(link)}
           route={link.getRoute()}
-          routBase={link?.route}
         />
       ))}
     </div>

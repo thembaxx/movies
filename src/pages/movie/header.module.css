@@ -72,10 +72,10 @@
 }
 
 .ratingIcon {
-  margin-right: 8px;
+  margin-right: 6px;
   margin-top: -1px;
-  color: #f3ce13;
-  font-size: ".75rem";
+  color: var(--yellow);
+  font-size: ".7rem";
 }
 
 .actions {

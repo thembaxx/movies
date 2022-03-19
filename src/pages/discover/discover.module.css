@@ -1,7 +1,7 @@
 .tag {
   border-radius: 10px;
   cursor: pointer;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.15);
   text-transform: uppercase;
   font-weight: 500;
   font-size: 0.8rem;
@@ -11,5 +11,5 @@
 }
 
 .tag:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.2);
 }

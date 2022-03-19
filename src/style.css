@@ -78,8 +78,9 @@ body {
 }
 
 .MuiPopover-paper {
-  background-color: #020a18 !important;
+  background-color: #0f0f0f !important;
   border-radius: var(--border-radius) !important;
+  padding: 10px;
 }
 
 /* Small devices (landscape phones, 576px and up) */

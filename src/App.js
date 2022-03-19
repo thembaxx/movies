@@ -71,7 +71,7 @@ function App() {
           path="/movies/:query"
           element={
             <Movies
-              prop='query'
+              prop="query"
               getGenreCode={getGenreCode}
               getGenre={getGenre}
               genres={genres}

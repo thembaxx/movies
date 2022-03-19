@@ -8,8 +8,8 @@
 }
 
 .input {
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 2px solid var(--brand-color-border);
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px solid transparent;
   border-radius: var(--border-radius);
   color: white;
   outline: none;
@@ -34,11 +34,11 @@
 
 .input:focus {
   background-color: rgba(255, 255, 255, 0.1);
-  border: 2px solid var(--brand-color);
+  border: 2px solid var(--purple);
 }
 
 .input:focus + label {
-  color: var(--brand-color);
+  color: var(--purple);
 }
 
 .button {

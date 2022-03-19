@@ -2,7 +2,6 @@ import React from "react";
 import Popover from "@mui/material/Popover";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import PopupState, { bindTrigger, bindPopover } from "material-ui-popup-state";
 import styles from "./filter.module.css";
@@ -11,6 +10,7 @@ const BpIcon = styled("span")(({ theme }) => ({
   borderRadius: 5,
   width: 16,
   height: 16,
+  transition: "all 0.35s ease-out",
   backgroundColor: "rgba(255, 255, 255, 0.1)",
   border: "2px solid transparent",
   "input:hover ~ &": {
@@ -24,6 +24,8 @@ const BpCheckedIcon = styled(BpIcon)({
   border: "2px solid var(--brand-color)",
   display: "flex",
   alignItems: "center",
+  transition: "all 0.35s ease-out",
+
   justifyContent: "center",
   "input:hover ~ &": {
     backgroundColor: "#106ba3",
@@ -78,6 +80,7 @@ function Filter({ title, items, onChange }) {
             </div>
             <Popover
               id="filter-popover"
+              disableScrollLock={true}
               {...bindPopover(popupState)}
               anchorOrigin={{
                 vertical: "bottom",
@@ -88,42 +91,28 @@ function Filter({ title, items, onChange }) {
                 horizontal: "center",
               }}
               PaperProps={{
-                style: { maxWidth: `500px` },
+                style: { maxWidth: `412px` },
               }}
             >
-              <div className={`container-fluid g-0`}>
-                <div className={`row m-3 ${containerClass}`}>
+              <div className={`container-fluid pe-0`}>
+                <div className={`row gx-0 ${containerClass}`}>
                   {items?.map((item, index) => {
                     return (
-                      <div className={`${styles.item} col`} key={index}>
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              disableRipple
-                              color="default"
-                              checkedIcon={<BpCheckedIcon />}
-                              icon={<BpIcon />}
-                              checked={item.isChecked}
-                              onChange={(e) => handleOnChange(e, index)}
-                              inputProps={{ "aria-label": "controlled" }}
-                            />
-                          }
-                          label={
-                            <Typography
-                              component="span"
-                              sx={{
-                                maxWidth: "130px",
-                                marginRight: "10px",
-                                whiteSpace: "nowrap",
-                              }}
-                              className={`${styles.label} text-nowrap`}
-                              noWrap
-                            >
-                              {item.name}
-                            </Typography>
-                          }
-                        />
-                      </div>
+                      <FormControlLabel
+                        className={`col ${styles.formControlLabel} text-truncate`}
+                        control={
+                          <Checkbox
+                            disableRipple
+                            color="default"
+                            checkedIcon={<BpCheckedIcon />}
+                            icon={<BpIcon />}
+                            checked={item.isChecked}
+                            onChange={(e) => handleOnChange(e, index)}
+                            inputProps={{ "aria-label": "controlled" }}
+                          />
+                        }
+                        label={item.name}
+                      />
                     );
                   })}
                 </div>

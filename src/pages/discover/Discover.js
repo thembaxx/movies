@@ -129,7 +129,12 @@ function Discover({ genres, countries }) {
       </div>
 
       <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        sx={{
+          color: "#fff",
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+          backdropFilter: "blur(4px)",
+        }}
         open={isLoading}
       >
         <CircularProgress color="inherit" />

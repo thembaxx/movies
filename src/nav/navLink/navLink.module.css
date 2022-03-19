@@ -1,15 +1,22 @@
 .container {
+  border-radius: 10px;
   padding: 8px 12px;
   display: flex;
   align-items: center;
+
+  transition: background-color 0.35s;
+}
+
+.container:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .link {
   color: rgba(255, 255, 255, 0.8);
   font-size: 0.9rem;
   font-weight: 400;
-  line-height: 2;
-
+  line-height: 1.1;
+  text-transform: capitalize;
   white-space: nowrap;
   position: relative;
 }

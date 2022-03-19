@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import styles from './reviews.module.css';
+import React, { useState, useEffect } from "react";
+import styles from "./reviews.module.css";
 
-import { getReviews } from '../../tmdb/getData';
-import { formatDate } from '../../helpers';
+import { getReviews } from "../../tmdb/getData";
+import { formatDate } from "../../helpers";
 
 function Reviews({ id }) {
   const [reviews, setReviews] = useState([]);
@@ -47,8 +47,8 @@ function Reviews({ id }) {
                   className="bi bi-star-fill"
                   style={{
                     marginRight: 6,
-                    fontSize: '.75rem',
-                    color: '#f3ce13',
+                    fontSize: ".75rem",
+                    color: "#f3ce13",
                   }}
                 ></i>
                 <span>{review?.author_details?.rating}/10</span>
@@ -56,13 +56,13 @@ function Reviews({ id }) {
             );
           }
 
-          let date = review?.created_at?.split('T');
+          let date = review?.created_at?.split("T");
           let dateStr = formatDate(date[0]);
 
           return (
             <div key={review.id} className={`${styles.container} mb-3`}>
               <div className={`${styles.author}`}>
-                {review.author}{' '}
+                {review.author}{" "}
                 <span className={`${styles.username}`}>
                   @{review?.author_details?.username}
                 </span>
@@ -80,7 +80,7 @@ function Reviews({ id }) {
   return (
     <div className="container-fluid p-0 px-3 py-4">
       <div className="d-flex align-items-center justify-content-between">
-        <h6 className={`${styles.title}`}>User reviews</h6>
+        {/* <h6 className={`${styles.title}`}>User reviews</h6> */}
         {/* SPINNER */}
         {isLoading && (
           <div className="spinner-border spinner-border-sm me-2" role="status">

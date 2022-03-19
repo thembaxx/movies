@@ -182,6 +182,7 @@ function Search({ toggleSidebar }) {
       <Popover
         id={id}
         open={open}
+        disableScrollLock={true}
         disableAutoFocus={true}
         disableEnforceFocus={true}
         anchorEl={anchorEl}

@@ -150,8 +150,12 @@ function Cast({ id }) {
           );
         })}
       </div>
-      <span role="button" className="fs-6" style={{ fontWeight: 500 }}>
-        See all cast <i className="bi bi-chevron-right fs-6"></i>
+      <span
+        role="button"
+        className="fs-6 d-flex align-items-center"
+        style={{ fontWeight: 500 }}
+      >
+        See all cast <i className="bi bi-arrow-right-short fs-5 ms-1"></i>
       </span>
     </div>
   );

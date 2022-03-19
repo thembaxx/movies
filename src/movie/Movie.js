@@ -10,7 +10,7 @@ import Popup from "./Popup";
 
 const bgColor = "rgba(255, 255, 255, 0.08)";
 
-function Movie({ genres, movie, loading, showInfo = true }) {
+function Movie({ genres, movie, showInfo = true }) {
   const [id, setId] = useState(null);
   const [title, setTitle] = useState(null);
   const [rating, setRating] = useState(null);
@@ -125,7 +125,12 @@ function Movie({ genres, movie, loading, showInfo = true }) {
     </Link>
   );
 
-  return content;
+  // return content;
+  return (
+    <Popup movie={movie} name={title} genre={genre} year={releaseDate}>
+      {content}
+    </Popup>
+  );
 }
 
 export default Movie;
