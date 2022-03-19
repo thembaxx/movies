@@ -1,10 +1,17 @@
 .container {
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: rgba(255, 255, 255, 0.08);
   border-radius: var(--border-radius);
+  cursor: pointer;
   display: flex;
   align-items: center;
   padding: 8px;
   overflow: hidden;
+
+  transition: background-color 0.35s;
+}
+
+.container:hover {
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
 .imgContainer {
