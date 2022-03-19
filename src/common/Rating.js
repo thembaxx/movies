@@ -13,15 +13,17 @@ function Rating({ vote }) {
         borderRadius: "8px",
         display: "flex",
         alignItems: "center",
-        fontWeight: 400,
-        padding: "3px 12px 3px 8px",
+        fontWeight: 500,
+        fontSize: ".7rem",
+        lineHeight: 1,
+        padding: "6px 12px 6px 8px",
       }}
     >
       <i
-        className="bi bi-star-fill"
-        style={{ marginRight: 5, fontSize: ".7rem" }}
+        className="bi bi-star"
+        style={{ marginRight: 5, marginTop: "-1px", fontSize: ".7rem" }}
       ></i>
-      <span>{vote}</span>
+      <span>{vote / 10}</span>
     </div>
   );
 

@@ -31,6 +31,7 @@ function Movies({ prop, getGenreCode, getGenre, genres, countries }) {
   /*******************FILTERS*********************/
 
   function applyFilters(filters) {
+    setPage(1);
     setFilters(filters);
     const { genres, country, sort, years } = filters;
     const q = constructQuery("", genres, country, sort, years);
@@ -38,7 +39,11 @@ function Movies({ prop, getGenreCode, getGenre, genres, countries }) {
   }
 
   function setPageTitle(endpoint) {
-    setTitle(`${capitalizeStr(endpoint.name)}`);
+    if (endpoint === movieEndpoints.search) {
+      setTitle(`Movies with “${location?.search.slice(1)}”`);
+    } else {
+      setTitle(`${capitalizeStr(endpoint.name)}`);
+    }
     // if (pathname.startsWith("/genre")) {
     //   setTitle(`${capitalizeStr(endpoint.name)}`);
     // } else if (pathname.startsWith("/discover")) {
@@ -103,6 +108,16 @@ function Movies({ prop, getGenreCode, getGenre, genres, countries }) {
     setPageTitle(endpoint);
     updateFilters(endpoint);
     let url = endpoint?.url;
+
+    if (endpoint === movieEndpoints.search) {
+      let search = location?.search;
+
+      if (search) {
+        const q = location?.search.slice(1);
+        url += q;
+      }
+    }
+
     setFetchUrl(url);
 
     setQuery(url);

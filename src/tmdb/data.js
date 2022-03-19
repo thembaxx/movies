@@ -1,4 +1,3 @@
-import React from "react";
 import { API_KEY } from "./constants";
 import { route } from "../common";
 
@@ -14,76 +13,7 @@ export const requests = {
   fetchUpcoming: `/movie/upcoming?api_key=${API_KEY}`,
   countries: `/configuration/countries?api_key=${API_KEY}`,
   genre: `/discover/movie?api_key=${API_KEY}&primary_release_date.lte=${today}&with_original_language=en`,
-};
-
-export const navigation = {
-  popular: {
-    name: "Popular",
-    url: requests.popular,
-    routeAlias: "popular",
-    route: `/discover/popular`,
-    isLink: true,
-    icon: <i className="bi bi-award"></i>,
-  },
-  trending: {
-    name: "Trending",
-    url: requests.trendingDaily,
-    routeAlias: "trending",
-    route: `/discover/trending`,
-    isLink: true,
-    icon: <i className="bi bi-ticket-perforated"></i>,
-  },
-  nowPlaying: {
-    name: "In Theatres",
-    url: requests.nowPlaying,
-    routeAlias: "in-theatres",
-    route: `/discover/in-theatres`,
-    isLink: true,
-  },
-  upcoming: {
-    name: "Coming Soon",
-    url: requests.fetchUpcoming,
-    routeAlias: "coming-soon",
-    route: `/discover/coming-soon`,
-    isLink: true,
-    icon: <i className="bi bi-calendar-event"></i>,
-  },
-  discover: {
-    name: "Discover",
-    route: route.discover,
-    isLink: true,
-    icon: <i className="bi bi-compass"></i>,
-  },
-  movies: {
-    name: "Movies",
-    route: route.movies,
-    isLink: true,
-  },
-  country: {
-    name: "Country",
-    route: "/country/",
-    isLink: false,
-  },
-  genre: {
-    name: "Genre",
-    route: "/genre/",
-    isLink: false,
-  },
-  topRated: {
-    name: "Top Rated",
-    url: requests.topRated,
-    routeAlias: "top-rated",
-    route: `/discover/top-rated`,
-    isLink: true,
-    icon: <i className="bi bi-stars"></i>,
-  },
-
-  about: {
-    name: "About",
-    route: route.about,
-    isLink: true,
-    icon: <i className="bi bi-record-btn-fill"></i>,
-  },
+  search: `/search/movie?api_key=${API_KEY}&language=en-US&include_adult=false&query=`,
 };
 
 export const movieEndpoints = {
@@ -94,6 +24,36 @@ export const movieEndpoints = {
   topRated: getEndpoint("top rated", requests.topRated),
   upcoming: getEndpoint("popular", requests.fetchUpcoming),
   genre: getEndpoint("genre", requests.genre),
+  search: getEndpoint("search", requests.search),
+};
+
+export const navigation = {
+  popular: Object.assign({}, movieEndpoints.popular, { isLink: true }),
+  trending: Object.assign({}, movieEndpoints.trending, { isLink: true }),
+  nowPlaying: Object.assign({}, movieEndpoints.nowPlaying, { isLink: true }),
+  upcoming: Object.assign({}, movieEndpoints.upcoming, { isLink: true }),
+  genre: Object.assign({}, movieEndpoints.genre, { isLink: false }),
+  topRated: Object.assign({}, movieEndpoints.topRated, { isLink: true }),
+  discover: {
+    name: "Discover",
+    getRoute: () => route.discover,
+    isLink: true,
+  },
+  movies: {
+    name: "Movies",
+    getRoute: () => route.movies,
+    isLink: true,
+  },
+  country: {
+    name: "Country",
+    getRoute: () => route.country,
+    isLink: false,
+  },
+  about: {
+    name: "About",
+    getRoute: () => route.about,
+    isLink: true,
+  },
 };
 
 function getEndpoint(title, url) {
@@ -103,9 +63,9 @@ function getEndpoint(title, url) {
     url: url,
     getRoute: function (params) {
       if (!params) {
-        return `/movies/${title}`;
+        return `/movies/${title.split(" ").join("-")}`;
       } else {
-        return `/movies/${title}?${params}`;
+        return `/movies/${title.split(" ").join("-")}?${params}`;
       }
     },
   };

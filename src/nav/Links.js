@@ -24,7 +24,7 @@ function Links({ genres, countries }) {
           name={link.name}
           isPopup={!link.isLink}
           items={getItems(link)}
-          route={link.route}
+          route={link.getRoute()}
           routBase={link?.route}
         />
       ))}

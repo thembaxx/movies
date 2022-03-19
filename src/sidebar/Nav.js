@@ -1,8 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import commonStyles from '../common/common.module.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import commonStyles from "../common/common.module.css";
 
-import { navigation } from '../tmdb/data';
+import { navigation } from "../tmdb/data";
 
 const navLinks = [
   navigation.discover,
@@ -21,14 +21,13 @@ function Nav({ toggleSidebar }) {
           return (
             <Link
               key={index}
-              to={link.route}
-              style={{ fontSize: 17, fontWeight: 500 }}
-              className={`d-flex align-items-center py-2`}
+              to={link.getRoute()}
+              style={{ fontSize: 17, fontWeight: 500, padding: "2px 0" }}
+              className={`d-flex align-items-center `}
               onClick={() => toggleSidebar()}
             >
-              <span className="me-3">{link.icon}</span>{' '}
               <span
-                className={`position-relative text-uppercase ${commonStyles.link}`}
+                className={`position-relative text-capitalize ${commonStyles.link}`}
               >
                 {link.name}
               </span>

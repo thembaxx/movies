@@ -67,21 +67,15 @@
 }
 
 .runtime {
-  background-color: white;
-  border-radius: 2px;
-  color: var(--primary-background);
-  font-size: 0.75rem;
-  font-weight: 500;
   line-height: 1;
   padding: 4px 4px;
-  margin-left: 12px;
 }
 
 .ratingIcon {
   margin-right: 8px;
   margin-top: -1px;
   color: #f3ce13;
-  font-size: ".875rem";
+  font-size: ".75rem";
 }
 
 .actions {

@@ -22,21 +22,21 @@ function useFetch(query, page) {
         setLoading(false);
       } catch (err) {
         setError(err);
+        console.log(err);
       }
     },
     [query, page]
   );
 
   useEffect(() => {
-
-    if(query) sendQuery(query + `&page=${page}`);
+    if (query) sendQuery(query + `&page=${page}`);
 
     return () => {
       setList([]);
       setPagingData({});
       setError(false);
       setLoading(true);
-    }
+    };
   }, [query, sendQuery, page]);
 
   return { loading, error, list };

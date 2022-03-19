@@ -39,8 +39,8 @@
 }
 
 .button:hover {
-  border-color: transparent;
-  background-color: var(--brand-color-hover);
+  background-color: white;
+  color: var(--primary-background);
 }
 
 .imgContainer {
@@ -57,7 +57,7 @@
 
 .imgOverlay {
   background-color: var(--primary-background);
-  opacity: 0.97;
+  opacity: 1;
   position: absolute;
   top: 0;
   height: 100%;

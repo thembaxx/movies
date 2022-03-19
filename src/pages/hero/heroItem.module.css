@@ -1,5 +1,5 @@
 .img {
-  transition: opacity .875s ;
+  transition: opacity 0.875s;
 }
 
 .title {
@@ -12,8 +12,9 @@
 
 .ratingIcon {
   margin-right: 6px;
-  color: #f3ce13;
-  font-size: '.9rem';
+  margin-left: 12px;
+  color: var(--yellow);
+  font-size: 0.75rem;
 }
 
 .overview {

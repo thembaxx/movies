@@ -17,9 +17,9 @@
 
 .dot {
   background-color: white;
-  opacity: 0.2;
+  opacity: 0.1;
   height: 2px;
-  width: 8px;
+  width: 6px;
   margin-right: 4px;
   transition: opacity 0.2s;
 }
@@ -36,13 +36,12 @@
 }
 
 .button {
-  background-color: rgba(0, 0, 0, 0.5);
-  border: 2px solid white;
+  background-color: rgba(0, 0, 0, 0.75);
   color: white;
-  border-radius: 10px;
+  border-radius: 9999px;
   cursor: pointer;
-  height: 36px;
-  width: 36px;
+  height: 32px;
+  width: 32px;
   position: absolute;
   display: flex;
   align-items: center;

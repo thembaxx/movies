@@ -76,9 +76,8 @@ function HeroItem({
       >
         <Link to={`/movie/${name}-${id}`} className="mb-">
           <h3 className={`text-truncate ${styles.title}`}>{name}</h3>
-          <div className="mt-1 mt-md-2 mb-2">
+          <div className="mt-1 mt-md-2 mb-2 d-flex align-items-center">
             <span>{year}</span>
-            <span className="mx-1">·</span>
             <i className={`bi bi-star-fill ${styles.ratingIcon}`}></i>
             <span>{vote}</span>
           </div>

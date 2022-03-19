@@ -70,7 +70,7 @@ function Filter({ title, items, onChange }) {
               variant="contained"
               {...bindTrigger(popupState)}
             >
-              <div>
+              <div className="text-nowrap text-truncate me-1">
                 {title}{" "}
                 <span className={`${styles.subtitle} ms-1`}>{subtitle}</span>
               </div>
@@ -111,7 +111,11 @@ function Filter({ title, items, onChange }) {
                           label={
                             <Typography
                               component="span"
-                              sx={{ maxWidth: "130px", marginRight: "10px" }}
+                              sx={{
+                                maxWidth: "130px",
+                                marginRight: "10px",
+                                whiteSpace: "nowrap",
+                              }}
                               className={`${styles.label} text-nowrap`}
                               noWrap
                             >

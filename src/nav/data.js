@@ -2,7 +2,6 @@ import { navigation } from "../tmdb/data";
 
 export const navLinks = [
   navigation.discover,
-  // navigation.country, incomplete :to-do
   navigation.movies,
   navigation.genre,
   navigation.about,

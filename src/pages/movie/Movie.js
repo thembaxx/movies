@@ -12,7 +12,6 @@ import Aside from "./Aside";
 import Genre from "../common/Genre";
 
 import { getMovie } from "../../tmdb/getData";
-import { getSrcSet } from "../../imageHelpers";
 
 function Movie({ prop }) {
   const [movie, setMovie] = useState();
@@ -51,7 +50,6 @@ function Movie({ prop }) {
   const genres = movie?.genres;
   const backdropUrl = movie?.backdrop_path;
   const imgUrl = movie?.poster_path ? movie?.poster_path : movie?.backdrop_path;
-  const srcSet = getSrcSet(imgUrl);
 
   return (
     <div className="position-relative pb-0" style={{ paddingTop: 72 }}>
@@ -62,6 +60,7 @@ function Movie({ prop }) {
         vote={movie?.vote_average}
         year={year}
         runtime={movie?.runtime}
+        voteCount={movie?.vote_count}
       />
 
       {movie && (

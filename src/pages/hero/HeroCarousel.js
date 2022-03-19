@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Carousel } from 'react-bootstrap';
-import styles from './Hero.module.css';
+import React, { useState } from "react";
+import { Carousel } from "react-bootstrap";
+import styles from "./Hero.module.css";
 
-import HeroItem from './HeroItem';
+import HeroItem from "./HeroItem";
 
 function HeroCarousel({ movies, getGenre }) {
   const [index, setIndex] = useState(0);
@@ -42,7 +42,7 @@ function HeroCarousel({ movies, getGenre }) {
       >
         <div
           className={`${styles.indicator} ${
-            i === index ? `${styles.active}` : ''
+            i === index ? `${styles.active}` : ""
           }`}
         ></div>
       </button>
@@ -50,8 +50,9 @@ function HeroCarousel({ movies, getGenre }) {
   });
 
   return (
-    <div className="position-relative mb-4" >
+    <div className="position-relative mb-4">
       <Carousel
+        fade
         activeIndex={index}
         onSelect={handleSelect}
         indicators={false}
@@ -61,7 +62,7 @@ function HeroCarousel({ movies, getGenre }) {
       </Carousel>
       <div
         className="carousel-indicators m-0 position-absolute bottom-0"
-        style={{ transform: 'translateY(100%)' }}
+        style={{ transform: "translateY(100%)" }}
       >
         {indicators}
       </div>

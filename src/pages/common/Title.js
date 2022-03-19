@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import styles from './title.module.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import styles from "./title.module.css";
 
 function Title({
   name,
@@ -9,7 +9,7 @@ function Title({
   canClick = true,
   showExplore = true,
 }) {
-  const pEvents = canClick ? 'all' : 'none';
+  const pEvents = canClick ? "all" : "none";
 
   return (
     <Link to={`${route}`} style={{ pointerEvents: `${pEvents}` }}>

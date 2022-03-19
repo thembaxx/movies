@@ -88,22 +88,24 @@ function Discover({ genres, countries }) {
   }
 
   return (
-    <div className="container-fluid g-0" style={{ paddingTop: 72 }}>
+    <div style={{ paddingTop: 72 }}>
       <div style={{ marginBottom: "48px" }}>
         <Hero genres={genres} getGenre={getGenre} />
       </div>
-      <div className="row gx-3 gy-3 row-cols-2">
-        {tags.map((tag, i) => (
-          <div key={i} className={`col ${styles.tag}`}>
-            <Link to={tag.getRoute()}>
-              <div>{tag.name}</div>
+      <div className="container-fluid g-0 pb-4 pt-2">
+        <div className="row row-cols-2 row-cols-sm-4 g-2 px-3 ">
+          {tags.map((tag, i) => (
+            <Link key={i} to={tag.getRoute()}>
+              <div className={`col ${styles.tag} text-nowrap text-truncate`}>
+                {tag.name}
+              </div>
             </Link>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
       <div className="mt-4 pb-4">
         {navLinks?.map((navLink, index) => (
-          <div className="mb-5" key={index}>
+          <div className="mb-4" key={index}>
             <Carousel
               name={navLink.name}
               fetchUrl={navLink.url}

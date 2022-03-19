@@ -195,7 +195,7 @@ function Carousel({ name, fetchUrl, route, getGenre, loading }) {
             className={`${styles.button} ${styles.prev}`}
             onClick={scrollPrevious}
           >
-            <i className="bi bi-chevron-left fs-6"></i>
+            <i className="bi bi-arrow-left-short fs-6"></i>
           </div>
         )}
         {nextEnabled && (
@@ -203,7 +203,7 @@ function Carousel({ name, fetchUrl, route, getGenre, loading }) {
             className={`${styles.button} ${styles.next}`}
             onClick={scrollNext}
           >
-            <i className="bi bi-chevron-right fs-6"></i>
+            <i className="bi bi-arrow-right-short fw-bolder fs-6"></i>
           </div>
         )}
       </div>

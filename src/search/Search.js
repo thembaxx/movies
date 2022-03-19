@@ -7,6 +7,7 @@ import styles from "./search.module.css";
 import Backdrop from "@mui/material/Backdrop";
 import SearchResult from "./SearchResult";
 import { getSearchSuggestions } from "../tmdb/getData";
+import { movieEndpoints } from "../tmdb/data";
 
 function Search({ toggleSidebar }) {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -57,8 +58,11 @@ function Search({ toggleSidebar }) {
     };
   }, [containerRef]);
 
-  function handleClick() {
-    navigate(`/search/q=${query}`);
+  function handleClick(event) {
+    event.preventDefault();
+    const q = query;
+    const route = movieEndpoints.search.getRoute(q);
+    navigate(route);
     if (toggleSidebar) toggleSidebar();
   }
 

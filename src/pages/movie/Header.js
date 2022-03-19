@@ -3,10 +3,11 @@ import Skeleton from "@mui/material/Skeleton";
 import styles from "./header.module.css";
 
 import { getSrcSet } from "../../imageHelpers";
+import { timeConverter } from "../../helpers";
 const gradient =
   "linear-gradient(180deg, rgba(1, 4, 9, 0) 0%, rgba(1, 4, 9, 0.8) 56.25%, #010409 100%)";
 
-function Header({ poster, backdrop, title, vote, year, runtime }) {
+function Header({ poster, backdrop, title, vote, year, runtime, voteCount }) {
   const [posterSrcset, setPosterSrcset] = useState(null);
   const [backdropSrcset, setBackdropSrcset] = useState(null);
 
@@ -58,12 +59,17 @@ function Header({ poster, backdrop, title, vote, year, runtime }) {
           <div className={`${styles.info}`}>
             <div>
               <i className={`bi bi-star-fill ${styles.ratingIcon}`}></i>
-              <span>{vote}</span>
+              <span>
+                {vote} {`(${voteCount})`}
+              </span>
             </div>
             <div className={`${styles.title} text-wrap`}>{title}</div>
             <div className={`${styles.subtitle}`}>
               <span>{year}</span>
-              <div className={`${styles.runtime}`}>{runtime} min</div>
+              <span style={{ margin: "0 6px 0 8px" }}>·</span>
+              <span className={`${styles.runtime}`}>
+                {timeConverter(runtime)}
+              </span>
             </div>
             <div className={`${styles.actions}`}>
               <div className={`${styles.button}`}>

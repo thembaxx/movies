@@ -95,13 +95,13 @@ function Cast({ id }) {
       </div>
       <div className="mb-4">
         {directors && (
-          <Property title="Director(s)" content={`${direct?.join(", ")}`} />
+          <Property title="Director" content={`${direct?.join(", ")}`} />
         )}
         {producers && (
-          <Property title="Producer(s)" content={`${produce?.join(", ")}`} />
+          <Property title="Producer" content={`${produce?.join(", ")}`} />
         )}
         {writers && (
-          <Property title="Writer(s)" content={`${write?.join(", ")}`} />
+          <Property title="Writer" content={`${write?.join(", ")}`} />
         )}
       </div>
       <div className="row g-2 gy-2 pb-3 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3">
