@@ -1,3 +1,12 @@
+.container {
+  height: 100%;
+  width: 100%;
+  aspect-ratio: 16/9;
+  position: relative;
+  max-height: 70vh;
+  overflow: hidden;
+}
+
 .img {
   transition: opacity 0.875s;
 }

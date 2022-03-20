@@ -75,6 +75,7 @@ function Cast({ id }) {
     return () => {
       setCast([]);
       setIsLoading(false);
+      setImageLoaded(false);
     };
   }, [id]);
 
@@ -93,6 +94,7 @@ function Cast({ id }) {
           </div>
         )}
       </div>
+      
       <div className="mb-4">
         {directors && (
           <Property title="Director" content={`${direct?.join(", ")}`} />
@@ -120,8 +122,8 @@ function Cast({ id }) {
                   )}
                   <img
                     style={{
-                      opacity: imageLoaded ? "1" : "0",
-                      display: imageLoaded ? "block" : "none",
+                      opacity: 0,
+                      display: "none",
                     }}
                     className={`${styles.img}`}
                     src={srcSet?.default}
@@ -131,6 +133,8 @@ function Cast({ id }) {
                     onLoad={(e) => {
                       const image = e.target;
                       if (image.complete && image.naturalHeight !== 0) {
+                        image.style.display = "block";
+                        image.style.opacity = 1;
                         setImageLoaded(true);
                       }
                     }}

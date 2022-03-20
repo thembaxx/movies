@@ -1,21 +1,27 @@
-import React from 'react';
-import Slide from '@mui/material/Slide';
-import styles from './sidebar.module.css';
+import React from "react";
+import Slide from "@mui/material/Slide";
+import styles from "./sidebar.module.css";
 
-import { email } from '../constants';
+import { email } from "../constants";
 
-import Header from './Header';
-import Search from '../search/Search';
-import Nav from './Nav';
-import Footer from '../footer/Footer';
+import Header from "./Header";
+import Search from "../search/Search";
+import Nav from "./Nav";
+import Footer from "../footer/Footer";
 
 function Sidebar({ toggleSidebar, isOpen, genres }) {
   return (
-    <Slide direction="right" in={isOpen} mountOnEnter unmountOnExit>
+    <div
+      id="sidebar"
+      className={`container-fluid position-fixed top-0 h-100 w-100 p-0 m-0 ${styles.container}`}
+      style={{ display: `${isOpen ? "block" : "none"}` }}
+    >
       <div
-        id="sidebar"
-        className={`container-fluid position-fixed top-0 h-100 w-100 p-0 m-0 ${styles.container}`}
-      >
+        className={`${styles.backdrop}`}
+        onClick={toggleSidebar}
+        style={{ opacity: `${isOpen ? 1 : 0}` }}
+      ></div>
+      <Slide direction="right" in={isOpen} mountOnEnter unmountOnExit>
         <div className={`row h-100 p-0 m-0`}>
           <div
             className={`d-flex flex-column col-sm-4 col-md-4 p-0 m-0 h-100 position-relative ${styles.inner}`}
@@ -23,7 +29,7 @@ function Sidebar({ toggleSidebar, isOpen, genres }) {
             <div className="py-3 px-3">
               <Header toggleSidebar={toggleSidebar} genres={genres} />
               <div className="py-3 w-100">
-                <Search toggleSidebar={toggleSidebar}/>
+                <Search toggleSidebar={toggleSidebar} />
               </div>
             </div>
             <div className="flex-grow-1">
@@ -33,7 +39,7 @@ function Sidebar({ toggleSidebar, isOpen, genres }) {
               <a
                 rel="noreferrer"
                 href={`mailto:${email}`}
-                style={{ fontWeight: 500, color: '#f3ce13' }}
+                style={{ fontWeight: 500, color: "#f3ce13" }}
               >
                 {email}
               </a>
@@ -45,8 +51,8 @@ function Sidebar({ toggleSidebar, isOpen, genres }) {
             </div>
           </div>
         </div>
-      </div>
-    </Slide>
+      </Slide>
+    </div>
   );
 }
 

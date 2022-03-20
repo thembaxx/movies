@@ -79,66 +79,7 @@ function App() {
             />
           }
         />
-        {/* <Route
-          path={route.genre}
-          element={
-            <Movies
-              prop={paramProp}
-              getGenreCode={getGenreCode}
-              getGenre={getGenre}
-              genres={genres}
-              countries={countries}
-            />
-          }
-        />
-        <Route
-          path={route.country}
-          element={
-            <Movies
-              prop={paramProp}
-              getGenreCode={getGenreCode}
-              getGenre={getGenre}
-              genres={genres}
-              countries={countries}
-            />
-          }
-        />
-        <Route
-          path={route.discoverList}
-          element={
-            <Movies
-              prop={paramProp}
-              getGenreCode={getGenreCode}
-              getGenre={getGenre}
-              genres={genres}
-              countries={countries}
-            />
-          }
-        />
-        <Route
-          path={route.filter}
-          element={
-            <Movies
-              prop={filterProp}
-              getGenreCode={getGenreCode}
-              getGenre={getGenre}
-              countries={countries}
-              genres={genres}
-            />
-          }
-        />
-        <Route
-          path={route.search}
-          element={
-            <Movies
-              prop={filterProp}
-              getGenreCode={getGenreCode}
-              getGenre={getGenre}
-              countries={countries}
-              genres={genres}
-            />
-          }
-        /> */}
+
         <Route path={route.movie} element={<Movie prop={paramProp} />} />
         <Route path={route.about} element={<About />} />
         <Route path="*" element={<PageNotFound />} />

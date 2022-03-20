@@ -1,24 +1,16 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { Link } from "react-router-dom";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
-import styles from "./discover.module.css";
 
 import { getPopularGenres, getGenres } from "../../tmdb/getData";
 import { movieEndpoints } from "../../tmdb/data";
 
-const tags = [
-  movieEndpoints.recent,
-  movieEndpoints.popular,
-  movieEndpoints.trending,
-  movieEndpoints.nowPlaying,
-];
-
+import Categories from "./Categories";
 import Footer from "../../footer/Footer";
 import Hero from "../hero/Hero";
 import Carousel from "./Carousel";
 
-function Discover({ genres, countries }) {
+function Discover({ genres }) {
   const [navLinks, setNavLinks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingRow, setIsLoadingRow] = useState(false);
@@ -93,15 +85,7 @@ function Discover({ genres, countries }) {
         <Hero genres={genres} getGenre={getGenre} />
       </div>
       <div className="container-fluid g-0 pb-4 pt-2">
-        <div className="row row-cols-2 row-cols-sm-4 g-2 px-3 ">
-          {tags.map((tag, i) => (
-            <Link key={i} to={tag.getRoute()}>
-              <div className={`col ${styles.tag} text-nowrap text-truncate`}>
-                {tag.name}
-              </div>
-            </Link>
-          ))}
-        </div>
+        <Categories />
       </div>
       <div className="mt-4 pb-4">
         {navLinks?.map((navLink, index) => (

@@ -104,7 +104,7 @@ export function constructQuery(q, genre, country, sort, years) {
   let query = ``;
 
   if (genre && genre.length > 0) {
-    query += `&with_genres=${genre.map((c) => c.id).join(",")}`;
+    query += `&with_genres=${genre.map((c) => c.id).join("|")}`;
   }
 
   if (sort) {

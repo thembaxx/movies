@@ -1,7 +1,16 @@
 .container {
+  position: relative;
+  z-index: 9999;
+}
+
+.backdrop {
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(3px);
-  z-index: 9999;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+
+  transition: opacity 0.45s linear;
 }
 
 .inner {

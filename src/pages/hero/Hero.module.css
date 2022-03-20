@@ -5,12 +5,11 @@
 }
 
 .indicator {
-  background-color: var(--red);
+  background-color: white;
   border-radius: 9999px;
-  opacity: 0.2;
+  opacity: 0.15;
   height: 6px;
   width: 6px;
-  transition: opacity 0.3s;
 }
 
 .active {

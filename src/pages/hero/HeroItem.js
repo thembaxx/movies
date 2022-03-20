@@ -35,34 +35,31 @@ function HeroItem({
     genres = genresIds.map((id) => getGenre(id));
   }
 
-  function onLoad() {
-    setImageLoaded(true);
-  }
-
   return (
-    <div
-      className="position-relative"
-      style={{ maxHeight: "80vh", overflow: "hidden" }}
-    >
-      {/* Image */}
-
+    <div className={`${styles.container}`}>
       <img
-        style={{
-          opacity: imageLoaded ? "1" : "0",
-        }}
-        className={`${styles.img} img-fluid`}
         src={srcSet?.default}
         srcSet={srcSet?.set}
-        onLoad={onLoad}
+        style={{
+          display: "none",
+        }}
+        className={`${styles.img} img-fluid`}
+        onLoad={(e) => {
+          const image = e.target;
+          if (image.complete && image.naturalHeight !== 0) {
+            setImageLoaded(true);
+            image.style.display = "block";
+          }
+        }}
         loading="lazy"
         alt={name}
       />
 
       {!imageLoaded && (
         <Skeleton
+          sx={{ bgcolor: `rgba(255, 255, 255, 0.08)` }}
           variant="rectangular"
           animation="wave"
-          className=""
           width="100%"
           height="100%"
         />
