@@ -68,16 +68,20 @@ function Movie({ prop }) {
           <div className="col mt-3 px-4 pb-4">
             <div className="row d-flex flex-column flex-md-row ">
               <div className="col col-md-6 mt-0">
-                <div className={`${styles.tagline}`}>“{movie?.tagline}”</div>
+                {movie?.tagline && (
+                  <div className={`${styles.tagline}`}>“{movie?.tagline}”</div>
+                )}
 
                 {/* OVERVIEW */}
-                <p className="fs-6 text-wrap mt-0 lh-base">{overview}</p>
+                {overview && (
+                  <p className="fs-6 text-wrap mt-0 lh-base">{overview}</p>
+                )}
 
                 {/* GENRES */}
                 <div>
                   <div className="d-flex flex-wrap mt-3">
                     {genres?.map((genre) => (
-                      <Genre key={genre.id} name={genre.name} />
+                      <Genre key={genre.id} name={genre.name} id={genre.id} />
                     ))}
                   </div>
                 </div>
@@ -89,6 +93,7 @@ function Movie({ prop }) {
             <Cast id={id} />
             <hr />
             <Details movie={movie} />
+
             <hr />
             <Similar id={id} />
           </div>

@@ -1,11 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useParams, useLocation } from "react-router-dom";
 
-import {
-  getDiscoverObj,
-  getMovieEndpoint,
-  constructQuery,
-} from "../../tmdb/getData";
+import { getMovieEndpoint, constructQuery } from "../../tmdb/getData";
 import { movieEndpoints } from "../../tmdb/data";
 import { sortType } from "./filters/data";
 
@@ -17,7 +13,7 @@ import Movie from "../../movie/Movie";
 import Title from "../common/Title";
 import Filters from "./filters/Filters";
 
-function Movies({ prop, getGenreCode, getGenre, genres, countries }) {
+function Movies({ prop, getGenre, genres, countries }) {
   const [title, setTitle] = useState("Movies");
   const [query, setQuery] = useState("");
   const [fetchUrl, setFetchUrl] = useState("");
@@ -145,7 +141,7 @@ function Movies({ prop, getGenreCode, getGenre, genres, countries }) {
   useEffect(() => {
     const option = {
       root: null,
-      rootMargin: "20px",
+      rootMargin: "200px 0px",
       threshold: 0,
     };
     const observer = new IntersectionObserver(handleObserver, option);

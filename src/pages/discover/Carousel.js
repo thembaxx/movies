@@ -18,11 +18,14 @@ function Carousel({ name, fetchUrl, route, getGenre, loading }) {
   const [prevEnabled, setPrevEnabled] = useState(true);
 
   function getVW() {
-    return window.innerWidth && document.documentElement.clientWidth
-      ? Math.min(window.innerWidth, document.documentElement.clientWidth)
-      : window.innerWidth ||
+    const width =
+      window.innerWidth && document.documentElement.clientWidth
+        ? Math.min(window.innerWidth, document.documentElement.clientWidth)
+        : window.innerWidth ||
           document.documentElement.clientWidth ||
           document.getElementsByTagName("body")[0].clientWidth;
+
+    return width;
   }
 
   function updateNavDots() {
@@ -146,10 +149,11 @@ function Carousel({ name, fetchUrl, route, getGenre, loading }) {
 
   /******************** WIP ****************************/
   // const containerClass = `row flex-nowrap gy-0 p-0 m-0 pb-0 gx-3 row-cols-3 row-cols-sm-4 row-cols-md-6 ${styles.row8}`;
-  const containerClass = `row flex-nowrap gy-0 p-0 m-0 pb-0 gx-1 row-cols-3 row-cols-sm-4 row-cols-md-6`;
+  // const containerClass = `row flex-nowrap gy-0 p-0 m-0 pb-0 gx-1 row-cols-3 row-cols-sm-4 row-cols-md-6`;
+  const containerClass = `row flex-nowrap row-cols-3 row-cols-sm-4 row-cols-md-6 g-2`;
 
   return (
-    <div className="container-fluid p-0 g-0">
+    <div className="container-fluid g-0 m-0">
       <div className={`${styles.header}`}>
         <Title name={name} route={route} isLoading={isLoading} />
         {!isLoading && (

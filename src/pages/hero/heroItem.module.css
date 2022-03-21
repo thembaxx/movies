@@ -1,14 +1,23 @@
 .container {
-  height: 100%;
-  width: 100%;
-  aspect-ratio: 16/9;
   position: relative;
-  max-height: 70vh;
+  height: 70vh;
   overflow: hidden;
 }
 
 .img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  aspect-ratio: 16/9;
+  max-height: 70vh;
+  overflow: hidden;
   transition: opacity 0.875s;
+}
+
+.skeleton {
+  min-height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 
 .title {

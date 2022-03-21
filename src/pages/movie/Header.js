@@ -24,23 +24,16 @@ function Header({ poster, backdrop, title, vote, year, runtime, voteCount }) {
     return () => {
       setPosterSrcset(null);
       setBackdropSrcset(null);
-    };
-  }, [poster, backdrop]);
-
-  useEffect(() => {
-    return () => {
       setPosterLoaded(false);
       setBackdropLoaded(false);
     };
-  }, []);
+  }, [poster, backdrop]);
 
   return (
     <div className={`${styles.container}`}>
       <div className={`${styles.backdropContainer}`}>
         <img
           className={`${styles.backdrop}`}
-          src={backdropSrcset?.default}
-          srcSet={backdropSrcset?.set}
           style={{
             opacity: 0,
             display: "none",
@@ -53,15 +46,17 @@ function Header({ poster, backdrop, title, vote, year, runtime, voteCount }) {
               image.style.opacity = 1;
             }
           }}
+          src={backdropSrcset?.default}
+          srcSet={backdropSrcset?.set}
         />
 
         {!backdropLoaded && (
           <Skeleton
             sx={{ bgcolor: `${bgColor}` }}
             variant="rectangular"
+            className={`${styles.skeleton}`}
             animation="wave"
             width="100%"
-            height="100%"
           />
         )}
       </div>
@@ -76,8 +71,6 @@ function Header({ poster, backdrop, title, vote, year, runtime, voteCount }) {
           <div className={`${styles.imgContainer}`}>
             <img
               className={`${styles.img}`}
-              src={posterSrcset?.default}
-              srcSet={posterSrcset?.set}
               style={{
                 opacity: 0,
                 display: "none",
@@ -90,7 +83,10 @@ function Header({ poster, backdrop, title, vote, year, runtime, voteCount }) {
                   image.style.opacity = 1;
                 }
               }}
+              src={posterSrcset?.default}
+              srcSet={posterSrcset?.set}
             />
+
             {!posterLoaded && (
               <Skeleton
                 sx={{ bgcolor: `${bgColor}` }}

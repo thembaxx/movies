@@ -2,6 +2,8 @@ import React from "react";
 import styles from "./movie.module.css";
 
 import { formatDate } from "../../helpers";
+
+import Title from "./Title";
 import Property from "./Property";
 
 function Details({ movie }) {
@@ -15,8 +17,7 @@ function Details({ movie }) {
 
   return (
     <div>
-      <h6 className="mb-3">Details</h6>
-
+      <Title name='Details'/>
       {/* TAGLINE */}
       <Property title="Tagline" content={tagline} />
 

@@ -1,15 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import styles from './similar.module.css';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import styles from "./similar.module.css";
 
-import { getSimilarMovies } from '../../tmdb/getData';
-import { getSrcSet } from '../../imageHelpers';
+import { getSimilarMovies } from "../../tmdb/getData";
+import { getSrcSet } from "../../imageHelpers";
+
+import Title from "./Title";
+import Movie from "../../movie/Movie";
 
 function Similar({ id }) {
+  const [isLoading, setIsLoading] = useState(false);
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
     async function getData() {
+      setIsLoading(true);
+
       const similar = await getSimilarMovies(id);
 
       let items = [];
@@ -20,6 +26,8 @@ function Similar({ id }) {
       }
 
       setMovies(items);
+
+      setIsLoading(false);
     }
 
     getData();
@@ -31,7 +39,7 @@ function Similar({ id }) {
 
   return (
     <div className="container-fluid p-0">
-      <h6>More like this</h6>
+      <Title name="More like this" loading={isLoading} />
       <div className="row gy-4 pt-2 px-0 gx-2 row-cols-3 row-cols-md-6">
         {movies?.map((movie) => {
           const name = movie.title ? movie.title : movie.original_title;

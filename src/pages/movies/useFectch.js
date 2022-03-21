@@ -29,11 +29,13 @@ function useFetch(query, page) {
   );
 
   useEffect(() => {
+    if (page === 1) {
+      setList([]);
+      setPagingData({});
+    }
     if (query) sendQuery(query + `&page=${page}`);
 
     return () => {
-      setList([]);
-      setPagingData({});
       setError(false);
       setLoading(true);
     };

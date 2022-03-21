@@ -8,8 +8,6 @@ import { getSrcSet } from "../../imageHelpers";
 import Genre from "../common/Genre";
 
 //"w92", "w154", "w185", "w342", "w500", "w780", or "original"
-// const gradient =
-//   "linear-gradient(180deg, rgba(3, 16, 39, 0) 0%, rgba(3, 16, 39, 0.8) 56.25%, #031027 100%)";
 const gradient =
   "linear-gradient(180deg, rgba(1, 4, 9, 0) 0%, rgba(1, 4, 9, 0.8) 56.25%, #010409 100%)";
 
@@ -38,12 +36,6 @@ function HeroItem({
   return (
     <div className={`${styles.container}`}>
       <img
-        src={srcSet?.default}
-        srcSet={srcSet?.set}
-        style={{
-          display: "none",
-        }}
-        className={`${styles.img} img-fluid`}
         onLoad={(e) => {
           const image = e.target;
           if (image.complete && image.naturalHeight !== 0) {
@@ -51,7 +43,12 @@ function HeroItem({
             image.style.display = "block";
           }
         }}
-        loading="lazy"
+        src={srcSet?.default}
+        srcSet={srcSet?.set}
+        style={{
+          display: "none",
+        }}
+        className={`${styles.img}`}
         alt={name}
       />
 
@@ -60,6 +57,7 @@ function HeroItem({
           sx={{ bgcolor: `rgba(255, 255, 255, 0.08)` }}
           variant="rectangular"
           animation="wave"
+          className={`${styles.skeleton}`}
           width="100%"
           height="100%"
         />
@@ -86,7 +84,7 @@ function HeroItem({
         {/* Genres */}
         <div className="d-flex flex-wrap mt-2">
           {genres?.map((genre, i) => (
-            <Genre key={i} name={genre?.name} />
+            <Genre key={i} name={genre?.name} id={genre.id} />
           ))}
         </div>
       </div>

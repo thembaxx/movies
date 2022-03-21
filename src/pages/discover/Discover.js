@@ -47,11 +47,18 @@ function Discover({ genres }) {
   }, []);
 
   /******************** INFINITE SCROLL ******************************/
-  var intersectionObserver = new IntersectionObserver(function (entries) {
-    if (entries[0].intersectionRatio <= 0) return;
+  var intersectionObserver = new IntersectionObserver(
+    function (entries) {
+      if (entries[0].intersectionRatio <= 0) return;
 
-    if (!isLoadingRow) loadRow();
-  });
+      if (!isLoadingRow) loadRow();
+    },
+    {
+      root: null,
+      rootMargin: "200px 0px",
+      threshold: 0,
+    }
+  );
 
   useEffect(() => {
     if (bottomBoundaryRef.current) {

@@ -4,6 +4,7 @@ import styles from "./cast.module.css";
 import { getMovieCredits } from "../../tmdb/getData";
 import { getSrcSet } from "../../imageHelpers";
 
+import Title from "./Title";
 import Property from "./Property";
 
 function Cast({ id }) {
@@ -85,16 +86,8 @@ function Cast({ id }) {
 
   return (
     <div className="container-fluid g-0">
-      <div className="d-flex align-items-center justify-content-between mb-2 mt-4">
-        <h6>Cast and Crew</h6>
-        {/* SPINNER */}
-        {isLoading && (
-          <div className="spinner-border spinner-border-sm me-2" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-        )}
-      </div>
-      
+      <Title name="Cast and Crew" loading={isLoading} />
+
       <div className="mb-4">
         {directors && (
           <Property title="Director" content={`${direct?.join(", ")}`} />
@@ -126,10 +119,6 @@ function Cast({ id }) {
                       display: "none",
                     }}
                     className={`${styles.img}`}
-                    src={srcSet?.default}
-                    srcSet={srcSet?.set}
-                    loading="lazy"
-                    alt={person.name}
                     onLoad={(e) => {
                       const image = e.target;
                       if (image.complete && image.naturalHeight !== 0) {
@@ -138,6 +127,10 @@ function Cast({ id }) {
                         setImageLoaded(true);
                       }
                     }}
+                    src={srcSet?.default}
+                    srcSet={srcSet?.set}
+                    loading="lazy"
+                    alt={person.name}
                   />
                 </div>
                 <div className="ms-3 me-3 text-truncate">

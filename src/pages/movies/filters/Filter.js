@@ -99,6 +99,7 @@ function Filter({ title, items, onChange }) {
                   {items?.map((item, index) => {
                     return (
                       <FormControlLabel
+                        key={`${item.name}_${index}`}
                         className={`col ${styles.formControlLabel} text-truncate`}
                         control={
                           <Checkbox

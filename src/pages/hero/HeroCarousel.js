@@ -52,7 +52,7 @@ function HeroCarousel({ movies, getGenre }) {
   return (
     <div className="position-relative mb-4">
       <Carousel
-        fade
+        // fade
         activeIndex={index}
         onSelect={handleSelect}
         indicators={false}
