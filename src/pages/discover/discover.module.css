@@ -1,5 +1,4 @@
 .container {
-  /* position: relative; */
   padding-top: var(--nav-height);
   width: 100vw;
 }
