@@ -26,7 +26,7 @@ function Categories() {
   }
 
   return (
-    <div className="row row-cols-2 row-cols-sm-4 g-2 px-3 ">
+    <div className="row row-cols-2 row-cols-sm-4 g-2 px-3 m-0">
       {items.map((category, i) => (
         <Link key={i} to={category.getRoute()}>
           <div className={`col ${styles.category}`}>
