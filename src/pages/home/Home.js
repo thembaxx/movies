@@ -9,7 +9,7 @@ const img =
 
 function Home() {
   return (
-    <div className={`container-fluid vh-100 px-4 ${styles.container}`}>
+    <div className={`container-fluid px-4 ${styles.container}`}>
       <div className={`${styles.imgContainer}`}>
         {/* <img loading="lazy" className={`${styles.img}`} src={img} /> */}
         <div className={`${styles.imgOverlay}`}></div>
