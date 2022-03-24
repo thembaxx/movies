@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
+import styles from "./discover.module.css";
 
 import { getPopularGenres, getGenres } from "../../tmdb/getData";
 import { movieEndpoints } from "../../tmdb/data";
@@ -87,14 +88,14 @@ function Discover({ genres }) {
   }
 
   return (
-    <div style={{ paddingTop: 72 }}>
+    <div className={`${styles.container}`}>
       <div style={{ marginBottom: "48px" }}>
         <Hero genres={genres} getGenre={getGenre} />
       </div>
       <div className="container-fluid g-0 pb-4 pt-2">
         <Categories />
       </div>
-      <div className="mt-4 pb-4">
+      <div className="mt-4">
         {navLinks?.map((navLink, index) => (
           <div className="mb-4" key={index}>
             <Carousel
@@ -110,10 +111,10 @@ function Discover({ genres }) {
       <div
         id="page-bottom-boundary"
         ref={bottomBoundaryRef}
-        style={{ height: "20vh", width: "100%" }}
+        style={{ height: "1px", width: "100%" }}
       ></div>
       <div
-        className="px-3 py-4 mt-4"
+        className="px-3 py-0 mt-0"
         style={{ backgroundColor: "rgba(0,0,0,0.2)" }}
       >
         <Footer />
