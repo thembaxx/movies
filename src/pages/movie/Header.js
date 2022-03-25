@@ -63,9 +63,9 @@ function Header({ poster, backdrop, title, vote, year, runtime, voteCount }) {
 
       <div
         className={`${styles.inner}`}
-        style={{
-          background: gradient,
-        }}
+        // style={{
+        //   background: gradient,
+        // }}
       >
         <div className={`${styles.meta} ms-4`}>
           <div className={`${styles.imgContainer}`}>

@@ -13,7 +13,6 @@
 
 .backdrop {
   object-fit: cover;
-  /* height: 100%; */
   width: 100vw;
   overflow: hidden;
   transition: opacity 0.875s;
@@ -28,6 +27,7 @@
 }
 
 .inner {
+  background: linear-gradient(180deg, rgba(1, 4, 9, 0) 0%, rgba(1, 4, 9, 0.8) 56.25%, #010409 100%);
   position: absolute;
   bottom: 0;
   width: 100%;
