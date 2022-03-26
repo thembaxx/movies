@@ -85,7 +85,7 @@ function HeroItem({
         </Link>
 
         {/* Genres */}
-        <div className="d-flex flex-wrap mt-2">
+        <div className="d-flex flex-wrap mt-1">
           {genres?.map((genre, i, arr) => (
             <div key={i} className={`${styles.genre}`}>
               <Link to={movieEndpoints.genre.getRoute(genre.id)}>

@@ -153,7 +153,7 @@ function Carousel({ name, fetchUrl, route, getGenre, loading }) {
   const containerClass = `row flex-nowrap row-cols-3 row-cols-sm-4 row-cols-md-6 g-2`;
 
   return (
-    <div className="container-fluid g-0 m-0">
+    <div className="container-fluid g-0 m-0 ps-3">
       <div className={`${styles.header}`}>
         <Title name={name} route={route} isLoading={isLoading} />
         {!isLoading && (
