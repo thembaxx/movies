@@ -48,7 +48,7 @@
   border-radius: var(--border-radius);
   position: relative;
   height: auto;
-  min-height: calc(4px / 33.3333333);
+  min-height: calc(4px * 33.3333333);
   width: 24vw;
   max-width: 200px;
   min-width: 100px;
@@ -96,7 +96,6 @@
 .ratingIcon {
   margin-left: 11px;
   margin-right: 6px;
-  margin-top: -2px;
   color: var(--yellow);
   font-size: 0.7rem;
 }

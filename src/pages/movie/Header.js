@@ -6,9 +6,7 @@ import { getSrcSet } from "../../imageHelpers";
 import { timeConverter } from "../../helpers";
 const gradient =
   "linear-gradient(180deg, rgba(1, 4, 9, 0) 0%, rgba(1, 4, 9, 0.39) 32.81%, rgba(1, 4, 9, 0.76) 66.67%, #010409 100%)";
-// const gradient =
-//   "linear-gradient(180deg, rgba(1, 4, 9, 0) 0%, rgba(1, 4, 9, 0.29) 23.96%, rgba(1, 4, 9, 0.74) 61.98%, rgba(1, 4, 9, 0.94) 84.9%, #010409 100%)";
-const bgColor = "rgba(255, 255, 255, 0.08)";
+const bgColor = "rgba(255, 255, 255, 0.15)";
 
 function Header({ poster, backdrop, title, vote, year, runtime, voteCount }) {
   const [posterSrcset, setPosterSrcset] = useState(null);
@@ -52,17 +50,6 @@ function Header({ poster, backdrop, title, vote, year, runtime, voteCount }) {
           srcSet={backdropSrcset?.set}
         />
 
-        <div
-          style={{
-            background: gradient,
-            position: "absolute",
-            height: "100%",
-            width: "100%",
-            bottom: "0%",
-            zIndex: "1",
-          }}
-        ></div>
-
         {!backdropLoaded && (
           <Skeleton
             sx={{ bgcolor: `${bgColor}` }}
@@ -72,20 +59,21 @@ function Header({ poster, backdrop, title, vote, year, runtime, voteCount }) {
             width="100%"
           />
         )}
+
+        <div
+          style={{
+            background: gradient,
+            position: "absolute",
+            height: "100%",
+            width: "100%",
+            bottom: "0%",
+            zIndex: "2",
+          }}
+        ></div>
       </div>
 
       <div className={`${styles.inner}`}>
         <div className={`${styles.meta}`}>
-          {/* <div
-            style={{
-              background: gradient,
-              position: "absolute",
-              height: "100%",
-              width: "100%",
-              bottom: "5%",
-              zIndex: "-1",
-            }}
-          ></div> */}
           <div className={`${styles.imgContainer} ms-4`}>
             <img
               className={`${styles.img}`}
@@ -128,11 +116,9 @@ function Header({ poster, backdrop, title, vote, year, runtime, voteCount }) {
                   </div>
                 )}
                 {vote && (
-                  <div>
+                  <div className="d-flex align-items-center">
                     <i className={`bi bi-star-fill ${styles.ratingIcon}`}></i>
-                    <span>
-                      {vote} {`(${voteCount?.toLocaleString()})`}
-                    </span>
+                    <span>{vote}</span>
                   </div>
                 )}
               </div>

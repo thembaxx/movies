@@ -11,7 +11,7 @@ import Genre from "../common/Genre";
 // const gradient =
 //   "linear-gradient(180deg, rgba(1, 4, 9, 0) 0%, rgba(1, 4, 9, 0.8) 56.25%, #010409 100%)";
 const gradient =
-  "linear-gradient(180deg, rgba(1, 4, 9, 0) 0%, rgba(1, 4, 9, 0.5) 36.46%, #010409 100%)";
+  "linear-gradient(180deg, rgba(1, 4, 9, 0) 0%, rgba(1, 4, 9, 0.39) 32.81%, rgba(1, 4, 9, 0.76) 66.67%, #010409 100%)";
 
 function HeroItem({
   id,
@@ -37,40 +37,45 @@ function HeroItem({
 
   return (
     <div className={`${styles.container}`}>
-      <img
-        onLoad={(e) => {
-          const image = e.target;
-          if (image.complete && image.naturalHeight !== 0) {
-            setImageLoaded(true);
-            image.style.display = "block";
-          }
-        }}
-        src={srcSet?.default}
-        srcSet={srcSet?.set}
-        style={{
-          display: "none",
-        }}
-        className={`${styles.img}`}
-        alt={name}
-      />
-
-      {!imageLoaded && (
-        <Skeleton
-          sx={{ bgcolor: `rgba(255, 255, 255, 0.08)` }}
-          variant="rectangular"
-          animation="wave"
-          className={`${styles.skeleton}`}
-          width="100%"
-          height="100%"
+      <div className={`${styles.backdropContainer}`}>
+        <img
+          onLoad={(e) => {
+            const image = e.target;
+            if (image.complete && image.naturalHeight !== 0) {
+              setImageLoaded(true);
+              image.style.display = "block";
+            }
+          }}
+          src={srcSet?.default}
+          srcSet={srcSet?.set}
+          style={{
+            display: "none",
+          }}
+          className={`${styles.img}`}
+          alt={name}
         />
-      )}
 
-      <div
-        className="container-fluid position-absolute bottom-0 p-3"
-        style={{
-          background: gradient,
-        }}
-      >
+        {!imageLoaded && (
+          <Skeleton
+            sx={{ bgcolor: `rgba(255, 255, 255, 0.15)` }}
+            variant="rectangular"
+            animation="wave"
+            className={`${styles.skeleton}`}
+          />
+        )}
+
+        <div
+          style={{
+            background: gradient,
+            position: "absolute",
+            height: "100%",
+            width: "100vw",
+            bottom: "0",
+          }}
+        ></div>
+      </div>
+
+      <div className="container-fluid position-absolute bottom-0 p-3">
         <Link to={`/movie/${name}-${id}`} className="mb-">
           <h3 className={`text-truncate ${styles.title}`}>{name}</h3>
           <div className="mt-1 mt-md-2 mb-2 d-flex align-items-center">
