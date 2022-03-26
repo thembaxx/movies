@@ -8,8 +8,10 @@ import { getSrcSet } from "../../imageHelpers";
 import Genre from "../common/Genre";
 
 //"w92", "w154", "w185", "w342", "w500", "w780", or "original"
+// const gradient =
+//   "linear-gradient(180deg, rgba(1, 4, 9, 0) 0%, rgba(1, 4, 9, 0.8) 56.25%, #010409 100%)";
 const gradient =
-  "linear-gradient(180deg, rgba(1, 4, 9, 0) 0%, rgba(1, 4, 9, 0.8) 56.25%, #010409 100%)";
+  "linear-gradient(180deg, rgba(1, 4, 9, 0) 0%, rgba(1, 4, 9, 0.5) 36.46%, #010409 100%)";
 
 function HeroItem({
   id,

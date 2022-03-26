@@ -1,17 +1,21 @@
 .container {
   max-height: 70vh;
   position: relative;
-  margin-bottom: 5%;
+  aspect-ratio: 16/9;
+  width: 100vw;
 }
 
 .backdropContainer {
-  height: 95%;
+  height: 100%;
+  max-height: 70vh;
   width: 100vw;
   transition: opacity 0.875s;
   overflow: hidden;
+  position: relative;
 }
 
 .backdrop {
+  height: 100%;
   object-fit: cover;
   width: 100vw;
   overflow: hidden;
@@ -27,15 +31,16 @@
 }
 
 .inner {
-  background: linear-gradient(180deg, rgba(1, 4, 9, 0) 0%, rgba(1, 4, 9, 0.8) 56.25%, #010409 100%);
+  padding-top: 24px;
   position: absolute;
-  bottom: 0;
-  width: 100%;
+  bottom: -5%;
+  z-index: 10;
+  width: 100vw;
 }
 
 .meta {
   display: flex;
-  margin-bottom: -5%;
+  position: relative;
 }
 
 .imgContainer {

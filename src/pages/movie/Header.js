@@ -5,7 +5,9 @@ import styles from "./header.module.css";
 import { getSrcSet } from "../../imageHelpers";
 import { timeConverter } from "../../helpers";
 const gradient =
-  "linear-gradient(180deg, rgba(1, 4, 9, 0) 0%, rgba(1, 4, 9, 0.8) 56.25%, #010409 100%)";
+  "linear-gradient(180deg, rgba(1, 4, 9, 0) 0%, rgba(1, 4, 9, 0.39) 32.81%, rgba(1, 4, 9, 0.76) 66.67%, #010409 100%)";
+// const gradient =
+//   "linear-gradient(180deg, rgba(1, 4, 9, 0) 0%, rgba(1, 4, 9, 0.29) 23.96%, rgba(1, 4, 9, 0.74) 61.98%, rgba(1, 4, 9, 0.94) 84.9%, #010409 100%)";
 const bgColor = "rgba(255, 255, 255, 0.08)";
 
 function Header({ poster, backdrop, title, vote, year, runtime, voteCount }) {
@@ -50,6 +52,17 @@ function Header({ poster, backdrop, title, vote, year, runtime, voteCount }) {
           srcSet={backdropSrcset?.set}
         />
 
+        <div
+          style={{
+            background: gradient,
+            position: "absolute",
+            height: "100%",
+            width: "100%",
+            bottom: "0%",
+            zIndex: "1",
+          }}
+        ></div>
+
         {!backdropLoaded && (
           <Skeleton
             sx={{ bgcolor: `${bgColor}` }}
@@ -61,14 +74,19 @@ function Header({ poster, backdrop, title, vote, year, runtime, voteCount }) {
         )}
       </div>
 
-      <div
-        className={`${styles.inner}`}
-        // style={{
-        //   background: gradient,
-        // }}
-      >
-        <div className={`${styles.meta} ms-4`}>
-          <div className={`${styles.imgContainer}`}>
+      <div className={`${styles.inner}`}>
+        <div className={`${styles.meta}`}>
+          {/* <div
+            style={{
+              background: gradient,
+              position: "absolute",
+              height: "100%",
+              width: "100%",
+              bottom: "5%",
+              zIndex: "-1",
+            }}
+          ></div> */}
+          <div className={`${styles.imgContainer} ms-4`}>
             <img
               className={`${styles.img}`}
               style={{
@@ -104,7 +122,6 @@ function Header({ poster, backdrop, title, vote, year, runtime, voteCount }) {
             {
               <div className={`${styles.subtitle}`}>
                 {year && <span>{year}</span>}
-                {/* <span style={{ margin: "0 6px 0 8px" }}>·</span> */}
                 {runtime && (
                   <div className={`${styles.runtime}`}>
                     {timeConverter(runtime)}
