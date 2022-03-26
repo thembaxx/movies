@@ -32,19 +32,38 @@
 
 .title {
   color: white;
-  font-weight: 700;
-  line-height: 1.1;
+  font-weight: 600;
+  line-height: 1.5;
   margin: 0;
   margin-right: 2rem;
 }
 
 .ratingIcon {
   margin-right: 6px;
-  margin-left: 12px;
+  margin-left: 16px;
   color: var(--yellow);
   font-size: 0.75rem;
 }
 
 .overview {
-  max-width: calc(70vw);
+  max-width: 70vw;
+  margin-bottom: 8px;
+}
+
+.genre {
+  font-size: 0.875rem;
+  font-weight: 400;
+  margin-right: 4px;
+  line-height: 1.5;
+}
+
+.genreTitle {
+  color: white;
+  opacity: 0.67;
+  transition: opacity 0.2s;
+}
+
+.genreTitle:hover {
+  color: var(--yellow);
+  opacity: 1;
 }

@@ -4,8 +4,7 @@ import Skeleton from "@mui/material/Skeleton";
 import styles from "./heroItem.module.css";
 
 import { getSrcSet } from "../../imageHelpers";
-
-import Genre from "../common/Genre";
+import { movieEndpoints } from "../../tmdb/data";
 
 const gradient =
   "linear-gradient(180deg, rgba(1, 4, 9, 0) 0%, rgba(1, 4, 9, 0.39) 32.81%, rgba(1, 4, 9, 0.76) 66.67%, #010409 100%)";
@@ -75,20 +74,27 @@ function HeroItem({
       <div className="container-fluid position-absolute bottom-0 p-3">
         <Link to={`/movie/${name}-${id}`} className="mb-">
           <h3 className={`text-truncate ${styles.title}`}>{name}</h3>
-          <div className="mt-1 mt-md-2 mb-2 d-flex align-items-center">
+          <div className="d-flex align-items-center">
             <span>{year}</span>
             <i className={`bi bi-star-fill ${styles.ratingIcon}`}></i>
             <span>{vote}</span>
           </div>
-          <div className={`${styles.overview} d-none d-md-block fs-6`}>
+          <div className={`${styles.overview} d-none d-md-block fs-6 mt-2`}>
             {overview}
           </div>
         </Link>
 
         {/* Genres */}
         <div className="d-flex flex-wrap mt-2">
-          {genres?.map((genre, i) => (
-            <Genre key={i} name={genre?.name} id={genre.id} />
+          {genres?.map((genre, i, arr) => (
+            <div key={i} className={`${styles.genre}`}>
+              <Link to={movieEndpoints.genre.getRoute(genre.id)}>
+                <span
+                  className={`${styles.genreTitle}`}
+                >{`${genre?.name}`}</span>
+                <span>{`${i !== arr.length - 1 ? ",  " : ""}`}</span>
+              </Link>
+            </div>
           ))}
         </div>
       </div>
