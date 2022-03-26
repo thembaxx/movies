@@ -4,12 +4,10 @@ import Skeleton from "@mui/material/Skeleton";
 import styles from "./heroItem.module.css";
 
 import { getSrcSet } from "../../imageHelpers";
+import { movieEndpoints } from "../../tmdb/data";
 
-import Genre from "../common/Genre";
-
-//"w92", "w154", "w185", "w342", "w500", "w780", or "original"
 const gradient =
-  "linear-gradient(180deg, rgba(1, 4, 9, 0) 0%, rgba(1, 4, 9, 0.8) 56.25%, #010409 100%)";
+  "linear-gradient(180deg, rgba(1, 4, 9, 0) 0%, rgba(1, 4, 9, 0.39) 32.81%, rgba(1, 4, 9, 0.76) 66.67%, #010409 100%)";
 
 function HeroItem({
   id,
@@ -35,56 +33,68 @@ function HeroItem({
 
   return (
     <div className={`${styles.container}`}>
-      <img
-        onLoad={(e) => {
-          const image = e.target;
-          if (image.complete && image.naturalHeight !== 0) {
-            setImageLoaded(true);
-            image.style.display = "block";
-          }
-        }}
-        src={srcSet?.default}
-        srcSet={srcSet?.set}
-        style={{
-          display: "none",
-        }}
-        className={`${styles.img}`}
-        alt={name}
-      />
-
-      {!imageLoaded && (
-        <Skeleton
-          sx={{ bgcolor: `rgba(255, 255, 255, 0.08)` }}
-          variant="rectangular"
-          animation="wave"
-          className={`${styles.skeleton}`}
-          width="100%"
-          height="100%"
+      <div className={`${styles.backdropContainer}`}>
+        <img
+          onLoad={(e) => {
+            const image = e.target;
+            if (image.complete && image.naturalHeight !== 0) {
+              setImageLoaded(true);
+              image.style.display = "block";
+            }
+          }}
+          src={srcSet?.default}
+          srcSet={srcSet?.set}
+          style={{
+            display: "none",
+          }}
+          className={`${styles.img}`}
+          alt={name}
         />
-      )}
 
-      <div
-        className="container-fluid position-absolute bottom-0 p-3"
-        style={{
-          background: gradient,
-        }}
-      >
+        {!imageLoaded && (
+          <Skeleton
+            sx={{ bgcolor: `rgba(255, 255, 255, 0.15)` }}
+            variant="rectangular"
+            animation="wave"
+            className={`${styles.skeleton}`}
+          />
+        )}
+
+        <div
+          style={{
+            background: gradient,
+            position: "absolute",
+            height: "100%",
+            width: "100vw",
+            bottom: "0",
+          }}
+        ></div>
+      </div>
+
+      <div className="container-fluid position-absolute bottom-0 p-3">
         <Link to={`/movie/${name}-${id}`} className="mb-">
           <h3 className={`text-truncate ${styles.title}`}>{name}</h3>
-          <div className="mt-1 mt-md-2 mb-2 d-flex align-items-center">
+          <div className="d-flex align-items-center">
             <span>{year}</span>
             <i className={`bi bi-star-fill ${styles.ratingIcon}`}></i>
             <span>{vote}</span>
           </div>
-          <div className={`${styles.overview} d-none d-md-block fs-6`}>
+          <div className={`${styles.overview} d-none d-md-block fs-6 mt-2`}>
             {overview}
           </div>
         </Link>
 
         {/* Genres */}
-        <div className="d-flex flex-wrap mt-2">
-          {genres?.map((genre, i) => (
-            <Genre key={i} name={genre?.name} id={genre.id} />
+        <div className="d-flex flex-wrap mt-1">
+          {genres?.map((genre, i, arr) => (
+            <div key={i} className={`${styles.genre}`}>
+              <Link to={movieEndpoints.genre.getRoute(genre.id)}>
+                <span
+                  className={`${styles.genreTitle}`}
+                >{`${genre?.name}`}</span>
+                <span>{`${i !== arr.length - 1 ? ",  " : ""}`}</span>
+              </Link>
+            </div>
           ))}
         </div>
       </div>

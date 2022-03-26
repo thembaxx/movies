@@ -1,17 +1,21 @@
 .container {
   max-height: 70vh;
   position: relative;
-  margin-bottom: 5%;
+  aspect-ratio: 16/9;
+  width: 100vw;
 }
 
 .backdropContainer {
-  height: 95%;
+  height: 100%;
+  max-height: 70vh;
   width: 100vw;
   transition: opacity 0.875s;
   overflow: hidden;
+  position: relative;
 }
 
 .backdrop {
+  height: 100%;
   object-fit: cover;
   width: 100vw;
   overflow: hidden;
@@ -27,23 +31,25 @@
 }
 
 .inner {
-  background: linear-gradient(180deg, rgba(1, 4, 9, 0) 0%, rgba(1, 4, 9, 0.8) 56.25%, #010409 100%);
+  padding-top: 24px;
   position: absolute;
-  bottom: 0;
-  width: 100%;
+  bottom: -5%;
+  z-index: 10;
+  width: 100vw;
 }
 
 .meta {
   display: flex;
-  margin-bottom: -5%;
+  position: relative;
 }
 
 .imgContainer {
   background-color: rgba(255, 255, 255, 0.05);
   border-radius: var(--border-radius);
   position: relative;
+  max-height: 266.666667px;
   height: auto;
-  min-height: calc(4px / 33.3333333);
+  min-height: calc(4px * 33.3333333);
   width: 24vw;
   max-width: 200px;
   min-width: 100px;
@@ -91,7 +97,6 @@
 .ratingIcon {
   margin-left: 11px;
   margin-right: 6px;
-  margin-top: -2px;
   color: var(--yellow);
   font-size: 0.7rem;
 }

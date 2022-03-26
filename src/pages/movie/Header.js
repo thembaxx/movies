@@ -5,8 +5,8 @@ import styles from "./header.module.css";
 import { getSrcSet } from "../../imageHelpers";
 import { timeConverter } from "../../helpers";
 const gradient =
-  "linear-gradient(180deg, rgba(1, 4, 9, 0) 0%, rgba(1, 4, 9, 0.8) 56.25%, #010409 100%)";
-const bgColor = "rgba(255, 255, 255, 0.08)";
+  "linear-gradient(180deg, rgba(1, 4, 9, 0) 0%, rgba(1, 4, 9, 0.39) 32.81%, rgba(1, 4, 9, 0.76) 66.67%, #010409 100%)";
+const bgColor = "rgba(255, 255, 255, 0.15)";
 
 function Header({ poster, backdrop, title, vote, year, runtime, voteCount }) {
   const [posterSrcset, setPosterSrcset] = useState(null);
@@ -59,16 +59,22 @@ function Header({ poster, backdrop, title, vote, year, runtime, voteCount }) {
             width="100%"
           />
         )}
+
+        <div
+          style={{
+            background: gradient,
+            position: "absolute",
+            height: "100%",
+            width: "100%",
+            bottom: "0%",
+            zIndex: "2",
+          }}
+        ></div>
       </div>
 
-      <div
-        className={`${styles.inner}`}
-        // style={{
-        //   background: gradient,
-        // }}
-      >
-        <div className={`${styles.meta} ms-4`}>
-          <div className={`${styles.imgContainer}`}>
+      <div className={`${styles.inner}`}>
+        <div className={`${styles.meta}`}>
+          <div className={`${styles.imgContainer} ms-4`}>
             <img
               className={`${styles.img}`}
               style={{
@@ -104,18 +110,15 @@ function Header({ poster, backdrop, title, vote, year, runtime, voteCount }) {
             {
               <div className={`${styles.subtitle}`}>
                 {year && <span>{year}</span>}
-                {/* <span style={{ margin: "0 6px 0 8px" }}>·</span> */}
                 {runtime && (
                   <div className={`${styles.runtime}`}>
                     {timeConverter(runtime)}
                   </div>
                 )}
                 {vote && (
-                  <div>
+                  <div className="d-flex align-items-center">
                     <i className={`bi bi-star-fill ${styles.ratingIcon}`}></i>
-                    <span>
-                      {vote} {`(${voteCount?.toLocaleString()})`}
-                    </span>
+                    <span>{vote}</span>
                   </div>
                 )}
               </div>
