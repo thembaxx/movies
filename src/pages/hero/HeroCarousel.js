@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Carousel } from "react-bootstrap";
-import styles from "./Hero.module.css";
+import styles from "./heroCarousel.module.css";
 
 import HeroItem from "./HeroItem";
 
@@ -50,7 +50,7 @@ function HeroCarousel({ movies, getGenre }) {
   });
 
   return (
-    <div className="position-relative mb-4">
+    <div className={`${styles.container}`}>
       <Carousel
         // fade
         activeIndex={index}
@@ -60,12 +60,7 @@ function HeroCarousel({ movies, getGenre }) {
       >
         {items}
       </Carousel>
-      <div
-        className="carousel-indicators m-0 position-absolute bottom-0"
-        style={{ transform: "translateY(100%)" }}
-      >
-        {indicators}
-      </div>
+      <div className={`${styles.indicators}`}>{indicators}</div>
     </div>
   );
 }

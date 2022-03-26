@@ -89,10 +89,10 @@ function Discover({ genres }) {
 
   return (
     <div className={`${styles.container}`}>
-      <div style={{ marginBottom: "48px" }}>
+      <div style={{ marginBottom: "16px" }}>
         <Hero genres={genres} getGenre={getGenre} />
       </div>
-      <div className="container-fluid g-0 pb-4 pt-2">
+      <div className="container-fluid g-0 pb-2 pt-0">
         <Categories />
       </div>
       <div className="mt-4">
