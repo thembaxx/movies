@@ -52,10 +52,9 @@ function Cast({ id }) {
 
       setProducers(
         credits?.crew?.filter(
-          (d) =>
-            (d.department == "Production" && d.job == "Producer") ||
-            d.job == "Executive Producer" ||
-            d.job == "Co-Producer"
+          (d) => d.department == "Production" && d.job == "Producer"
+          // d.job == "Executive Producer" ||
+          // d.job == "Co-Producer"
         )
       );
 

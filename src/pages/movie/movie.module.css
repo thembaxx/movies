@@ -12,8 +12,9 @@
 }
 
 .heading {
-  font-weight: 600;
+  font-weight: 400;
   margin-right: 8px;
+  color: var(--light-grey);
 }
 
 .genre {
