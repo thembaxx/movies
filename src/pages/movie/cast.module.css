@@ -48,3 +48,11 @@
   font-weight: 500;
   color: white;
 }
+
+.link {
+  color: var(--link-color);
+}
+
+.link:hover {
+  text-decoration: underline;
+}

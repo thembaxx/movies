@@ -1,5 +1,6 @@
 import React from "react";
-import styles from "./movie.module.css";
+import { Link } from "react-router-dom";
+import styles from "./details.module.css";
 
 import { formatDate, timeConverter } from "../../helpers";
 
@@ -10,15 +11,28 @@ function Details({ movie }) {
   const vote = movie?.vote_average;
   const voteCount = `(${movie?.vote_count.toLocaleString()} votes)`;
   const releaseDate = formatDate(movie?.release_date);
-  const prodCompanies = movie?.production_companies.map((comp) => comp.name);
   const filmLocations = movie?.production_countries.map((loc) => loc.name);
   const languages = movie?.spoken_languages.map((lang) => lang.english_name);
+
+  let prodCompanies = movie?.production_companies.map((comp, i, arr) => (
+    <span key={i}>
+      <Link to={`/movies/company?${comp.id}`} className={`${styles.link}`}>
+        {comp?.name}
+      </Link>
+      {i !== arr.length - 1 && <span>{", "}</span>}
+    </span>
+  ));
 
   return (
     <div>
       <Title name="Details" />
       {/* TAGLINE */}
       {movie?.tagline && <Property title="Tagline" content={movie?.tagline} />}
+
+      {/* ORIGINAL TITLE */}
+      {movie?.original_title && (
+        <Property title="Original title" content={movie?.original_title} />
+      )}
 
       {/* RUNTIME */}
       {movie?.runtime && (
@@ -61,10 +75,7 @@ function Details({ movie }) {
 
       {/* PRODUCTION COMPANY */}
       {prodCompanies?.length > 0 && (
-        <Property
-          title="Production company"
-          content={`${prodCompanies?.join(", ")}`}
-        />
+        <Property title="Production company" content={prodCompanies} />
       )}
 
       {/* FILMING LOCATIONS */}
@@ -79,7 +90,12 @@ function Details({ movie }) {
       {movie?.homepage && (
         <div className={`${styles.container}`}>
           <span className={`${styles.heading}`}>Official site</span>
-          <a href={movie?.homepage} target="_blank" rel="noreferrer">
+          <a
+            className={`${styles.link}`}
+            href={movie?.homepage}
+            target="_blank"
+            rel="noreferrer"
+          >
             {movie?.homepage}
           </a>
         </div>

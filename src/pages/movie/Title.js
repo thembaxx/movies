@@ -4,7 +4,7 @@ const headingStyle = {
   fontSize: 17,
   fontWeight: 400,
   color: "white",
-  opacity: '0.87'
+  opacity: "0.87",
 };
 
 function Title({ name, loading }) {
@@ -15,7 +15,7 @@ function Title({ name, loading }) {
           background: "var(--yellow)",
           position: "absolute",
           left: 0,
-          marginLeft: "-24px",
+          marginLeft: "-20px",
           height: "100%",
           width: 4,
         }}
