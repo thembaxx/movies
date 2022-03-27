@@ -8,7 +8,7 @@ function Popup({ movie, name, genre, year, children }) {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const vote = movie?.vote_average * 10;
-  const voteCount = `(${movie?.vote_count} votes)`;
+  const voteCount = `(${movie?.vote_count.toLocaleString()} votes)`;
   year = year?.split("-")?.[0];
 
   const handlePopoverOpen = (event) => {
@@ -59,15 +59,15 @@ function Popup({ movie, name, genre, year, children }) {
                   <i
                     className="bi bi-star-fill"
                     style={{
-                      marginRight: 4,
-                      marginTop: "-1px",
+                      marginRight: 6,
+                      marginTop: "1.5px",
                       fontSize: ".7rem",
-                      color: "#f3ce13",
+                      color: "var(--yellow, #f3ce13)",
                     }}
                   ></i>
                   <span>
                     <span>{vote / 10}</span>
-                    <span className="opacity-75">/10</span>
+                    <span>/10</span>
 
                     <span>
                       {"  "} {voteCount}
