@@ -20,8 +20,8 @@
   --border-radius: 10px;
   --nav-height: 72px;
 
-  --light-grey: #8c99ae;
-  --grey: #374758;
+  --light-grey: rgba(255, 255, 255, 0.67);
+  --grey: rgba(255, 255, 255, 0.5);
   --dark-grey: #202832;
 
   --link-color: #c599ff;

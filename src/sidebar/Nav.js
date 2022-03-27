@@ -15,7 +15,7 @@ const navLinks = [
 
 function Nav({ toggleSidebar }) {
   return (
-    <nav className="px-3 py-0">
+    <nav className="px-3 ps-2 py-0">
       <div className="d-flex ps-1 flex-column">
         {navLinks.map((link, index) => {
           return (

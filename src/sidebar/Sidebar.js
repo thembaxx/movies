@@ -35,15 +35,6 @@ function Sidebar({ toggleSidebar, isOpen, genres }) {
             <div className="flex-grow-1">
               <Nav toggleSidebar={toggleSidebar} />
             </div>
-            <div className="px-3">
-              <a
-                rel="noreferrer"
-                href={`mailto:${email}`}
-                style={{ fontWeight: 500, color: "#f3ce13" }}
-              >
-                {email}
-              </a>
-            </div>
             <hr className="mx-3 me-4" />
 
             <div className="px-3 py-2">

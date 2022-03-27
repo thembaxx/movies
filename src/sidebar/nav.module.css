@@ -2,18 +2,18 @@
   border-radius: var(--border-radius);
   display: flex;
   align-items: center;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   justify-content: space-between;
   line-height: 1.1;
   text-transform: capitalize;
-  padding: 8px 10px;
+  padding: 10px 10px;
   width: 100%;
 
   transition: background-color 0.35s ease-out;
 }
 
 .link:hover {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.03);
 }
 
 .button {

@@ -134,10 +134,11 @@ function Movie({ genres, movie, showInfo = true }) {
             />
           ) : (
             <div className={`${styles.meta}`}>
-              <span className={`${styles.date}`}>{releaseDate}</span>
+              <span>{releaseDate}</span>
+              <span style={{ margin: "0 6px" }}>·</span>
               {genre && (
                 <span className="text-truncate" style={{ marginRight: 6 }}>
-                  · {genre.join(", ")}
+                  {genre.join(", ")}
                 </span>
               )}
             </div>
