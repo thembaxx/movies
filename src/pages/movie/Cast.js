@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import styles from "./cast.module.css";
 
 import { getMovieCredits } from "../../tmdb/getData";
@@ -26,6 +27,19 @@ function Cast({ id }) {
       let b = arr[arr.length - 1][0];
       return a + b;
     }
+  }
+
+  function generateList(arr) {
+    if (!arr) return;
+
+    return arr.map((c, i, arr) => (
+      <span key={i}>
+        <Link to={`/movies/person?${c.id}`} className={`${styles.link}`}>
+          {c?.name}
+        </Link>
+        {i !== arr.length - 1 && <span>{", "}</span>}
+      </span>
+    ));
   }
 
   useEffect(() => {
@@ -79,24 +93,18 @@ function Cast({ id }) {
     };
   }, [id]);
 
-  const direct = directors?.map((c) => c.name);
-  const produce = producers?.map((c) => c.name);
-  const write = writers?.map((c) => c.name);
+  const direct = generateList(directors);
+  const produce = generateList(producers);
+  const write = generateList(writers);
 
   return (
     <div className="container-fluid g-0">
       <Title name="Cast and Crew" loading={isLoading} />
 
       <div className="mb-4">
-        {directors && (
-          <Property title="Director" content={`${direct?.join(", ")}`} />
-        )}
-        {producers && (
-          <Property title="Producer" content={`${produce?.join(", ")}`} />
-        )}
-        {writers && (
-          <Property title="Writer" content={`${write?.join(", ")}`} />
-        )}
+        {directors && <Property title="Director" content={direct} />}
+        {producers && <Property title="Producer" content={produce} />}
+        {writers && <Property title="Writer" content={write} />}
       </div>
       <div className="row g-2 gy-2 pb-3 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3">
         {cast?.map((person) => {

@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.heading {
+  font-weight: 400;
+  margin-right: 8px;
+  color: rgba(255, 255, 255, 0.67);
+}
+
+.link {
+  color: var(--link-color);
+}
+
+.link:hover {
+  text-decoration: underline;
+}
