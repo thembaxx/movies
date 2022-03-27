@@ -34,14 +34,10 @@ export const navigation = {
   upcoming: Object.assign({}, movieEndpoints.upcoming, { isLink: true }),
   genre: Object.assign({}, movieEndpoints.genre, { isLink: false }),
   topRated: Object.assign({}, movieEndpoints.topRated, { isLink: true }),
+  movies: Object.assign({}, movieEndpoints.recent, { name: 'Movies', isLink: true }),
   discover: {
     name: "Discover",
     getRoute: () => route.discover,
-    isLink: true,
-  },
-  movies: {
-    name: "Movies",
-    getRoute: () => route.movies,
     isLink: true,
   },
   country: {
