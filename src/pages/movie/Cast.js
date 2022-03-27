@@ -123,7 +123,6 @@ function Cast({ id }) {
                   <img
                     style={{
                       opacity: 0,
-                      display: "none",
                     }}
                     className={`${styles.img}`}
                     onError={(e) => {
@@ -133,7 +132,6 @@ function Cast({ id }) {
                     onLoad={(e) => {
                       const image = e.target;
                       if (image.complete && image.naturalHeight !== 0) {
-                        image.style.display = "block";
                         image.style.opacity = 1;
                         setImageLoaded(true);
                       }

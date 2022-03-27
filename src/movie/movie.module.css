@@ -18,11 +18,16 @@
   width: 100%;
   object-fit: cover;
 
-  transition: transform 0.35s ease-out, opacity 1s linear;
+  transition: transform 0.35s ease-out, opacity 0.675s ease-out;
 }
 
 .img:hover {
   transform: scale(1.08);
+}
+
+.skeleton {
+  position: absolute;
+  top: 0;
 }
 
 .info {

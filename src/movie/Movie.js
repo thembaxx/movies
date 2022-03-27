@@ -85,12 +85,10 @@ function Movie({ genres, movie, showInfo = true }) {
           <img
             style={{
               opacity: 0,
-              display: "none",
             }}
             onLoad={(e) => {
               const image = e.target;
               if (image?.complete && image?.naturalHeight !== 0) {
-                image.style.display = "block";
                 image.style.opacity = 1;
                 setImageLoaded(true);
               }
@@ -105,6 +103,7 @@ function Movie({ genres, movie, showInfo = true }) {
           />
           {!imageLoaded && (
             <Skeleton
+              className={`${styles.skeleton}`}
               sx={{ bgcolor: `${bgColor}` }}
               variant="rectangular"
               animation="wave"

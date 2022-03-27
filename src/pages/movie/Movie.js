@@ -53,15 +53,17 @@ function Movie({ prop }) {
 
   return (
     <div className="position-relative pb-0" style={{ paddingTop: 72 }}>
-      <Header
-        poster={movie?.poster_path}
-        backdrop={backdropUrl}
-        title={title}
-        vote={movie?.vote_average}
-        year={year}
-        runtime={movie?.runtime}
-        voteCount={movie?.vote_count}
-      />
+      {movie && (
+        <Header
+          poster={movie?.poster_path}
+          backdrop={backdropUrl}
+          title={title}
+          vote={movie?.vote_average}
+          year={year}
+          runtime={movie?.runtime}
+          voteCount={movie?.vote_count}
+        />
+      )}
 
       {movie && (
         <div className="row gx-0 mt-5">

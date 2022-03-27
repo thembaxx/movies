@@ -36,13 +36,11 @@ function Header({ poster, backdrop, title, vote, year, runtime, voteCount }) {
           className={`${styles.backdrop}`}
           style={{
             opacity: 0,
-            display: "none",
           }}
           onLoad={(e) => {
             const image = e.target;
             if (image.complete && image.naturalHeight !== 0) {
               setBackdropLoaded(true);
-              image.style.display = "block";
               image.style.opacity = 1;
             }
           }}
@@ -79,13 +77,11 @@ function Header({ poster, backdrop, title, vote, year, runtime, voteCount }) {
               className={`${styles.img}`}
               style={{
                 opacity: 0,
-                display: "none",
               }}
               onLoad={(e) => {
                 const image = e.target;
                 if (image.complete && image.naturalHeight !== 0) {
                   setPosterLoaded(true);
-                  image.style.display = "block";
                   image.style.opacity = 1;
                 }
               }}
@@ -96,6 +92,7 @@ function Header({ poster, backdrop, title, vote, year, runtime, voteCount }) {
             {!posterLoaded && (
               <Skeleton
                 sx={{ bgcolor: `${bgColor}` }}
+                className={`${styles.imgSkeleton}`}
                 variant="rectangular"
                 animation="wave"
                 width="100%"

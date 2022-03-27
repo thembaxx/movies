@@ -14,14 +14,30 @@ function SearchResult({ movie, toggleSidebar }) {
 
   return (
     <div className={`${styles.container}`}>
-      <Link to={`/movie/${name}-${movie.id}`} onClick={() => toggleSidebar()}>
+      <Link
+        to={`/movie/${name}-${movie.id}`}
+        onClick={() => {
+          if (toggleSidebar) toggleSidebar();
+        }}
+      >
         <div className={`d-flex`}>
           <div className={`${styles.imgContainer}`}>
             <img
               className={`${styles.img}`}
+              style={{
+                opacity: 0,
+              }}
+              onLoad={(e) => {
+                const image = e.target;
+                if (image?.complete && image?.naturalHeight !== 0) {
+                  image.style.opacity = 1;
+                }
+              }}
+              onError={(e) => {
+                console.error(e);
+              }}
               src={srcSet?.default}
               srcSet={srcSet?.set}
-              loading="lazy"
             />
           </div>
           <div className="flex-grow-1 text-truncate pe-4">
