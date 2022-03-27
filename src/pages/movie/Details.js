@@ -1,15 +1,14 @@
 import React from "react";
 import styles from "./movie.module.css";
 
-import { formatDate } from "../../helpers";
+import { formatDate, timeConverter } from "../../helpers";
 
 import Title from "./Title";
 import Property from "./Property";
 
 function Details({ movie }) {
-  const tagline = movie?.tagline;
-  const vote = movie?.vote_average * 10;
-  const voteCount = `(${movie?.vote_count} votes)`;
+  const vote = movie?.vote_average;
+  const voteCount = `(${movie?.vote_count.toLocaleString()} votes)`;
   const releaseDate = formatDate(movie?.release_date);
   const prodCompanies = movie?.production_companies.map((comp) => comp.name);
   const filmLocations = movie?.production_countries.map((loc) => loc.name);
@@ -17,71 +16,92 @@ function Details({ movie }) {
 
   return (
     <div>
-      <Title name='Details'/>
+      <Title name="Details" />
       {/* TAGLINE */}
-      <Property title="Tagline" content={tagline} />
+      {movie?.tagline && <Property title="Tagline" content={movie?.tagline} />}
 
       {/* RUNTIME */}
-      <Property title="Runtime" content={`${movie?.runtime} minutes`} />
+      {movie?.runtime && (
+        <Property
+          title="Runtime"
+          content={`${timeConverter(movie?.runtime)}`}
+        />
+      )}
 
       {/* RATING */}
       <div className={`${styles.container}`}>
-        <span className={`${styles.heading}`}>Rating</span>
+        <div className={`${styles.heading}`}>Rating</div>
         <i
           className="bi bi-star-fill"
           style={{
-            marginRight: 4,
-            marginTop: "2.1px",
-            fontSize: ".7rem",
-            color: "#f3ce13",
+            marginRight: 6,
+            fontSize: ".75rem",
+            color: "var(--yellow, #f3ce13)",
           }}
         ></i>
-        <span>
-          {vote} {voteCount}
-        </span>
+        <div>
+          {vote} {voteCount?.toLocaleString()}
+        </div>
       </div>
 
       {/* RELEASE DATE */}
-      <Property
-        title="Realease date"
-        content={`${releaseDate} (${movie?.status})`}
-      />
+      {releaseDate && (
+        <Property
+          title="Realease date"
+          content={`${releaseDate} (${movie?.status})`}
+        />
+      )}
 
       {/* LANGUAGES */}
-      <Property title="Languages" content={`${languages?.join(" · ")}`} />
+      {languages?.length > 0 && (
+        <Property title="Languages" content={`${languages?.join(", ")}`} />
+      )}
 
       <hr />
 
       {/* PRODUCTION COMPANY */}
-      <Property
-        title="Production company"
-        content={`${prodCompanies?.join(" · ")}`}
-      />
+      {prodCompanies?.length > 0 && (
+        <Property
+          title="Production company"
+          content={`${prodCompanies?.join(", ")}`}
+        />
+      )}
 
       {/* FILMING LOCATIONS */}
-      <Property
-        title="Filming locations"
-        content={`${filmLocations?.join(" · ")}`}
-      />
+      {filmLocations?.length > 0 && (
+        <Property
+          title="Filming locations"
+          content={`${filmLocations?.join(", ")}`}
+        />
+      )}
 
       {/* HOMEPAGE */}
-      <div className={`${styles.container}`}>
-        <span className={`${styles.heading}`}>Official site</span>
-        <a href={movie?.homepage} target="_blank" rel="noreferrer">
-          {movie?.homepage}
-        </a>
-      </div>
+      {movie?.homepage && (
+        <div className={`${styles.container}`}>
+          <span className={`${styles.heading}`}>Official site</span>
+          <a href={movie?.homepage} target="_blank" rel="noreferrer">
+            {movie?.homepage}
+          </a>
+        </div>
+      )}
 
       <hr />
 
       {/* BUDGET */}
-      <Property title="Budget" content={`$${movie?.budget.toLocaleString()}`} />
+      {movie?.budget && (
+        <Property
+          title="Budget"
+          content={`$${movie?.budget.toLocaleString()}`}
+        />
+      )}
 
       {/* REVENUE */}
-      <Property
-        title="Revenue"
-        content={`$${movie?.revenue.toLocaleString()}`}
-      />
+      {movie?.revenue && (
+        <Property
+          title="Revenue"
+          content={`$${movie?.revenue.toLocaleString()}`}
+        />
+      )}
     </div>
   );
 }
