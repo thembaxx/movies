@@ -55,7 +55,7 @@
 }
 
 .button:hover {
-  background-color: var(--brand-color);
+  background-color: var(--purple);
 }
 
 .placeholder {
