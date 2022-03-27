@@ -66,12 +66,32 @@ function Movie({ prop }) {
       )}
 
       {movie && (
-        <div className="row gx-0 mt-5">
+        <div className="row gx-0" style={{ marginTop: 28 }}>
           <div className="col mt-3 px-4 pb-4">
             <div className="row d-flex flex-column flex-md-row ">
               <div className="col col-md-6 mt-0">
                 {movie?.tagline && (
-                  <div className={`${styles.tagline}`}>“{movie?.tagline}”</div>
+                  <div className={`${styles.tagline}`}>
+                    <span
+                      style={{
+                        fontWeight: 500,
+                        color: "var(--yellow)",
+                        fontSize: "1.5rem",
+                      }}
+                    >
+                      “
+                    </span>
+                    {movie?.tagline}
+                    <span
+                      style={{
+                        fontWeight: 500,
+                        color: "var(--yellow)",
+                        fontSize: "1.5rem",
+                      }}
+                    >
+                      ”
+                    </span>
+                  </div>
                 )}
 
                 {/* OVERVIEW */}
