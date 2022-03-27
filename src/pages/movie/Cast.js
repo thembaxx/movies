@@ -126,6 +126,10 @@ function Cast({ id }) {
                       display: "none",
                     }}
                     className={`${styles.img}`}
+                    onError={(e) => {
+                      console.log("error ", e);
+                      setImageLoaded(false);
+                    }}
                     onLoad={(e) => {
                       const image = e.target;
                       if (image.complete && image.naturalHeight !== 0) {
@@ -136,7 +140,6 @@ function Cast({ id }) {
                     }}
                     src={srcSet?.default}
                     srcSet={srcSet?.set}
-                    loading="lazy"
                     alt={person.name}
                   />
                 </div>
