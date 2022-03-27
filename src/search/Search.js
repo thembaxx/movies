@@ -133,11 +133,7 @@ function Search({ toggleSidebar }) {
   );
 
   const viewAllBtn = (
-    <div
-      role="button"
-      className={`col ${styles.button}`}
-      onClick={() => handleClick()}
-    >
+    <div role="button" className={`col ${styles.button}`} onClick={handleClick}>
       See all results
     </div>
   );
