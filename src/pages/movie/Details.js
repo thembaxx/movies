@@ -104,7 +104,7 @@ function Details({ movie }) {
       <hr />
 
       {/* BUDGET */}
-      {movie?.budget && (
+      {movie?.budget !== 0 && (
         <Property
           title="Budget"
           content={`$${movie?.budget.toLocaleString()}`}
@@ -112,7 +112,7 @@ function Details({ movie }) {
       )}
 
       {/* REVENUE */}
-      {movie?.revenue && (
+      {movie?.revenue !== 0 && (
         <Property
           title="Revenue"
           content={`$${movie?.revenue.toLocaleString()}`}
