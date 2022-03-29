@@ -2,12 +2,9 @@ import React from "react";
 import Slide from "@mui/material/Slide";
 import styles from "./sidebar.module.css";
 
-import { email } from "../constants";
-
 import Header from "./Header";
 import Search from "../search/Search";
 import Nav from "./Nav";
-import Footer from "../footer/Footer";
 
 function Sidebar({ toggleSidebar, isOpen, genres }) {
   return (
@@ -34,11 +31,6 @@ function Sidebar({ toggleSidebar, isOpen, genres }) {
             </div>
             <div className="flex-grow-1">
               <Nav toggleSidebar={toggleSidebar} />
-            </div>
-            <hr className="mx-3 me-4" />
-
-            <div className="px-3 py-2">
-              <Footer />
             </div>
           </div>
         </div>

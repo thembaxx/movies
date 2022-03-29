@@ -16,6 +16,7 @@ import { getMovie } from "../../tmdb/getData";
 function Movie({ prop }) {
   const [movie, setMovie] = useState();
   const [id, setId] = useState();
+  const [certification, setCertification] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const params = useParams();
 
@@ -30,7 +31,20 @@ function Movie({ prop }) {
       if (!movieId) return;
       setId(movieId);
 
-      setMovie(await getMovie(movieId));
+      const res = await getMovie(movieId);
+      let releaseDates = res.release_dates?.results;
+
+      let country = releaseDates.find((r) => r.iso_3166_1 === "US");
+      if (!country && releaseDates.length > 0) country = releaseDates[0];
+
+      if (country) {
+        const countryDates = country.release_dates;
+        if (countryDates && countryDates.length > 0) {
+          const cert = countryDates[0].certification;
+          setCertification(cert);
+        }
+      }
+      setMovie(res);
 
       setIsLoading(false);
     }
@@ -75,12 +89,11 @@ function Movie({ prop }) {
                       style={{
                         fontWeight: 300,
                         color: "var(--orange)",
-                        fontSize: "2rem",
+                        fontSize: ".875rem",
                         lineHeight: 1,
-                        marginBottom: "-12px",
                       }}
                     >
-                      “
+                      <i className="bi bi-quote"></i>
                     </div>
                     <div>{movie?.tagline}</div>
                   </div>
@@ -88,7 +101,11 @@ function Movie({ prop }) {
 
                 <div className="d-flex align-items-center mb-3">
                   {/* CERTIFICATION */}
-                  <div className={`${styles.certification}`}>{"PG-13"}</div>
+                  {certification && (
+                    <div className={`${styles.certification}`}>
+                      {certification}
+                    </div>
+                  )}
 
                   {/* IMDb */}
                   <div>
@@ -103,11 +120,17 @@ function Movie({ prop }) {
                           fontWeight: 300,
                           color: "white",
                           marginRight: 4,
+                          opacity: 0.87,
                         }}
                       >
                         visit on{" "}
                       </span>
-                      <span style={{ marginRight: 8 }}>IMDb</span>
+                      <span
+                        style={{ marginRight: 8 }}
+                        className={`${styles.imdbText}`}
+                      >
+                        IMDb
+                      </span>
                       <i
                         className="bi bi-box-arrow-up-right"
                         style={{ fontSize: ".75rem", marginBottom: 2 }}

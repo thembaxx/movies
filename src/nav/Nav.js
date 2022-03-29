@@ -1,13 +1,10 @@
 import React from "react";
 import styles from "./nav.module.css";
 
-// import { moviesList } from "./data";
-
 import Logo from "../common/Logo";
 import ToggleButton from "./ToggleButton";
 import Search from "../search/Search";
 import Links from "./Links";
-// import NavLink from "./navLink/NavLink";
 
 const contentId = "navbar-content";
 

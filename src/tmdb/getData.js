@@ -7,7 +7,7 @@ import { requests, movieEndpoints } from "./data";
 
 export async function getMovie(id) {
   const response = await axios.get(
-    `/movie/${id}?api_key=${API_KEY}&language=en-US`
+    `/movie/${id}?api_key=${API_KEY}&language=en-US&append_to_response=release_dates`
   );
 
   return response?.data;

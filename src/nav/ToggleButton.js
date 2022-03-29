@@ -13,7 +13,7 @@ function ToggleButton({ target, toggleSidebar }) {
       aria-label="Toggle navigation"
       onClick={() => toggleSidebar()}
     >
-      <i className="bi bi-list fs-1"></i>
+      <i className="bi bi-list fs-2"></i>
     </div>
   );
 }

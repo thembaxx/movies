@@ -7,7 +7,7 @@
 
 .tagline {
   font-size: 0.9rem;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.25;
   font-style: normal;
   margin-bottom: 16px;
@@ -32,7 +32,7 @@
 
 .genre:hover {
   border-color: transparent;
-  background-color: var(--red);
+  background-color: var(--purple);
 }
 
 .imdb {
@@ -43,6 +43,14 @@
   align-items: center;
   margin-right: 12px;
   margin-left: 16px;
+}
+
+.imdb:hover {
+  color: #f3ce13;
+}
+
+.imdb:hover .imdbText {
+  text-decoration: underline;
 }
 
 .certification {
