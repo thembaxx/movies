@@ -1,0 +1,15 @@
+.container {
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.heading {
+  font-weight: 400;
+  margin-right: 8px;
+  color: white;
+}
+
+.title {
+  margin-right: 4px;
+  opacity: 0.7;
+}
