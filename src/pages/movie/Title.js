@@ -9,7 +9,15 @@ const headingStyle = {
 
 function Title({ name, loading }) {
   return (
-    <div className="d-flex align-items-center justify-content-between py-1 position-relative mb-2">
+    <div
+      className="d-flex align-items-center justify-content-between py-2 mb-2"
+      style={{
+        position: "sticky",
+        top: "71px",
+        zIndex: 10,
+        backgroundColor: "var(--primary-background-95-rgba)",
+      }}
+    >
       <div
         style={{
           background: "var(--yellow)",
@@ -18,6 +26,7 @@ function Title({ name, loading }) {
           marginLeft: "-20px",
           height: "100%",
           width: 4,
+          maxHeight: 20,
         }}
       ></div>
       <div style={headingStyle}>{name}</div>

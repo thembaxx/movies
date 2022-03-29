@@ -24,11 +24,12 @@
   --grey: rgba(255, 255, 255, 0.5);
   --dark-grey: #202832;
 
-  --link-color: #c599ff;
+  --link-color: #4ca8da;
+  --link-color-hover: #359dd6;
   --orange: rgb(255, 103, 1);
   --yellow: rgb(255, 223, 0);
   --purple: rgb(110, 0, 255);
-  --pink: rgb(254, 40, 214);
+  --pink: rgb(94, 62, 88);
 }
 
 a {

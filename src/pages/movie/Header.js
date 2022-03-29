@@ -9,14 +9,12 @@ const gradient =
 const bgColor = "rgba(255, 255, 255, 0.15)";
 
 function Header({
-  movie,
   poster,
   backdrop,
   title,
   vote,
   year,
   runtime,
-  voteCount,
 }) {
   const [posterSrcset, setPosterSrcset] = useState(null);
   const [backdropSrcset, setBackdropSrcset] = useState(null);
@@ -131,26 +129,6 @@ function Header({
             }
             {title && (
               <div className={`${styles.actions}`}>
-                <div className="d-flex align-items-center">
-                  {/* CERTIFICATION */}
-                  <div className={`${styles.certification}`}>{"PG-13"}</div>
-
-                  {/* IMDb */}
-                  <div>
-                    <a
-                      href={`https://imdb.com/title/${movie?.imdb_id}`}
-                      className={`${styles.imdb}`}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <span style={{ marginRight: 4 }}>IMDb</span>
-                      <i
-                        className="bi bi-box-arrow-up-right"
-                        style={{ fontSize: ".7rem" }}
-                      ></i>
-                    </a>
-                  </div>
-                </div>
                 <div className={`${styles.button}`}>
                   <i className="bi bi-bookmark-plus"></i>
                 </div>

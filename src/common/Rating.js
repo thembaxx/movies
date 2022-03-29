@@ -23,11 +23,11 @@ function Rating({ vote }) {
         className="bi bi-star"
         style={{ marginRight: 5, marginTop: "-1px", fontSize: ".7rem" }}
       ></i>
-      <span>{vote / 10}</span>
+      <span>{(vote / 10).toFixed(1)}</span>
     </div>
   );
 
-  return <>{content}</>;
+  return <div className="shadow">{content}</div>;
 }
 
 export default Rating;

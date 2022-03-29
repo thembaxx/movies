@@ -11,15 +11,14 @@ function Title({
 }) {
   let content = (
     <div className={`px-3 ${styles.container}`}>
-      <div className="d-flex">
+      <div className="d-flex align-items-center">
         <div className={`${styles.title}`}>{name}</div>
         {showExplore && (
           <div
             className="d-md-none"
             style={{
-              alignSelf: "center",
-              margin: "3.6px 0 0 2px",
-              fontSize: ".8rem",
+              margin: "5px 0 0 2px",
+              fontSize: ".7rem",
             }}
           >
             <i className={`bi bi-chevron-right text-white`}></i>

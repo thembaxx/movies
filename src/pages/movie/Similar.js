@@ -7,6 +7,7 @@ import { getSrcSet } from "../../imageHelpers";
 
 import Title from "./Title";
 import Movie from "../../movie/Movie";
+import Rating from "../../common/Rating";
 
 function Similar({ id }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -64,6 +65,12 @@ function Similar({ id }) {
                     loading="lazy"
                     alt={name}
                   />
+
+                  {movie?.vote_average && (
+                    <div className={`${styles.rating}`}>
+                      <Rating vote={movie?.vote_average * 10} />
+                    </div>
+                  )}
                 </div>
                 <div className={`text-truncate mt-2 me-1 ${styles.title}`}>
                   {name}

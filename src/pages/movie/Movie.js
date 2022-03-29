@@ -61,38 +61,60 @@ function Movie({ prop }) {
           vote={movie?.vote_average}
           year={year}
           runtime={movie?.runtime}
-          voteCount={movie?.vote_count}
         />
       )}
 
       {movie && (
-        <div className="row gx-0" style={{ marginTop: 28 }}>
+        <div className="row gx-0" style={{ marginTop: 24 }}>
           <div className="col mt-3 px-4 pb-4">
             <div className="row d-flex flex-column flex-md-row ">
               <div className="col col-md-6 mt-0">
                 {movie?.tagline && (
                   <div className={`${styles.tagline}`}>
-                    <span
+                    <div
                       style={{
-                        fontWeight: 500,
-                        color: "var(--yellow)",
-                        fontSize: "1.5rem",
+                        fontWeight: 300,
+                        color: "var(--orange)",
+                        fontSize: "2rem",
+                        lineHeight: 1,
+                        marginBottom: "-12px",
                       }}
                     >
                       “
-                    </span>
-                    {movie?.tagline}
-                    <span
-                      style={{
-                        fontWeight: 500,
-                        color: "var(--yellow)",
-                        fontSize: "1.5rem",
-                      }}
-                    >
-                      ”
-                    </span>
+                    </div>
+                    <div>{movie?.tagline}</div>
                   </div>
                 )}
+
+                <div className="d-flex align-items-center mb-3">
+                  {/* CERTIFICATION */}
+                  <div className={`${styles.certification}`}>{"PG-13"}</div>
+
+                  {/* IMDb */}
+                  <div>
+                    <a
+                      href={`https://www.imdb.com/title/${movie?.imdb_id}`}
+                      className={`${styles.imdb}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <span
+                        style={{
+                          fontWeight: 300,
+                          color: "white",
+                          marginRight: 4,
+                        }}
+                      >
+                        visit on{" "}
+                      </span>
+                      <span style={{ marginRight: 8 }}>IMDb</span>
+                      <i
+                        className="bi bi-box-arrow-up-right"
+                        style={{ fontSize: ".75rem", marginBottom: 2 }}
+                      ></i>
+                    </a>
+                  </div>
+                </div>
 
                 {/* OVERVIEW */}
                 {overview && (

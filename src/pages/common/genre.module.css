@@ -14,5 +14,6 @@
 
 .genre:hover {
   border-color: transparent;
-  background-color: var(--red);
+  color: white;
+  background-color: var(--purple);
 }
