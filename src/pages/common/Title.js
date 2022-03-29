@@ -17,7 +17,7 @@ function Title({
           <div
             className="d-md-none"
             style={{
-              margin: "5px 0 0 2px",
+              margin: "4.85px 0 0 2px",
               fontSize: ".7rem",
             }}
           >
