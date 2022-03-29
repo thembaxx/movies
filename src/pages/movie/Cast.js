@@ -126,7 +126,7 @@ function Cast({ id }) {
                     }}
                     className={`${styles.img}`}
                     onError={(e) => {
-                      console.log("error ", e);
+                      console.error("error ", e);
                       setImageLoaded(false);
                     }}
                     onLoad={(e) => {
@@ -142,7 +142,9 @@ function Cast({ id }) {
                   />
                 </div>
                 <div className="ms-3 me-3 text-truncate">
-                  <div className={`${styles.title}`}>{person.name}</div>
+                  <div className={`${styles.title} text-truncate`}>
+                    {person.name}
+                  </div>
                   <span
                     className="me-3"
                     style={{ fontWeight: 400, opacity: 0.8 }}
