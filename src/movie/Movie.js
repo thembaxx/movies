@@ -20,6 +20,7 @@ function Movie({ genres, movie, showInfo = true }) {
   const [imgSrcSet, setImgSrcSet] = useState(null);
   const [imageLoaded, setImageLoaded] = useState(false);
   const containerRef = useRef(null);
+  const imgRef = useRef(null);
 
   useEffect(() => {
     const {
@@ -78,22 +79,30 @@ function Movie({ genres, movie, showInfo = true }) {
     return () => observer.disconnect();
   }, [containerRef, handleObserver]);
 
+  useEffect(() => {
+    if (imgRef.current) {
+      if (imageLoaded) imgRef.current.style.opacity = 1;
+      else imgRef.current.style.opacity = 0;
+    }
+  }, [imageLoaded]);
+
   const content = (
     <Link to={`/movie/${title}-${id}`} className={`col ${styles.container}`}>
       <div ref={containerRef}>
         <div className={`${styles.imgContainer} shadow`}>
           <img
+            ref={imgRef}
             style={{
               opacity: 0,
             }}
             onLoad={(e) => {
               const image = e.target;
               if (image?.complete && image?.naturalHeight !== 0) {
-                image.style.opacity = 1;
                 setImageLoaded(true);
               }
             }}
             onError={(e) => {
+              setImageLoaded(false);
               console.error(e);
             }}
             srcSet={imgSrcSet?.set}

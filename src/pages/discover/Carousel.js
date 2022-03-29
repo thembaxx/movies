@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from "react";
 import styles from "./carousel.module.css";
 
 import axios from "../../tmdb/axios";
-import { getSrcSet } from "../../imageHelpers";
 
 import Movie from "../../movie/Movie";
 import Title from "../common/Title";
@@ -150,10 +149,10 @@ function Carousel({ name, fetchUrl, route, getGenre, loading }) {
   /******************** WIP ****************************/
   // const containerClass = `row flex-nowrap gy-0 p-0 m-0 pb-0 gx-3 row-cols-3 row-cols-sm-4 row-cols-md-6 ${styles.row8}`;
   // const containerClass = `row flex-nowrap gy-0 p-0 m-0 pb-0 gx-1 row-cols-3 row-cols-sm-4 row-cols-md-6`;
-  const containerClass = `row flex-nowrap row-cols-3 row-cols-sm-4 row-cols-md-6 g-2`;
+  const containerClass = `row flex-nowrap row-cols-3 row-cols-sm-4 row-cols-md-6 me-0 p-0 gx-3 px-3`;
 
   return (
-    <div className="container-fluid g-0 m-0 p-0">
+    <div className="container-fluid g-0 p-0 m-0">
       <div className={`${styles.header}`}>
         <Title name={name} route={route} isLoading={isLoading} />
         {!isLoading && (
@@ -172,7 +171,7 @@ function Carousel({ name, fetchUrl, route, getGenre, loading }) {
         )}
       </div>
 
-      <div className={`${styles.container} overflow-hidden position-relative ps-3`}>
+      <div className={`${styles.container}`}>
         <div
           className={`${containerClass} ${styles.carousel}`}
           ref={containeRef}
@@ -180,16 +179,18 @@ function Carousel({ name, fetchUrl, route, getGenre, loading }) {
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
-          {movies.map((movie) => {
+          {movies.map((movie, i) => {
             const genres = movie.genre_ids.map((code) => getGenre(code));
 
             return (
-              <Movie
-                key={movie.id}
-                showInfo={false}
-                genres={genres}
-                movie={movie}
-              />
+              <div key={`${movie.id}_${i}`} className="col">
+                <Movie
+                  key={movie.id}
+                  showInfo={false}
+                  genres={genres}
+                  movie={movie}
+                />
+              </div>
             );
           })}
         </div>
