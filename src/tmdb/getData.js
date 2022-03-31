@@ -98,6 +98,16 @@ export async function getCountries() {
   });
 }
 
+export const getCertifications = async () => {
+  try {
+    const response = await axios.get(requests.certifications);
+    return response.data.certifications;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 /********************* SEARCH & FILTER **************************************/
 
 export function constructQuery(q, genre, country, sort, years) {

@@ -6,7 +6,7 @@ import commonStyles from "../common/common.module.css";
 function Header({ toggleSidebar, genres }) {
   return (
     <div className="d-flex align-items-center justify-content-between">
-      <Logo genres={genres} />
+      <Logo />
       <div
         role="button"
         className={`${commonStyles.button}`}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import styles from "./discover.module.css";
@@ -11,7 +11,11 @@ import Footer from "../../footer/Footer";
 import Hero from "../hero/Hero";
 import Carousel from "./Carousel";
 
-function Discover({ genres }) {
+import { SharedStateContext } from "../../App";
+
+function Discover() {
+  const sharedContext = useContext(SharedStateContext);
+  const { genres } = sharedContext.state;
   const [navLinks, setNavLinks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingRow, setIsLoadingRow] = useState(false);
@@ -30,8 +34,6 @@ function Discover({ genres }) {
       setIsLoading(true);
 
       const discovery = [movieEndpoints.recent];
-
-      const genres = await getGenres();
       const res = await getPopularGenres(genres);
 
       if (res) discovery.push(...res);
@@ -44,6 +46,7 @@ function Discover({ genres }) {
 
     return () => {
       links.current = null;
+      setIsLoadingRow(false);
     };
   }, []);
 

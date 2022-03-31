@@ -13,6 +13,7 @@ export const requests = {
   fetchUpcoming: `/movie/upcoming?api_key=${API_KEY}`,
   countries: `/configuration/countries?api_key=${API_KEY}`,
   genre: `/discover/movie?api_key=${API_KEY}&primary_release_date.lte=${today}&with_original_language=en`,
+  certifications: `/certification/movie/list?api_key=${API_KEY}`,
   search: `/search/movie?api_key=${API_KEY}&language=en-US&include_adult=false&query=`,
 };
 
@@ -34,7 +35,10 @@ export const navigation = {
   upcoming: Object.assign({}, movieEndpoints.upcoming, { isLink: true }),
   genre: Object.assign({}, movieEndpoints.genre, { isLink: false }),
   topRated: Object.assign({}, movieEndpoints.topRated, { isLink: true }),
-  movies: Object.assign({}, movieEndpoints.recent, { name: 'Movies', isLink: true }),
+  movies: Object.assign({}, movieEndpoints.recent, {
+    name: "Movies",
+    isLink: true,
+  }),
   discover: {
     name: "Discover",
     getRoute: () => route.discover,

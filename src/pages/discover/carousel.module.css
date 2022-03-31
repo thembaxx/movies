@@ -43,17 +43,18 @@
 }
 
 .button {
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: rgba(1, 1, 1, 0.75);
+  backdrop-filter: blur(6px);
   color: white;
-  border-radius: 9999px;
+  border-radius: 8px;
   cursor: pointer;
-  height: 32px;
-  width: 32px;
   position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+
+  padding: 16px 6px;
 
   top: 50%;
   transform: translateY(-50%);
@@ -69,11 +70,11 @@
 }
 
 .next {
-  right: 8px;
+  right: 16px;
 }
 
 .prev {
-  left: 8px;
+  left: 16px;
 }
 
 @media (min-width: 992px) {

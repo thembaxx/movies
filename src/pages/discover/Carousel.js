@@ -197,18 +197,24 @@ function Carousel({ name, fetchUrl, route, getGenre, loading }) {
 
         {prevEnabled && (
           <div
-            className={`${styles.button} ${styles.prev}`}
+            className={`${styles.button} ${styles.prev} shadow-lg`}
             onClick={scrollPrevious}
           >
-            <i className="bi bi-arrow-left-short fs-6"></i>
+            <i
+              className="bi bi-caret-left-fill"
+              style={{ fontSize: ".75rem" }}
+            ></i>
           </div>
         )}
         {nextEnabled && (
           <div
-            className={`${styles.button} ${styles.next}`}
+            className={`${styles.button} ${styles.next} shadow-lg`}
             onClick={scrollNext}
           >
-            <i className="bi bi-arrow-right-short fw-bolder fs-6"></i>
+            <i
+              className="bi bi-caret-right-fill fw-bolder"
+              style={{ fontSize: ".75rem" }}
+            ></i>
           </div>
         )}
       </div>
