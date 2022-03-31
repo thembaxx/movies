@@ -13,7 +13,7 @@ export const reducer = (state, action) => {
     case actions.setData:
       return {
         genres: action.payload?.genres,
-        counries: action.payload?.countries,
+        countries: action.payload?.countries,
         certifications: action.payload?.certifications,
       };
     default:

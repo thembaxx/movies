@@ -59,7 +59,7 @@ function Discover() {
     },
     {
       root: null,
-      rootMargin: "200px 0px",
+      rootMargin: "500px 0px",
       threshold: 0,
     }
   );

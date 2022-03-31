@@ -94,29 +94,34 @@ function Filter({ title, items, onChange }) {
                 style: { maxWidth: `412px` },
               }}
             >
-              <div className={`container-fluid pe-0`}>
-                <div className={`row gx-0 ${containerClass}`}>
-                  {items?.map((item, index) => {
-                    return (
-                      <FormControlLabel
-                        key={`${item.name}_${index}`}
-                        className={`col ${styles.formControlLabel} text-truncate`}
-                        control={
-                          <Checkbox
-                            disableRipple
-                            color="default"
-                            checkedIcon={<BpCheckedIcon />}
-                            icon={<BpIcon />}
-                            checked={item.isChecked}
-                            onChange={(e) => handleOnChange(e, index)}
-                            inputProps={{ "aria-label": "controlled" }}
-                          />
-                        }
-                        label={item.name}
-                      />
-                    );
-                  })}
-                </div>
+              <div
+                className={`container-fluid pe-0`}
+                style={{ maxWidth: "80vw" }}
+              >
+                {items && (
+                  <div className={`row gx-0 ${containerClass}`}>
+                    {items?.map((item, index) => {
+                      return (
+                        <FormControlLabel
+                          key={`${item.name}_${index}`}
+                          className={`col ${styles.formControlLabel} text-truncate`}
+                          control={
+                            <Checkbox
+                              disableRipple
+                              color="default"
+                              checkedIcon={<BpCheckedIcon />}
+                              icon={<BpIcon />}
+                              checked={item.isChecked}
+                              onChange={(e) => handleOnChange(e, index)}
+                              inputProps={{ "aria-label": "controlled" }}
+                            />
+                          }
+                          label={item.name}
+                        />
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             </Popover>
           </div>
