@@ -47,7 +47,9 @@ const BpCheckedIcon = styled(BpIcon)({
 
 function Filter({ title, items, onChange }) {
   const wrap = items?.length > 8;
-  const containerClass = wrap ? "row-cols-2 row-cols-md-3" : "row-cols-1";
+  const containerClass = wrap
+    ? "row-cols-2 row-cols-md-3 gx-3 m-0 p-0"
+    : "row-cols-1";
 
   function handleOnChange(e, index) {
     onChange(index, e.target.checked);
@@ -91,32 +93,43 @@ function Filter({ title, items, onChange }) {
                 horizontal: "center",
               }}
               PaperProps={{
-                style: { maxWidth: `412px` },
+                style: { maxWidth: `500px` },
               }}
             >
-              <div className={`container-fluid pe-0`}>
-                <div className={`row gx-0 ${containerClass}`}>
-                  {items?.map((item, index) => {
-                    return (
-                      <FormControlLabel
-                        key={`${item.name}_${index}`}
-                        className={`col ${styles.formControlLabel} text-truncate`}
-                        control={
-                          <Checkbox
-                            disableRipple
-                            color="default"
-                            checkedIcon={<BpCheckedIcon />}
-                            icon={<BpIcon />}
-                            checked={item.isChecked}
-                            onChange={(e) => handleOnChange(e, index)}
-                            inputProps={{ "aria-label": "controlled" }}
+              <div
+                className={`container-fluid pe-0`}
+                style={{ maxWidth: "80vw" }}
+              >
+                {items && (
+                  <div className={`row gx-0 ${containerClass}`}>
+                    {items?.map((item, index) => {
+                      return (
+                        <div
+                          key={`${item.name}_${index}`}
+                          className={`col ${styles.formControlLabel} text-truncate`}
+                        >
+                          <FormControlLabel
+                            className={`w-100 h-100`}
+                            control={
+                              <Checkbox
+                                disableRipple
+                                color="default"
+                                checkedIcon={<BpCheckedIcon />}
+                                icon={<BpIcon />}
+                                checked={item.isChecked}
+                                onChange={(e) => handleOnChange(e, index)}
+                                inputProps={{ "aria-label": "controlled" }}
+                              />
+                            }
+                            label={
+                              <div className="text-truncate">{item.name}</div>
+                            }
                           />
-                        }
-                        label={item.name}
-                      />
-                    );
-                  })}
-                </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             </Popover>
           </div>

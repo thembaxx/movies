@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-import axios from '../../tmdb/axios';
-import { requests } from '../../tmdb/data';
+import axios from "../../tmdb/axios";
+import { requests } from "../../tmdb/data";
 
-import HeroCarousel from './HeroCarousel';
+import HeroCarousel from "./HeroCarousel";
 
-function Hero({ getGenre }) {
+function Hero({ genres }) {
   const [trending, setTrending] = useState([]);
 
   useEffect(() => {
@@ -23,9 +23,13 @@ function Hero({ getGenre }) {
     }
 
     getData();
+
+    return () => {
+      setTrending([]);
+    };
   }, []);
 
-  return <HeroCarousel movies={trending} getGenre={getGenre} />;
+  return <HeroCarousel movies={trending} genres={genres} />;
 }
 
 export default Hero;

@@ -88,7 +88,7 @@ function Filters({ genres, countries, apply, filters }) {
     setGenreList(genre);
 
     let country = [...countries];
-    country = country.map((c) => {
+    country = country?.map((c) => {
       c.isChecked = false;
       return c;
     });

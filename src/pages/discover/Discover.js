@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import styles from "./discover.module.css";
@@ -11,7 +11,11 @@ import Footer from "../../footer/Footer";
 import Hero from "../hero/Hero";
 import Carousel from "./Carousel";
 
-function Discover({ genres }) {
+import { SharedStateContext } from "../../App";
+
+function Discover() {
+  const sharedContext = useContext(SharedStateContext);
+  const { genres } = sharedContext.state;
   const [navLinks, setNavLinks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingRow, setIsLoadingRow] = useState(false);
@@ -20,9 +24,8 @@ function Discover({ genres }) {
   let bottomBoundaryRef = useRef(null);
 
   function getGenre(code) {
-    if (!code || !genres) return;
-    const match = genres.find((genre) => genre.id == code);
-    return match;
+    if (!code) return;
+    return genres.find((genre) => genre.id == code);
   }
 
   useEffect(() => {
@@ -30,9 +33,7 @@ function Discover({ genres }) {
       setIsLoading(true);
 
       const discovery = [movieEndpoints.recent];
-
-      const genres = await getGenres();
-      const res = await getPopularGenres(genres);
+      const res = await getPopularGenres(sharedContext.state.genres);
 
       if (res) discovery.push(...res);
       links.current = discovery;
@@ -40,12 +41,15 @@ function Discover({ genres }) {
       setIsLoading(false);
     }
 
-    getData();
+    if (sharedContext.state?.genres.length > 0) {
+      getData();
+    }
 
     return () => {
       links.current = null;
+      setIsLoadingRow(false);
     };
-  }, []);
+  }, [sharedContext.state]);
 
   /******************** INFINITE SCROLL ******************************/
   var intersectionObserver = new IntersectionObserver(
@@ -90,7 +94,7 @@ function Discover({ genres }) {
   return (
     <div className={`${styles.container}`}>
       <div style={{ marginBottom: "16px" }}>
-        <Hero genres={genres} getGenre={getGenre} />
+        <Hero genres={sharedContext.state.genres} getGenre={getGenre} />
       </div>
       <div className="container-fluid g-0 pb-2 pt-0">
         <Categories />

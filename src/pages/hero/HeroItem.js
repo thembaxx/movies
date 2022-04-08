@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
 import styles from "./heroItem.module.css";
@@ -9,27 +9,10 @@ import { movieEndpoints } from "../../tmdb/data";
 const gradient =
   "linear-gradient(180deg, rgba(1, 4, 9, 0) 0%, rgba(1, 4, 9, 0.39) 32.81%, rgba(1, 4, 9, 0.76) 66.67%, #010409 100%)";
 
-function HeroItem({
-  id,
-  imgUrl,
-  name,
-  year,
-  overview,
-  vote,
-  genresIds,
-  getGenre,
-}) {
+function HeroItem({ id, imgUrl, name, year, overview, vote, genres }) {
   const [imageLoaded, setImageLoaded] = useState(false);
   const srcSet = getSrcSet(imgUrl);
   year = year?.split("-")?.[0];
-
-  let genres;
-
-  if (genresIds?.length > 3) {
-    genres = genresIds.slice(0, 3).map((id) => getGenre(id));
-  } else {
-    genres = genresIds.map((id) => getGenre(id));
-  }
 
   return (
     <div className={`${styles.container}`}>
@@ -44,6 +27,7 @@ function HeroItem({
           }}
           src={srcSet?.default}
           srcSet={srcSet?.set}
+          loading="lazy"
           style={{
             display: "none",
           }}
@@ -84,7 +68,6 @@ function HeroItem({
           </div>
         </Link>
 
-        {/* Genres */}
         <div className="d-flex flex-wrap mt-1">
           {genres?.map((genre, i, arr) => (
             <div key={i} className={`${styles.genre}`}>

@@ -26,8 +26,8 @@
 }
 
 .skeleton {
-  position: absolute;
-  top: 0;
+  position: absolute !important;
+  top: 0 !important;
 }
 
 .info {

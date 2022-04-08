@@ -1,4 +1,10 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+  useContext,
+} from "react";
 import { useParams, useLocation } from "react-router-dom";
 
 import { getMovieEndpoint, constructQuery } from "../../tmdb/getData";
@@ -13,7 +19,11 @@ import Movie from "../../movie/Movie";
 import Title from "../common/Title";
 import Filters from "./filters/Filters";
 
-function Movies({ prop, getGenre, genres, countries }) {
+import { SharedStateContext } from "../../App";
+
+function Movies({ prop }) {
+  const sharedContext = useContext(SharedStateContext);
+  const { genres, countries } = sharedContext.state;
   const [title, setTitle] = useState("Movies");
   const [query, setQuery] = useState("");
   const [fetchUrl, setFetchUrl] = useState("");
@@ -23,6 +33,11 @@ function Movies({ prop, getGenre, genres, countries }) {
   const loader = useRef(null);
   const params = useParams();
   const location = useLocation();
+
+  function getGenre(code) {
+    if (!code) return;
+    return genres.find((genre) => genre.id == code);
+  }
 
   /*******************FILTERS*********************/
 

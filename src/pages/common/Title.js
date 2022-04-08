@@ -17,8 +17,9 @@ function Title({
           <div
             className="d-md-none"
             style={{
-              margin: "4.85px 0 0 2px",
+              margin: "2px 0 0 2px",
               fontSize: ".7rem",
+              lineHeight: 1,
             }}
           >
             <i className={`bi bi-chevron-right text-white`}></i>

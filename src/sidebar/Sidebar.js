@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Slide from "@mui/material/Slide";
 import styles from "./sidebar.module.css";
 
@@ -6,7 +6,7 @@ import Header from "./Header";
 import Search from "../search/Search";
 import Nav from "./Nav";
 
-function Sidebar({ toggleSidebar, isOpen, genres }) {
+function Sidebar({ toggleSidebar, isOpen }) {
   return (
     <div
       id="sidebar"
@@ -24,7 +24,7 @@ function Sidebar({ toggleSidebar, isOpen, genres }) {
             className={`d-flex flex-column col-sm-4 col-md-4 p-0 m-0 h-100 position-relative ${styles.inner}`}
           >
             <div className="py-3 px-3">
-              <Header toggleSidebar={toggleSidebar} genres={genres} />
+              <Header toggleSidebar={toggleSidebar} />
               <div className="py-3 w-100">
                 <Search toggleSidebar={toggleSidebar} />
               </div>

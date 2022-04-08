@@ -1,18 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { navLinks, movieList } from "./data";
 import { navigation } from "../tmdb/data";
 
 import NavLink from "./navLink/NavLink";
+import { SharedStateContext } from "../App";
 
-function Links({ genres, countries }) {
+function Links() {
+  const sharedContext = useContext(SharedStateContext);
+
   const getItems = (nav) => {
     if (nav.isLink) return;
 
     return nav.name === navigation.genre.name
-      ? genres
+      ? sharedContext.state.genres
       : nav.name === navigation.country.name
-      ? countries
+      ? sharedContext.state.countries
       : movieList;
   };
 

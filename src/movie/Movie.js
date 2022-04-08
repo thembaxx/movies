@@ -23,21 +23,15 @@ function Movie({ genres, movie, showInfo = true }) {
   const imgRef = useRef(null);
 
   useEffect(() => {
-    const {
-      id,
-      release_date,
-      vote_average,
-      title,
-      original_title,
-      poster_path,
-    } = movie;
+    setId(movie.id);
+    setRating(movie.vote_average);
+    setImgUrl(movie.poster_path);
 
-    setId(id);
-    setTitle(title ? title : original_title);
-    setReleaseData(release_date?.split("-")?.[0]);
-    setRating(vote_average && vote_average);
-    setGenre(genres?.map((genre) => genre?.name));
-    setImgUrl(poster_path);
+    if (showInfo) {
+      setTitle(movie.title ? movie.title : movie.original_title);
+      setReleaseData(movie.release_date?.split("-")?.[0]);
+      setGenre(genres?.map((genre) => genre?.name));
+    }
 
     return () => {
       setId(null);
@@ -127,32 +121,34 @@ function Movie({ genres, movie, showInfo = true }) {
             </div>
           )}
         </div>
-        <div className={`${showInfo ? "d-flex" : "d-none"}  ${styles.info}`}>
-          <div className={`text-truncate ${styles.title}`}>
-            {!title ? (
-              <Skeleton sx={{ bgcolor: `${bgColor}` }} animation="wave" />
-            ) : (
-              <span>{title}</span>
-            )}
-          </div>
-          {!releaseDate ? (
-            <Skeleton
-              width="60%"
-              sx={{ bgcolor: `${bgColor}` }}
-              animation="wave"
-            />
-          ) : (
-            <div className={`${styles.meta}`}>
-              <span>{releaseDate}</span>
-              <span style={{ margin: "0 6px" }}>·</span>
-              {genre && (
-                <span className="text-truncate" style={{ marginRight: 6 }}>
-                  {genre.join(", ")}
-                </span>
+        {showInfo && (
+          <div className={`d-flex ${styles.info}`}>
+            <div className={`text-truncate ${styles.title}`}>
+              {!title ? (
+                <Skeleton sx={{ bgcolor: `${bgColor}` }} animation="wave" />
+              ) : (
+                <span>{title}</span>
               )}
             </div>
-          )}
-        </div>
+            {!releaseDate ? (
+              <Skeleton
+                width="60%"
+                sx={{ bgcolor: `${bgColor}` }}
+                animation="wave"
+              />
+            ) : (
+              <div className={`${styles.meta}`}>
+                <span>{releaseDate}</span>
+                <span style={{ margin: "0 6px" }}>·</span>
+                {genre && (
+                  <span className="text-truncate" style={{ marginRight: 6 }}>
+                    {genre.join(", ")}
+                  </span>
+                )}
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </Link>
   );

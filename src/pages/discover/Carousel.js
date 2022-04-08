@@ -51,7 +51,6 @@ function Carousel({ name, fetchUrl, route, getGenre, loading }) {
       <div className={`${styles.header}`}>
         <Title name={name} route={route} isLoading={isLoading} />
       </div>
-
       <Row items={movies} />
     </div>
   );

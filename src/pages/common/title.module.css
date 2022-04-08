@@ -33,4 +33,5 @@
   font-weight: 500;
   line-height: 1.1;
   margin-left: 4px;
+  text-transform: capitalize;
 }
