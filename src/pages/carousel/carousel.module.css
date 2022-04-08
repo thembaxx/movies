@@ -1,0 +1,69 @@
+.carousel {
+  position: relative;
+  overflow: hidden;
+}
+
+.row {
+  align-items: center;
+
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  transition: transform 500ms ease-out;
+
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: scroll;
+
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.row::-webkit-scrollbar {
+  display: none;
+}
+
+.button {
+  background-color: rgba(0, 0, 0, 0.87);
+  backdrop-filter: blur(4px);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.67);
+  font-size: 0.875rem;
+
+  margin: 0 24px;
+  padding: 16px 8px;
+
+  position: absolute;
+
+  top: 50%;
+  transform: translate3d(0, -50%, 0);
+  -webkit-transform: translate3d(0, -50%, 0);
+
+  transition: color 0.35s, transform 0.3s cubic-bezier(0.59, 0, 0.01, 1);
+}
+
+.next {
+  right: 0;
+  transform: translate3d(4px, -50%, 0);
+  -webkit-transform: translate3d(8px, -50%, 0);
+}
+
+.prev {
+  left: 0;
+  transform: translate3d(-8px, -50%, 0);
+  -webkit-transform: translate3d(-8px, -50%, 0);
+}
+
+.carousel:hover .button {
+  transform: translate3d(0, -50%, 0);
+  -webkit-transform: translate3d(0, -50%, 0);
+}
+
+.button:hover {
+  color: white;
+}
+
+.button:active {
+  transform: scale3d(0.9, 0.9, 0) translate3d(0, -50%, 0);
+  -webkit-transform: scale3d(0.9, 0.9, 0) translate3d(0, -50%, 0);
+}

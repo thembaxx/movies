@@ -12,7 +12,7 @@ function Logo() {
       >
         <i
           className="bi bi-collection-play-fill"
-          style={{ fontSize: 17, marginRight: 8, color: "var(--purple)" }}
+          style={{ fontSize: 17, marginRight: 8, color: "var(--yellow)" }}
         ></i>
         <span className="fw-bold">{AppName}</span>
       </Link>
