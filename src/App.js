@@ -48,6 +48,11 @@ function App() {
     }
 
     getData();
+
+    return () => {
+      setSidebarOpen(false);
+      setIsLoading(false);
+    };
   }, []);
 
   return (

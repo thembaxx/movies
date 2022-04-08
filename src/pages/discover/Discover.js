@@ -24,9 +24,8 @@ function Discover() {
   let bottomBoundaryRef = useRef(null);
 
   function getGenre(code) {
-    if (!code || !genres) return;
-    const match = genres.find((genre) => genre.id == code);
-    return match;
+    if (!code) return;
+    return genres.find((genre) => genre.id == code);
   }
 
   useEffect(() => {
@@ -34,7 +33,7 @@ function Discover() {
       setIsLoading(true);
 
       const discovery = [movieEndpoints.recent];
-      const res = await getPopularGenres(genres);
+      const res = await getPopularGenres(sharedContext.state.genres);
 
       if (res) discovery.push(...res);
       links.current = discovery;
@@ -42,13 +41,15 @@ function Discover() {
       setIsLoading(false);
     }
 
-    getData();
+    if (sharedContext.state?.genres.length > 0) {
+      getData();
+    }
 
     return () => {
       links.current = null;
       setIsLoadingRow(false);
     };
-  }, []);
+  }, [sharedContext.state]);
 
   /******************** INFINITE SCROLL ******************************/
   var intersectionObserver = new IntersectionObserver(
@@ -59,7 +60,7 @@ function Discover() {
     },
     {
       root: null,
-      rootMargin: "500px 0px",
+      rootMargin: "200px 0px",
       threshold: 0,
     }
   );
@@ -93,7 +94,7 @@ function Discover() {
   return (
     <div className={`${styles.container}`}>
       <div style={{ marginBottom: "16px" }}>
-        <Hero genres={genres} getGenre={getGenre} />
+        <Hero genres={sharedContext.state.genres} getGenre={getGenre} />
       </div>
       <div className="container-fluid g-0 pb-2 pt-0">
         <Categories />

@@ -29,7 +29,8 @@
   user-select: none;
   padding: 0;
   padding-right: 8px;
-  text-overflow: ellipsis;
+  padding-left: 8px;
+  /* text-overflow: ellipsis; */
   white-space: nowrap;
   transition: all 0.35s ease-out;
 }

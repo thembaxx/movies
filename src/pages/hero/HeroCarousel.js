@@ -1,18 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Carousel } from "react-bootstrap";
 import styles from "./heroCarousel.module.css";
 
 import HeroItem from "./HeroItem";
 
-function HeroCarousel({ movies, getGenre }) {
+function HeroCarousel({ movies, genres }) {
   const [index, setIndex] = useState(0);
+
+  function getGenre(code) {
+    if (!code) return;
+    return genres.find((genre) => genre.id == code);
+  }
+
+  useEffect(() => {
+    return () => setIndex(0);
+  }, []);
 
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
   };
 
-  const items = movies.map((movie) => {
+  const items = movies?.map((movie) => {
     const title = movie.title ? movie.title : movie.original_title;
+    const genre = movie.genre_ids
+      .map((code) => getGenre(code))
+      .filter((g) => g);
     const imgSrc = movie.backdrop_path
       ? movie.backdrop_path
       : movie.poster_path;
@@ -26,8 +38,7 @@ function HeroCarousel({ movies, getGenre }) {
           year={movie.release_date}
           vote={movie.vote_average}
           overview={movie.overview}
-          genresIds={movie.genre_ids}
-          getGenre={getGenre}
+          genres={genre}
         />
       </Carousel.Item>
     );
